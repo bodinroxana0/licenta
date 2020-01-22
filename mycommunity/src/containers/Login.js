@@ -29,19 +29,6 @@ import "./Login.css";
       
       handleSubmit (event) {
         event.preventDefault();
-        // fetch('http://127.0.0.1:3000/users')
-        // .then(function(response) {
-        //   if (response.status >= 400) {
-        //       throw new Error("Bad response from server");
-        //   }
-        //   return response.json();
-        // })
-        // .then(function(data) {
-        //   console.log(data);
-        // })
-        // .catch(err => {
-        //   console.log('Error!', err);
-        // })
         fetch('http://127.0.0.1:3000/users/'+this.state.userName+'/'+this.state.password)
         .then(function(response) {
           if (response.status >= 400) {
@@ -76,14 +63,7 @@ import "./Login.css";
                   value={this.state.password}
                   onChange={this.handleChange}
                 />
-                <small id="passwordHelpBlock" class="form-text text-muted">
-                  Your password must be 6-10 characters long.
-                </small>
               </Form.Group>
-              <div className="form-check">
-                <input type="checkbox" id="exampleCheck1"/>
-                <label for="exampleCheck1"> Remember me</label>
-              </div>
               <Button
                 block
                 type="submit"

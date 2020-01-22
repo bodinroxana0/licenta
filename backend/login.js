@@ -3,7 +3,15 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
 var app = express();
+const cors = require('cors');
 
+//use cors to allow cross origin resource sharing
+app.use(
+  cors({
+    origin: 'http://localhost:3001',
+    credentials: true,
+  })
+);
 var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -58,8 +66,6 @@ app.get('/users/:UserName/:Password', function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
 	var username = req.params.UserName;
 	var password = req.params.Password;
-	console.log(req.params);
-	console.log(username);
 	if (username && password) {
 		connection.query('SELECT * FROM user WHERE UserName = ? AND Password = ?', [username, password], function(error, results, fields) {
 			if (results.length > 0) {
@@ -73,5 +79,23 @@ app.get('/users/:UserName/:Password', function(req, res) {
 		res.send('Please enter Username and Password!');
 		res.end();
 	}
-});
+	});
+	app.post('/register', function(req, res) {
+		const newUser = {
+		UserName: req.body.userName,
+		Password: req.body.password, 
+		FirstName: req.body.firstName, 
+		LastName: req.body.lastName, 
+		Email: req.body.email,
+		Phone: req.body.phone,
+		City: req.body.city,
+		Region: req.body.region,
+		Birthdate: req.body.birthdate
+		};
+		console.log(newUser);
+		connection.query('INSERT INTO user SET ?', newUser, function (error, results, fields) {
+			if (error) throw error;
+			res.end(JSON.stringify(results));
+		  });
+	});
 
