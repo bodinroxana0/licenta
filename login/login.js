@@ -28,7 +28,8 @@ var server = app.listen(3000, "127.0.0.1", function () {
  });
 
 // //rest api to get all customers
-app.get('/auth', function (req, res) {
+app.get('/users', function (req, res) {
+	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
 	connection.query('select * from user', function (error, results, fields) {
 	   if (error) throw error;
 	   res.end(JSON.stringify(results));
@@ -36,6 +37,7 @@ app.get('/auth', function (req, res) {
 	 });
  });
  app.get('/services', function (req, res) {
+	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
 	connection.query('select * from services', function (error, results, fields) {
 	   if (error) throw error;
 	   res.end(JSON.stringify(results));
@@ -44,6 +46,7 @@ app.get('/auth', function (req, res) {
  });
 
  app.get('/provider', function (req, res) {
+	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
 	connection.query('select * from provider', function (error, results, fields) {
 	   if (error) throw error;
 	   res.end(JSON.stringify(results));
@@ -51,23 +54,24 @@ app.get('/auth', function (req, res) {
 	 });
  });
 
-app.post('/auth', function(request, response) {
-	var username = request.body.username;
-	var password = request.body.password;
+app.get('/users/:UserName/:Password', function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	var username = req.params.UserName;
+	var password = req.params.Password;
+	console.log(req.params);
 	console.log(username);
 	if (username && password) {
 		connection.query('SELECT * FROM user WHERE UserName = ? AND Password = ?', [username, password], function(error, results, fields) {
 			if (results.length > 0) {
-				request.session.loggedin = true;
-				request.session.username = username;
+				res.send('Welcome '+username);
 			} else {
-				response.send('Incorrect Username and/or Password!');
+				res.send('Incorrect Username and/or Password!');
 			}			
-			response.end();
+			res.end();
 		});
 	} else {
-		response.send('Please enter Username and Password!');
-		response.end();
+		res.send('Please enter Username and Password!');
+		res.end();
 	}
 });
 

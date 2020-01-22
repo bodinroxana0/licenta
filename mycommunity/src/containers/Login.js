@@ -26,35 +26,41 @@ import "./Login.css";
         });
       }
 
-        // this.fetch('http://localhost:3000/login')
-        // .then(resposnse => response.json())
-        // .then(posts => (this.setState({posts})))};
-         
+      
       handleSubmit (event) {
-        event.preventDefault()
-          var data = { 
-              username: this.state.userName,
-              password: this.state.password
+        event.preventDefault();
+        // fetch('http://127.0.0.1:3000/users')
+        // .then(function(response) {
+        //   if (response.status >= 400) {
+        //       throw new Error("Bad response from server");
+        //   }
+        //   return response.json();
+        // })
+        // .then(function(data) {
+        //   console.log(data);
+        // })
+        // .catch(err => {
+        //   console.log('Error!', err);
+        // })
+        fetch('http://127.0.0.1:3000/users/'+this.state.userName+'/'+this.state.password)
+        .then(function(response) {
+          if (response.status >= 400) {
+              throw new Error("Bad response from server");
           }
+          return response.text();
+        })
+        .then(function(data) {
           console.log(data);
-          fetch("http://localhost:3000/auth", {
-              method: 'POST',
-              headers: {'Content-Type': 'application/json'},
-              body: JSON.stringify(data),
-              })
-              .then((response) => response.json())
-              .then((data) => {
-                console.log('Success:', data);
-              })
-              .catch((error) => {
-                console.error('Error:', error);
-              });
+        })
+        .catch(err => {
+          console.log('Error!', err);
+        })
       }
       
       render() {
         return (
           <div className="Login">
-            <Form onSubmit={this.handleSubmit} method="POST">
+            <Form onSubmit={this.handleSubmit}>
               <Form.Group controlId="userName" bsSize="large">
                 <Form.Control
                   autoFocus
