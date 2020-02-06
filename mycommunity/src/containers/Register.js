@@ -5,6 +5,7 @@ import Bootstrap from "react-bootstrap";
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import validator from 'react-validation';
+import { format, compareAsc } from 'date-fns';
 import "./Register.css";
 
   class Register extends Component{
@@ -25,7 +26,57 @@ import "./Register.css";
         };
       }
 
+      loadCounties(){
+        fetch('http://127.0.0.1:3000/counties')
+        .then(function(response) {
+          if (response.status >= 400) {
+              throw new Error("Bad response from server");
+          }
+          return response.text();
+        })
+        .then(function(data) {
+          var obj=JSON.parse(data);
+          var x = document.getElementById("region");
+          for (let i = 0; i < obj.length; i++) {
+            var option = document.createElement("option");
+            option.text = obj[i].name;
+            x.add(option);
+          }
+        })
+        .catch(err => {
+          console.log('Error!', err);
+        })
+      }
+
+      loadCities(){
+        fetch('http://127.0.0.1:3000/cities/'+this.state.region)
+        .then(function(response) {
+          if (response.status >= 400) {
+              throw new Error("Bad response from server");
+          }
+          return response.text();
+        })
+        .then(function(data) {
+          var obj=JSON.parse(data);
+          var select = document.getElementById("city");
+          //var length = select.options.length;
+          // for (let i = 0; i < length; i++) {
+          //   select.options[i] = null;
+          // }
+          obj.sort((a,b) => (a.city_name > b.city_name) ? 1 : ((b.city_name > a.city_name) ? -1 : 0)); 
+          for (let i = 0; i < obj.length; i++) {
+            var option = document.createElement("option");
+            option.text = obj[i].city_name;
+            select.add(option);
+          }
+        })
+        .catch(err => {
+          console.log('Error!', err);
+        })
+      }
+
       validateForm() {
+        console.log(this.state.city);
         return this.state.password.length > 5 || this.state.password.length < 10;  
       }
 
@@ -34,7 +85,6 @@ import "./Register.css";
           [event.target.id]: event.target.value
         });
       }
-
       
       handleSubmit (event) {
         event.preventDefault();
@@ -74,30 +124,35 @@ import "./Register.css";
               </Form.Group>
               <Form.Group controlId="email" bsSize="large">
                 <Form.Control placeholder="Email"
+                 type="email"
                   value={this.state.email}
                   onChange={this.handleChange}
                 />
               </Form.Group>
               <Form.Group controlId="phone" bsSize="large">
-                <Form.Control placeholder="Phone"
+              <Form.Control placeholder="Phone"
                   value={this.state.phone}
                   onChange={this.handleChange}
                 />
               </Form.Group>
-              <Form.Group controlId="city" bsSize="large">
-                <Form.Control placeholder="City"
-                  value={this.state.city}
-                  onChange={this.handleChange}
-                />
-              </Form.Group>
               <Form.Group controlId="region" bsSize="large">
-                <Form.Control placeholder="Region"
+              <Form.Control as="select"
+                  onload={this.loadCounties()}
                   value={this.state.region}
                   onChange={this.handleChange}
-                />
+                  >
+               </Form.Control>
+              </Form.Group>
+              <Form.Group controlId="city" bsSize="large">
+              <Form.Control as="select" 
+                  value={this.state.city}
+                  onload={this.loadCities()}
+                  onChange={this.handleChange}>
+               </Form.Control>
               </Form.Group>
               <Form.Group controlId="birthdate" bsSize="large">
-                <Form.Control placeholder="Birth Date(eg.1998-06-22)"
+                <Form.Control placeholder="Birth Date"
+                  type="date"
                   value={this.state.birthdate}
                   onChange={this.handleChange}
                 />
@@ -110,6 +165,7 @@ import "./Register.css";
               </Form.Group>
               <Form.Group controlId="password" bsSize="large">
                 <Form.Control placeholder="Password"
+                  type="password"
                   value={this.state.password}
                   onChange={this.handleChange}
                 />
