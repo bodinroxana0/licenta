@@ -1,9 +1,9 @@
 @media all and (min-width: 480px) {
-  .Register {
+  .was-validated {
     padding: 60px 0;
   }
 
-  .Register form {
+  .was-validated form {
     margin: 0 auto;
     max-width: 320px;
   }

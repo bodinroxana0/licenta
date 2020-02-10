@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import Bootstrap from "react-bootstrap";
-import ReactDOM from 'react-dom';
 import "./Login.css";
 
     class Login extends Component {
@@ -17,7 +15,7 @@ import "./Login.css";
       }
 
       validateForm() {
-        return this.state.password.length > 5 || this.state.password.length < 10;
+        return this.state.userName.length>0 && this.state.password.length>0;
       }
 
       handleChange = event => {
@@ -48,7 +46,7 @@ import "./Login.css";
         return (
           <div className="Login">
             <Form onSubmit={this.handleSubmit}>
-              <Form.Group controlId="userName" bsSize="large">
+              <Form.Group controlId="userName" bssize="large">
                 <Form.Control
                   autoFocus
                   placeholder="Enter User Name"
@@ -56,7 +54,7 @@ import "./Login.css";
                   onChange={this.handleChange}
                 />
               </Form.Group>
-              <Form.Group controlId="password" bsSize="large">
+              <Form.Group controlId="password" bssize="large">
                 <Form.Control
                   type="password"
                   placeholder="Enter Password"
