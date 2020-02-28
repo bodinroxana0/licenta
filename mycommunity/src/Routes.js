@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
 import Home from "./containers/Home";
 import Login from "./containers/Login";
-import Register from "./containers/Register";
+import SignUp from "./containers/SignUp";
 
 /* A <Switch> looks through its children <Route>s and renders the first one that matches the current URL. */
 class Routes extends Component {
@@ -15,22 +16,16 @@ class Routes extends Component {
   return (
     <Router>
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/Login">Login</Link>
-            </li>
-            <li>
-              <Link to="/Register">Register</Link>
-            </li>
-          </ul>
-        </nav>
+      <Navbar bg="dark" variant="dark">
+        <Navbar.Brand href="/">Home</Navbar.Brand>
+        <Nav className="mr-auto">
+          <Nav.Link href="/Login">Log in</Nav.Link>
+          <Nav.Link href="/SignUp">Sign up</Nav.Link>
+        </Nav>
+        </Navbar>
         <Switch>
           <Route path="/Login" exact component={Login}></Route>
-          <Route path="/Register" exact component={Register}></Route>
+          <Route path="/SignUp" exact component={SignUp}></Route>
           <Route path="/" exact component={Home}></Route>
         </Switch>
       </div>

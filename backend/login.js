@@ -75,7 +75,6 @@ app.get('/users', function (req, res) {
 	   //console.log(results)
 	 });
  });
-
  app.get('/provider', function (req, res) {
 	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
 	connection.query('select * from provider', function (error, results, fields) {
@@ -84,7 +83,6 @@ app.get('/users', function (req, res) {
 	   //console.log(results)
 	 });
  });
-
  app.get('/cities', function (req, res) {
 	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
 	connection.query('select * from cities', function (error, results, fields) {
@@ -93,18 +91,9 @@ app.get('/users', function (req, res) {
 	   //console.log(results)
 	 });
  });
-
  app.get('/counties', function (req, res) {
 	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
 	connection.query('select * from counties', function (error, results, fields) {
-	   if (error) throw error;
-	   res.end(JSON.stringify(results));
-	  // console.log(results)
-	 });
- });
- app.get('/cities', function (req, res) {
-	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
-	connection.query('select * from cities', function (error, results, fields) {
 	   if (error) throw error;
 	   res.end(JSON.stringify(results));
 	  // console.log(results)
@@ -122,8 +111,24 @@ app.get('/users', function (req, res) {
 		});
 	}
  });
- 
-   
+ app.get('/domain', function (req, res) {
+	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	connection.query('select * from services', function (error, results, fields) {
+	   if (error) throw error;
+	   res.end(JSON.stringify(results));
+	  // console.log(results);
+	 });
+ });
+ app.get('/services/:domain', function (req, res) {
+	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	var domain = req.params.domain;
+	if(domain){
+		connection.query('select * from services  WHERE ServiceDomain = ?', [domain], function (error, results, fields) {
+		if (error) throw error;
+		res.end(JSON.stringify(results));
+		});
+	}
+ });
 app.get('/users/:UserName/:Password', function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
 	var username = req.params.UserName;
@@ -149,7 +154,7 @@ app.get('/users/:UserName/:Password', function(req, res) {
 		res.end();
 	}
 	});
-	app.post('/register', function(req, res) {
+app.post('/SignUpUser', function(req, res) {
 		var encrypted=encrypt(req.body.password);
 		var k = zlib.gzipSync(JSON.stringify(key)).toString('base64');
 		const newUser = {
@@ -168,6 +173,40 @@ app.get('/users/:UserName/:Password', function(req, res) {
 		console.log(newUser);
 		connection.query('INSERT INTO user SET ?', newUser, function (error, results, fields) {
 			if (error) throw error;
+			res.end(JSON.stringify(results));
+		  });
+	});
+app.post('/SignUpProvider', function(req, res) {
+		var encrypted=encrypt(req.body.password);
+		var k = zlib.gzipSync(JSON.stringify(key)).toString('base64');
+		const newUser = {
+		UserName: req.body.userName,
+		PasswordIV: encrypted.iv , 
+		PasswordData: encrypted.encryptedData,
+		Key: k ,
+		FirstName: req.body.firstName, 
+		LastName: req.body.lastName, 
+		Email: req.body.email,
+		Phone: req.body.phone,
+		City: req.body.city,
+		Region: req.body.region,
+		Birthdate: req.body.birthdate,
+		Services_Id:req.body.service,
+		Description:req.body.description,
+		Photo:req.body.photo
+		};
+		console.log(newUser);
+		connection.query('INSERT INTO provider SET ?', newUser, function (error, results, fields) {
+			if (error) {
+				if(error.code == 'ER_DUP_ENTRY' || error.errno == 1062)
+				{
+					res.send('This username is taken. Try another one!');
+				}
+				else{
+					throw error;
+				}
+
+			}
 			res.end(JSON.stringify(results));
 		  });
 	});

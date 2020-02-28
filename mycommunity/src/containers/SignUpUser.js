@@ -2,10 +2,8 @@ import React, { Component } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
-import CryptoJS from 'crypto-js';
-import "./Register.css";
 
-  class Register extends Component{
+  class SignUpUser extends Component{
     constructor(props) {
         super(props);
         // This binding is necessary to make `this` work in the callback
@@ -34,7 +32,8 @@ import "./Register.css";
          //fetch is async, that's why you can;t set setstate inside of their responses...
          //now it enters only once in this function
           this.setState((state, props) => ({
-            load:true
+            load:true,
+            city:""
           }));
           fetch('http://127.0.0.1:3000/counties')
           .then(function(response) {
@@ -61,7 +60,12 @@ import "./Register.css";
 
     loadCities(){
       if(!this.state.region==" "){
-        console.log('am intrat');
+        if(this.state.city==""){
+          var select = document.getElementById("city");
+          var length = select.options.length;
+          for (let i = length-1; i >= 0; i--) {
+            select.options[i] = null;
+          }
         fetch('http://127.0.0.1:3000/cities/'+this.state.region)
             .then(function(response) {
               if (response.status >= 400) {
@@ -72,6 +76,7 @@ import "./Register.css";
             .then(function(data) {
               var obj=JSON.parse(data);
               var select = document.getElementById("city");
+             
               obj.sort((a,b) => (a.city_name > b.city_name) ? 1 : ((b.city_name > a.city_name) ? -1 : 0)); 
               for (let i = 0; i < obj.length; i++) {
                 var option = document.createElement("option");
@@ -82,6 +87,7 @@ import "./Register.css";
             .catch(err => {
               console.log('Error!', err);
             })
+          }
       }
     }
   
@@ -96,34 +102,6 @@ import "./Register.css";
         });
       }
       
-    //  encrypt(msg){
-    //   var keySize = 256;
-    //   var ivSize = 128;
-    //   var iterations = 100;
-
-    //   var pass = "Secret Password";
-
-    //   var salt = CryptoJS.lib.WordArray.random(128/8);
-        
-    //   var key = CryptoJS.PBKDF2(pass, salt, {
-    //       keySize: keySize/32,
-    //       iterations: iterations
-    //     });
-
-    //   var iv = CryptoJS.lib.WordArray.random(128/8);
-        
-    //   var encrypted = CryptoJS.AES.encrypt(msg, key, { 
-    //     iv: iv, 
-    //     padding: CryptoJS.pad.Pkcs7,
-    //     mode: CryptoJS.mode.CBC
-    //   });
-        
-        // salt, iv will be hex 32 in length
-        // append them to the ciphertext for use  in decryption
-      // var transitmessage = salt.toString()+ iv.toString() + encrypted.toString();
-      // return transitmessage;
-      // }
-      
       handleSubmit (event) {
         event.preventDefault();
         
@@ -131,7 +109,7 @@ import "./Register.css";
         const user = { userName, password, firstName, lastName, email,phone,city,region,birthdate};
         console.log(user);
         axios
-          .post('http://127.0.0.1:3000/register', user)
+          .post('http://127.0.0.1:3000/SignUpUser', user)
           .then(() => console.log('User Registered'))
           .catch(err => {
             console.error(err);
@@ -142,6 +120,8 @@ import "./Register.css";
       render() {
         return (
           <div className="was-validated">
+            <br></br>
+            <br></br>
             <Form onSubmit={this.handleSubmit}  noValidate > 
               <Form.Group controlId="firstName" bssize="large">
                 <Form.Control
@@ -221,7 +201,7 @@ import "./Register.css";
                 type="submit"
                 disabled={!this.validateForm()}
               >
-              Register
+              Sign up
               </Button>
             </Form>
           </div>
@@ -229,4 +209,4 @@ import "./Register.css";
         );
       }
     }
-    export default Register;
+    export default SignUpUser;

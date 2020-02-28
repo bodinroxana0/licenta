@@ -1,0 +1,22 @@
+@media all {
+  .was-validated form {
+    margin: 0 auto;
+    max-width: 500px;
+  }
+  table {
+    width: 100%;
+  }
+  
+  td , tr{
+    height: 50px;
+    text-align: left;
+    vertical-align: bottom;
+    padding: 50px;
+    border-bottom: 1px solid #ddd;
+    border-spacing: 15px;
+    font: bold 20px Georgia, serif;
+  }
+  .toggle{
+    display:block;
+  }
+}
