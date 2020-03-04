@@ -8,6 +8,7 @@ const crypto = require('crypto');
 const algorithm = 'aes-256-cbc';
 var Buffer = require('buffer').Buffer;
 var zlib = require('zlib');
+var fs = require("fs");
 const key = crypto.randomBytes(32);
 const iv = crypto.randomBytes(16);
 
@@ -30,8 +31,8 @@ connection.connect(function(err) {
 	console.log('You are now connected with mysql database...');
   });
 
-app.use(bodyParser.urlencoded({extended : false}));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+app.use(bodyParser.json({limit:"50mb",extended:true}));
 
 var server = app.listen(3000, "127.0.0.1", function () {
 
@@ -62,6 +63,14 @@ var server = app.listen(3000, "127.0.0.1", function () {
 app.get('/users', function (req, res) {
 	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
 	connection.query('select * from user', function (error, results, fields) {
+	   if (error) throw error;
+	   res.end(JSON.stringify(results));
+	   //console.log(results)
+	 });
+ });
+ app.get('/providers', function (req, res) {
+	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	connection.query('select * from provider', function (error, results, fields) {
 	   if (error) throw error;
 	   res.end(JSON.stringify(results));
 	   //console.log(results)
@@ -193,7 +202,7 @@ app.post('/SignUpProvider', function(req, res) {
 		Birthdate: req.body.birthdate,
 		Services_Id:req.body.service,
 		Description:req.body.description,
-		Photo:req.body.photo
+		Photo:req.body.path
 		};
 		console.log(newUser);
 		connection.query('INSERT INTO provider SET ?', newUser, function (error, results, fields) {

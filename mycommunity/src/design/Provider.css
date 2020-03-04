@@ -1,6 +1,5 @@
 @media all {
- 
-    .pers {
+    .pers{
     background-color: white;
     margin: auto;
     width: 50%;
@@ -9,5 +8,8 @@
     line-height: 1.428571429;
     color: #999;
         
+  }
+  .body{
+    background-color:#f2f2f2;
   }
 }

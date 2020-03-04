@@ -4,7 +4,23 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
-
+import $ from 'jquery';
+var path;
+function printString(callback){
+  var file = document.getElementById("photo").files[0];
+  var preview = document.getElementById("preview");
+  const reader = new FileReader();
+  reader.addEventListener("load", function () {
+    // convert image file to base64 string
+    preview.src = reader.result;
+    path=reader.result;
+     callback();
+   }, false);
+    
+   if (file) {
+     reader.readAsDataURL(file);
+   }
+}
   class SignUpProvider extends Component{
     constructor(props) {
         super(props);
@@ -167,31 +183,40 @@ import axios from 'axios';
       validateForm() {
         return this.state.password.length>5 && this.state.firstName.length>0 && this.state.lastName.length>0 && this.state.email.length>0 && this.state.phone.length>0 && this.state.userName.length>0 && this.state.region.length>0 && this.state.city.length>0 && this.state.domain.length>0 && this.state.service.length>0;
       }
-
-      handleChange = event => {
-        this.setState({
-          [event.target.id]: event.target.value
-        });
-      }
-      // handleChangeService= event =>{
-      //   console.log(this.state.service);
-      //   let i=this.state.service.findIndex((element)=> element==event.target.value);
-      //   this.setState({
-      //     [event.target.id]: i
-      //   });
-      //   console.log(i);
+      // handleChangePhoto = event => {
+      //   var fileTag = document.getElementById("photo"),
+      //   preview = document.getElementById("preview");
+      //   var reader;
+      //   if (fileTag.files && fileTag.files[0]) {
+      //     reader = new FileReader();
+      //     reader.onload = function(e) {
+      //       preview.setAttribute('src', e.target.result);
+      //       encoded=e.target.result;
+      //       console.log(encoded);
+      //     }
+      //     reader.readAsDataURL(fileTag.files[0]);  
+      //   }
       // }
-    //   clear(){
-    //   var select = document.getElementById("city");
-    //   var length = select.options.length;
-    //   for (let i = length-1; i >= 0; i--) {
-    //     select.options[i] = null;
-    //   }
-    // }
+     
+      handlePhoto=event=>{
+        printString(() => {
+          console.log(path);
+        })
+        
+      }
+      handleChange = event => {
+          //This method asynchronously starts reading the contents of the specified File or Blob. When the read operation is complete, 
+          //readyState will become DONE and the onloadend event handler (that is, callback), 
+          //if present, will be invoked. At that time, the result property contains a data URL string that encodes the file’s data
+        this.setState({
+              [event.target.id]: event.target.value
+          });
+      }
       handleSubmit (event) {
         event.preventDefault();
-        const { userName,password ,firstName, lastName, email,phone,city,region,birthdate,domain,service,photo,description } = this.state;
-        const user = { userName, password, firstName, lastName, email,phone,city,region,birthdate,domain,service,photo, description};
+        console.log(path);
+        const { userName,password ,firstName, lastName, email,phone,city,region,birthdate,domain,service,description } = this.state;
+        const user = { userName, password, firstName, lastName, email,phone,city,region,birthdate,domain,service,path, description};
         console.log(user);
         axios
           .post('http://127.0.0.1:3000/SignUpProvider', user)
@@ -309,15 +334,21 @@ import axios from 'axios';
                   />
               </Form.Group>
               </Form.Row>
-              <Form.Group controlId="photo">
+              <Form.Row>
+              <Form.Group as={Col} controlId="photo">
                 <Form.Control
                   type="file"
                   multiple
                   value={this.state.photo}
-                  onChange={this.handleChange}
+                  onChange={this.handlePhoto}
                 />
-                <Form.Text className="text-muted">Choose photos to demonstrate your skills (diploma, certificate...)</Form.Text>
+                </Form.Group>
+              <Form.Group as={Col} >
+                <img src="" id="preview" width="40" height="40" ></img>
               </Form.Group>
+              </Form.Row>
+                <Form.Text className="text-muted">Choose photos to demonstrate your skills (diploma, certificate...)</Form.Text> 
+              
               <Form.Group controlId="description">
                 <Form.Control 
                 as="textarea" 
