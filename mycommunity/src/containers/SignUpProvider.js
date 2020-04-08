@@ -70,12 +70,16 @@ function printString(callback){
           .then(function(data) {
             var obj=JSON.parse(data);
             var x = document.getElementById("region");
+            var option = document.createElement("option");
+            option.text = 'Choose a region ...';
+             x.add(option);
+             x.options[0].disabled = true;
             for (let i = 0; i < obj.length; i++) {
               var option = document.createElement("option");
               option.text = obj[i].name;
               x.add(option);
             }
-            
+            x.options[0].selected=true;
           })
           .catch(err => {
             console.log('Error!', err);
@@ -131,6 +135,10 @@ function printString(callback){
          .then(function(data) {
            var obj=JSON.parse(data);
            var x = document.getElementById("domain");
+           var option = document.createElement("option");
+           option.text = 'Choose a domain ...';
+            x.add(option);
+            x.options[0].disabled = true;
            var unique=[0];
            for (let i = 0; i < obj.length; i++) {
             var option = document.createElement("option");
@@ -141,7 +149,6 @@ function printString(callback){
                x.add(option);
             }
           }
-           
          })
          .catch(err => {
            console.log('Error!', err);
@@ -165,9 +172,11 @@ function printString(callback){
             })
             .then(function(data) {
               var obj=JSON.parse(data);
-              //console.log(obj);
               var select = document.getElementById("service");
-              
+              var option = document.createElement("option");
+              option.text = 'Choose a service ...';
+              select.add(option);
+              select.options[0].disabled = true;
               for (let i = 0; i < obj.length; i++) {
                 var option = document.createElement("option");
                 option.text = obj[i].ServiceName;
@@ -183,21 +192,6 @@ function printString(callback){
       validateForm() {
         return this.state.password.length>5 && this.state.firstName.length>0 && this.state.lastName.length>0 && this.state.email.length>0 && this.state.phone.length>0 && this.state.userName.length>0 && this.state.region.length>0 && this.state.city.length>0 && this.state.domain.length>0 && this.state.service.length>0;
       }
-      // handleChangePhoto = event => {
-      //   var fileTag = document.getElementById("photo"),
-      //   preview = document.getElementById("preview");
-      //   var reader;
-      //   if (fileTag.files && fileTag.files[0]) {
-      //     reader = new FileReader();
-      //     reader.onload = function(e) {
-      //       preview.setAttribute('src', e.target.result);
-      //       encoded=e.target.result;
-      //       console.log(encoded);
-      //     }
-      //     reader.readAsDataURL(fileTag.files[0]);  
-      //   }
-      // }
-     
       handlePhoto=event=>{
         printString(() => {
           console.log(path);
@@ -205,18 +199,32 @@ function printString(callback){
         
       }
       handleChange = event => {
-          //This method asynchronously starts reading the contents of the specified File or Blob. When the read operation is complete, 
-          //readyState will become DONE and the onloadend event handler (that is, callback), 
-          //if present, will be invoked. At that time, the result property contains a data URL string that encodes the file’s data
-        this.setState({
+          this.setState({
               [event.target.id]: event.target.value
           });
       }
       handleSubmit (event) {
         event.preventDefault();
-        console.log(path);
         const { userName,password ,firstName, lastName, email,phone,city,region,birthdate,domain,service,description } = this.state;
-        const user = { userName, password, firstName, lastName, email,phone,city,region,birthdate,domain,service,path, description};
+        var services_Id=0;
+        
+        fetch('http://127.0.0.1:3000/services/'+domain)
+        .then(function(response) {
+          if (response.status >= 400) {
+              throw new Error("Bad response from server");
+          }
+          return response.text();
+        })
+        .then(function(data) {
+          var obj=JSON.parse(data);
+         // console.log(service);
+          for (let i = 0; i < obj.length; i++) {
+            if(obj[i].ServiceName==service)
+              services_Id=obj[i].Id;
+          }
+         // console.log(services_Id); 
+          
+        const user = { userName, password, firstName, lastName, email,phone,city,region,birthdate,domain,services_Id,path, description};
         console.log(user);
         axios
           .post('http://127.0.0.1:3000/SignUpProvider', user)
@@ -225,7 +233,13 @@ function printString(callback){
           })
           .catch(err => {
             console.error(err);
-          });
+          }); 
+        })
+        .catch(err => {
+          console.log('Error!', err);
+        })
+      
+
         }
       
       //novalidate disables browser default feedback
