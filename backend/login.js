@@ -68,14 +68,6 @@ app.get('/users', function (req, res) {
 	   //console.log(results)
 	 });
  });
- app.get('/providers', function (req, res) {
-	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
-	connection.query('select * from provider', function (error, results, fields) {
-	   if (error) throw error;
-	   res.end(JSON.stringify(results));
-	   //console.log(results)
-	 });
- });
  app.get('/services', function (req, res) {
 	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
 	connection.query('select * from services', function (error, results, fields) {
@@ -86,10 +78,20 @@ app.get('/users', function (req, res) {
  });
  app.get('/provider', function (req, res) {
 	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
-	connection.query('select * from provider', function (error, results, fields) {
+	connection.query('SELECT * FROM community.provider INNER JOIN community.services ON community.provider.services_Id = community.services.Id', function (error, results, fields) {
 	   if (error) throw error;
 	   res.end(JSON.stringify(results));
 	   //console.log(results)
+	 });
+ });
+ app.get('/searchprovider/:service/:city', function (req, res) {
+	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	var service = req.params.service;
+	var city = req.params.city;
+	connection.query('SELECT * FROM community.provider INNER JOIN community.services ON community.provider.services_Id = community.services.Id WHERE ServiceName= ? AND City= ?',[service,city], function (error, results, fields) {
+	   if (error) throw error;
+	   res.end(JSON.stringify(results));
+	   console.log(results)
 	 });
  });
  app.get('/cities', function (req, res) {
@@ -200,7 +202,7 @@ app.post('/SignUpProvider', function(req, res) {
 		City: req.body.city,
 		Region: req.body.region,
 		Birthdate: req.body.birthdate,
-		Services_Id:req.body.service,
+		Services_Id:req.body.services_Id,
 		Description:req.body.description,
 		Photo:req.body.path
 		};
