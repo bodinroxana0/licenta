@@ -254,13 +254,13 @@ function printString(callback){
               <Form.Group as={Col} controlId="firstName" bssize="large">
                 <Form.Control
                   autoFocus
-                  placeholder="First Name"
+                  placeholder="Prenume"
                   value={this.state.firstName}
                   onChange={this.handleChange}
                   required/>
               </Form.Group>
               <Form.Group as={Col} controlId="lastName" bssize="large">
-                <Form.Control placeholder="Last Name"
+                <Form.Control placeholder="Nume"
                   value={this.state.lastName}
                   onChange={this.handleChange}
                   required
@@ -276,7 +276,7 @@ function printString(callback){
                 />
               </Form.Group>
               <Form.Group controlId="phone" bssize="large">
-              <Form.Control placeholder="Phone"
+              <Form.Control placeholder="Telefon"
                   value={this.state.phone}
                   onChange={this.handleChange}
                   required
@@ -302,7 +302,7 @@ function printString(callback){
               </Form.Group>
               </Form.Row>
               <Form.Group controlId="birthdate" bssize="large">
-                <Form.Control placeholder="Birth Date"
+                <Form.Control placeholder="Data nașterii"
                   type="date"
                   value={this.state.birthdate}
                   onChange={this.handleChange}
@@ -311,14 +311,14 @@ function printString(callback){
               </Form.Group>
               <Form.Row>
               <Form.Group as={Col} controlId="userName" bssize="large">
-                <Form.Control placeholder="UserName"
+                <Form.Control placeholder="Nume utilizator"
                   value={this.state.userName}
                   onChange={this.handleChange}
                   required
                 />
               </Form.Group>
               <Form.Group  as={Col} controlId="password" bssize="large">
-                <Form.Control placeholder="Password"
+                <Form.Control placeholder="Parolă"
                   type="password"
                   value={this.state.password}
                   onChange={this.handleChange}
@@ -350,6 +350,7 @@ function printString(callback){
               </Form.Row>
               <Form.Row>
               <Form.Group as={Col} controlId="photo">
+              <Form.Text className="text-muted">Alege o poză de profil</Form.Text>
                 <Form.Control
                   type="file"
                   multiple
@@ -360,8 +361,7 @@ function printString(callback){
               <Form.Group as={Col} >
                 <img src="" id="preview" width="40" height="40" ></img>
               </Form.Group>
-              </Form.Row>
-                <Form.Text className="text-muted">Alege o poză de profil</Form.Text> 
+              </Form.Row> 
               
               <Form.Group controlId="description">
                 <Form.Control 

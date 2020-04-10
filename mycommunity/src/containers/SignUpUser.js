@@ -126,13 +126,13 @@ import axios from 'axios';
               <Form.Group controlId="firstName" bssize="large">
                 <Form.Control
                   autoFocus
-                  placeholder="First Name"
+                  placeholder="Prenume"
                   value={this.state.firstName}
                   onChange={this.handleChange}
                   required/>
               </Form.Group>
               <Form.Group controlId="lastName" bssize="large">
-                <Form.Control placeholder="Last Name"
+                <Form.Control placeholder="Nume"
                   value={this.state.lastName}
                   onChange={this.handleChange}
                   required
@@ -147,7 +147,7 @@ import axios from 'axios';
                 />
               </Form.Group>
               <Form.Group controlId="phone" bssize="large">
-              <Form.Control placeholder="Phone"
+              <Form.Control placeholder="Telefon"
                   value={this.state.phone}
                   onChange={this.handleChange}
                   required
@@ -171,7 +171,7 @@ import axios from 'axios';
                   />
               </Form.Group>
               <Form.Group controlId="birthdate" bssize="large">
-                <Form.Control placeholder="Birth Date"
+                <Form.Control placeholder="Data nașterii"
                   type="date"
                   value={this.state.birthdate}
                   onChange={this.handleChange}
@@ -179,14 +179,14 @@ import axios from 'axios';
                 />
               </Form.Group>
               <Form.Group controlId="userName" bssize="large">
-                <Form.Control placeholder="UserName"
+                <Form.Control placeholder="Nume utilizator"
                   value={this.state.userName}
                   onChange={this.handleChange}
                   required
                 />
               </Form.Group>
               <Form.Group controlId="password" bssize="large">
-                <Form.Control placeholder="Password"
+                <Form.Control placeholder="Parola"
                   type="password"
                   value={this.state.password}
                   onChange={this.handleChange}
