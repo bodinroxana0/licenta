@@ -71,7 +71,7 @@ function printString(callback){
             var obj=JSON.parse(data);
             var x = document.getElementById("region");
             var option = document.createElement("option");
-            option.text = 'Choose a region ...';
+            option.text = 'Alege un județ ...';
              x.add(option);
              x.options[0].disabled = true;
             for (let i = 0; i < obj.length; i++) {
@@ -136,7 +136,7 @@ function printString(callback){
            var obj=JSON.parse(data);
            var x = document.getElementById("domain");
            var option = document.createElement("option");
-           option.text = 'Choose a domain ...';
+           option.text = 'Alege un domeniu ...';
             x.add(option);
             x.options[0].disabled = true;
            var unique=[0];
@@ -174,7 +174,7 @@ function printString(callback){
               var obj=JSON.parse(data);
               var select = document.getElementById("service");
               var option = document.createElement("option");
-              option.text = 'Choose a service ...';
+              option.text = 'Alege un serviciu ...';
               select.add(option);
               select.options[0].disabled = true;
               for (let i = 0; i < obj.length; i++) {
@@ -325,7 +325,7 @@ function printString(callback){
                   required
                 />
                 <Form.Text className="text-muted">
-                  Password length required is minimum 5.
+                  Parola trebuie să aibă minim 5 caractere.
                 </Form.Text>
               </Form.Group>
               </Form.Row>
@@ -361,12 +361,12 @@ function printString(callback){
                 <img src="" id="preview" width="40" height="40" ></img>
               </Form.Group>
               </Form.Row>
-                <Form.Text className="text-muted">Choose photos to demonstrate your skills (diploma, certificate...)</Form.Text> 
+                <Form.Text className="text-muted">Alege o poză de profil</Form.Text> 
               
               <Form.Group controlId="description">
                 <Form.Control 
                 as="textarea" 
-                placeholder="Enter details about the service you provide (price, schedule...)" 
+                placeholder="Introdu detalii despre serviciul pe care îl oferi (prețuri, orar ...)" 
                 value={this.state.description}
                 onChange={this.handleChange}
                 />
@@ -376,7 +376,7 @@ function printString(callback){
                 type="submit"
                 disabled={!this.validateForm()}
               >
-              Sign up
+              Înregistrează-te
               </Button>
             </Form>
           </div>

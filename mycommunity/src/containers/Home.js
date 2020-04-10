@@ -29,22 +29,22 @@ class Home extends Component {
         />
         </div>
         <Carousel.Caption>
-          <h1 class="motto">The easiest way to find the service you need</h1>
+          <h1 class="motto">Cel mai ușor mod de a găsi serviciul de care ai nevoie</h1>
           <Row>
           <Col>
           <LocationCityIcon color="action" fontSize="large"/>
           <strong class="number" data-number="46"> 100</strong>
-          <span> Cities and Villages</span>
+          <span> Orașe și sate</span>
           </Col>
           <Col>
           <FaceIcon color="action" fontSize="large"/>
           <strong class="number" data-number="46"> 30</strong>
-          <span> Users</span>
+          <span> Utilizatori</span>
           </Col>
           <Col>
           <img class="image" src={Services} alt="Services" width="40" height="40" ></img>
           <strong class="number" data-number="46"> 20</strong>
-          <span> Services</span>
+          <span> Servicii</span>
           </Col>
           </Row>
         </Carousel.Caption>

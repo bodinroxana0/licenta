@@ -8,29 +8,11 @@ import Container from 'react-bootstrap/Container';
 import pers1 from '../images/person_1.jpg';
 import '../design/Provider.css';
 
-function clearInner(node) {
-  while (node.hasChildNodes()) {
-    clear(node.firstChild);
-  }
-}
-
-function clear(node) {
-  while (node.hasChildNodes()) {
-    clear(node.firstChild);
-  }
-  node.parentNode.removeChild(node);
-  console.log(node, "cleared!");
-}
 
 function printProviders(obj,nr){
   var x=0;
   var body = document.getElementsByTagName("body")[0];
-  /*var tr=document.getElementsByTagName("tr");
-  console.log(tr.length)
-  for(var i=0;i<tr.length;i++){
-  document.getElementsByTagName("table")[0].deleteRow(i);
-  }*/
-  
+
   if(nr==0){
     var tbl = document.createElement("table");
     var tblBody = document.createElement("tbody");
@@ -45,7 +27,6 @@ function printProviders(obj,nr){
     var tblBody = document.createElement("tbody");
   }
   for (var i = 0; i < obj.length; i++) {
-              //var row = document.createElement("tr");
               var row = tbl.insertRow(x);
               var cell = document.createElement("td");
               var div =document.createElement("div");
@@ -84,10 +65,8 @@ function printProviders(obj,nr){
               cell.style.backgroundColor="white";
               row.appendChild(cell);
               x++;
-            //tblBody.appendChild(row);
           }
           
-          //tbl.appendChild(tblBody);
           tbl.style.width = "600px";
           tbl.align = "center";
           body.style.backgroundColor="#f2f2f2";
@@ -143,7 +122,7 @@ class Provider extends Component {
              var obj=JSON.parse(data);
              var x = document.getElementById("region");
              var option = document.createElement("option");
-             option.text = 'Choose a region ...';
+             option.text = 'Alege un județ ...';
              x.add(option);
              x.options[0].disabled = true;
              for (let i = 0; i < obj.length; i++) {
@@ -208,7 +187,7 @@ class Provider extends Component {
              var x = document.getElementById("domain");
              var unique=[0];
              var option = document.createElement("option");
-             option.text = 'Choose a service domain ...';
+             option.text = 'Alege un domeniu ...';
              x.add(option);
              x.options[0].disabled = true;
              for (let i = 0; i < obj.length; i++) {
@@ -347,7 +326,7 @@ class Provider extends Component {
                   block
                   type="submit"
                 >
-                Search
+                Caută
                 </Button>
                 </Form.Group>
           </Form.Row>

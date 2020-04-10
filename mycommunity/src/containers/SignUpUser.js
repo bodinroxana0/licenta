@@ -193,7 +193,7 @@ import axios from 'axios';
                   required
                 />
                 <Form.Text className="text-muted">
-                  Password length required is minimum 5.
+                  Parola trebuie să aibă cel puțin 5 caractere.
                 </Form.Text>
               </Form.Group>
               <Button
@@ -201,7 +201,7 @@ import axios from 'axios';
                 type="submit"
                 disabled={!this.validateForm()}
               >
-              Sign up
+              Înregistrează-te
               </Button>
             </Form>
           </div>

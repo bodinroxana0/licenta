@@ -61,7 +61,7 @@ import LockRoundedIcon from '@material-ui/icons/LockRounded';
               <Col sm="10">
               <Form.Control
                   autoFocus
-                  placeholder="Enter User Name"
+                  placeholder="Introduceți numele de utilizator"
                   value={this.state.userName}
                   onChange={this.handleChange}
                 />
@@ -72,7 +72,7 @@ import LockRoundedIcon from '@material-ui/icons/LockRounded';
               <Col sm="10">
                 <Form.Control
                   type="password"
-                  placeholder="Enter Password"
+                  placeholder="Introduceți parola"
                   value={this.state.password}
                   onChange={this.handleChange}
                 />
@@ -82,7 +82,7 @@ import LockRoundedIcon from '@material-ui/icons/LockRounded';
                 block
                 type="submit"
                 disabled={!this.validateForm()}
-              >Login
+              >Intră în cont
               </Button>
             </Form>
           </div>

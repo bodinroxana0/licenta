@@ -30,12 +30,12 @@ import "../design/SignUp.css";
     <tr>
       <td >
       <AccessibilityIcon color="action" fontSize="large"/>
-      <Link to="/SignUpUser" >Sign up to use a service </Link>
+      <Link to="/SignUpUser" >Caut un serviciu</Link>
     
       </td>
       <td>
       <BuildIcon color="action" fontSize="large"/>
-      <Link to="/SignUpProvider" >Sign up to provide a service</Link> 
+      <Link to="/SignUpProvider" >Vreau să ofer un sericiu</Link> 
       </td>
     </tr>
     </table>

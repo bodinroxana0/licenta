@@ -17,10 +17,10 @@ class Routes extends Component {
     <Router>
       <div>
       <Navbar bg="dark" variant="dark">
-        <Navbar.Brand href="/">Home</Navbar.Brand>
+        <Navbar.Brand href="/">Acasă</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link href="/Login">Log in</Nav.Link>
-          <Nav.Link href="/SignUp">Sign up</Nav.Link>
+          <Nav.Link href="/Login">Intră în cont</Nav.Link>
+          <Nav.Link href="/SignUp">Creează un cont</Nav.Link>
         </Nav>
         </Navbar>
         <Switch>
