@@ -1,5 +1,8 @@
 var mysql = require('mysql');
 var express = require('express');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var path = require('path');
 var app = express();
@@ -11,29 +14,30 @@ var zlib = require('zlib');
 var fs = require("fs");
 const key = crypto.randomBytes(32);
 const iv = crypto.randomBytes(16);
+var sess; //to store session
 
 //use cors to allow cross origin resource sharing
 app.use(
   cors({
     origin: 'http://localhost:3001',
     credentials: true,
-  })
-);
+  }));
+//mysql connection
 var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "isawsuits2@",
   database: "community"
 });
-
 connection.connect(function(err) {
 	if (err) throw err;
 	console.log('You are now connected with mysql database...');
   });
-
+//json settings for sending more amount of data between client and server
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json({limit:"50mb",extended:true}));
 
+//server settings
 var server = app.listen(3000, "127.0.0.1", function () {
 
 	var host = server.address().address
@@ -57,7 +61,28 @@ var server = app.listen(3000, "127.0.0.1", function () {
 	decrypted = Buffer.concat([decrypted, decipher.final()]);
 	return decrypted.toString();
    }
-
+// set morgan to log info about our requests for development use.
+app.use(morgan('dev'));
+// initialize cookie-parser to allow us access the cookies stored in the browser. 
+app.use(cookieParser('This is a secret'));
+// initialize express-session to allow us track the logged-in user across sessions.
+app.use(session({
+    key: 'user_sid',
+    secret: 'This is a secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        expires: 600000
+    }
+}));
+// This middleware will check if user's cookie is still saved in browser and user is not set, then automatically log the user out.
+// This usually happens when you stop your express server after login, your cookie still remains saved in the browser.
+app.use((req, res, next) => {
+    if (req.cookies.user_sid && !req.session.username) {
+        res.clearCookie('user_sid');        
+    }
+    next();
+});
 
 // //rest api to get all customers
 app.get('/users', function (req, res) {
@@ -89,6 +114,62 @@ app.get('/users', function (req, res) {
 	var service = req.params.service;
 	var city = req.params.city;
 	connection.query('SELECT * FROM community.provider INNER JOIN community.services ON community.provider.services_Id = community.services.Id WHERE ServiceName= ? AND City= ?',[service,city], function (error, results, fields) {
+	   if (error) throw error;
+	   res.end(JSON.stringify(results));
+	   console.log(results)
+	 });
+ });
+ app.get('/searchprovider1/:domain', function (req, res) {
+	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	var domain = req.params.domain;
+	connection.query('SELECT * FROM community.provider INNER JOIN community.services ON community.provider.services_Id = community.services.Id WHERE ServiceDomain= ?',[domain], function (error, results, fields) {
+	   if (error) throw error;
+	   res.end(JSON.stringify(results));
+	   console.log(results)
+	 });
+ });
+ app.get('/searchprovider2/:service', function (req, res) {
+	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	var service = req.params.service;
+	connection.query('SELECT * FROM community.provider INNER JOIN community.services ON community.provider.services_Id = community.services.Id WHERE ServiceName= ?',[service], function (error, results, fields) {
+	   if (error) throw error;
+	   res.end(JSON.stringify(results));
+	   console.log(results)
+	 });
+ });
+ app.get('/searchprovider3/:region', function (req, res) {
+	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	var region = req.params.region;
+	connection.query('SELECT * FROM community.provider INNER JOIN community.services ON community.provider.services_Id = community.services.Id WHERE Region= ?',[region], function (error, results, fields) {
+	   if (error) throw error;
+	   res.end(JSON.stringify(results));
+	   console.log(results)
+	 });
+ });
+ app.get('/searchprovider4/:city', function (req, res) {
+	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	var city = req.params.city;
+	connection.query('SELECT * FROM community.provider INNER JOIN community.services ON community.provider.services_Id = community.services.Id WHERE City= ?',[city], function (error, results, fields) {
+	   if (error) throw error;
+	   res.end(JSON.stringify(results));
+	   console.log(results)
+	 });
+ });
+ app.get('/searchprovider5/:domain/:region', function (req, res) {
+	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	var domain = req.params.domain;
+	var region = req.params.region;
+	connection.query('SELECT * FROM community.provider INNER JOIN community.services ON community.provider.services_Id = community.services.Id WHERE ServiceDomain= ? AND Region= ?',[domain,region], function (error, results, fields) {
+	   if (error) throw error;
+	   res.end(JSON.stringify(results));
+	   console.log(results)
+	 });
+ });
+ app.get('/searchprovider6/:domain/:city', function (req, res) {
+	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	var domain = req.params.domain;
+	var city = req.params.city;
+	connection.query('SELECT * FROM community.provider INNER JOIN community.services ON community.provider.services_Id = community.services.Id WHERE ServiceDomain= ? AND City= ?',[domain,city], function (error, results, fields) {
 	   if (error) throw error;
 	   res.end(JSON.stringify(results));
 	   console.log(results)
@@ -140,6 +221,28 @@ app.get('/users', function (req, res) {
 		});
 	}
  });
+ app.get('/phone/:username',function (req, res) {
+	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	var username = req.params.username;
+	if(username){
+		connection.query('select Phone from provider WHERE UserName = ?', [username], function (error, results, fields) {
+		if (error) throw error;
+		try
+		{
+			console.log(sess.username);
+			if(sess.username!=0)
+				res.end(JSON.stringify(results));
+			else
+				res.end("Null");
+		}
+		catch
+		{ 
+			res.end("Null");
+		}
+		});
+	}
+ });
+ //Login + setarea session 
 app.get('/users/:UserName/:Password', function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
 	var username = req.params.UserName;
@@ -154,14 +257,19 @@ app.get('/users/:UserName/:Password', function(req, res) {
 				var decrypt_pass=decrypt(results[0].PasswordIV,results[0].PasswordData,kd);
 				console.log(decrypt_pass);
 				if(password==decrypt_pass)
-					res.send('Welcome '+username);
-			} else {
-				res.send('Incorrect Username and/or Password!');
+				{
+					sess=req.session;
+					sess.username=username;//$_SESSION['username']-create new session
+					//console.log('sesiunea e setata'+sess.username);
+					res.send('Bun venit, '+username+" !");
+				}
+				else 
+					res.send('Nume sau parolă incorectă!');
 			}			
 			res.end();
 		});
 	} else {
-		res.send('Please enter Username and Password!');
+		res.send('Introduceți datele!');
 		res.end();
 	}
 	});
@@ -221,4 +329,21 @@ app.post('/SignUpProvider', function(req, res) {
 			res.end(JSON.stringify(results));
 		  });
 	});
+// route for user logout
+app.get('/logout', (req, res) => {
+	req.session.destroy((err) => {
+        if(err) {
+            res.end(err);
+		}
+		try{
+			sess.username=0;
+			res.end('ok');
+		}
+		catch{
+			
+		}
+		
+	});
+	console.log(sess.username);
+});
 

@@ -110,7 +110,10 @@ import axios from 'axios';
         console.log(user);
         axios
           .post('http://127.0.0.1:3000/SignUpUser', user)
-          .then(() => console.log('User Registered'))
+          .then(() =>{
+            alert('Contul a fost creat cu succes!')
+            window.location.href = "http://localhost:3001/Login";
+          })
           .catch(err => {
             console.error(err);
           });

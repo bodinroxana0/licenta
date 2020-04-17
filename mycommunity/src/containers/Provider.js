@@ -7,6 +7,30 @@ import Figure from 'react-bootstrap/Figure'
 import Container from 'react-bootstrap/Container';
 import pers1 from '../images/person_1.jpg';
 import '../design/Provider.css';
+//arata numarul de telefon doar daca esti logat, verifica sesiunea
+function showPhone(username){
+  fetch('http://127.0.0.1:3000/phone/'+username)
+  .then(function(response) {
+    if (response.status >= 400) {
+        throw new Error("Bad response from server");
+    }
+    return response.text();
+  })
+  .then(function(data) {
+    if(data!='Null')
+    {
+      var object=JSON.parse(data);
+      var btn = document.getElementsByTagName("BUTTON")[username];
+      console.log(btn.name);
+      btn.innerHTML=object[0].Phone; //seteaza numarul de telefon
+    }
+    else
+      alert("Trebuie să vă înregistrați pentru a vedea numărul de telefon!");
+  })
+  .catch(err => {
+    console.log('Error!', err);
+  })
+}
 
 
 function printProviders(obj,nr){
@@ -51,9 +75,14 @@ function printProviders(obj,nr){
               var text = document.createTextNode(obj[i].ServiceDomain+", "+obj[i].ServiceName); 
               info2.appendChild(text);
 
-              var btn = document.createElement("BUTTON"); 
-              var phone = document.createTextNode(obj[i].Phone);
-              
+              var btn = document.createElement("BUTTON");
+              btn.name=obj[i].UserName;
+              btn.addEventListener("click", function(){
+                showPhone(this.name);
+              });
+              //btn.onclick => showPhone(obj[i].UserName);
+              //var phone = document.createTextNode(obj[i].Phone);
+              var phone = document.createTextNode('07xxxxxxxx');
               cell.appendChild(image);
               div.appendChild(name);
               div.appendChild(info);
@@ -244,7 +273,67 @@ class Provider extends Component {
       }
       handleSubmit (event) {
         event.preventDefault();
-        var url='http://127.0.0.1:3000/searchprovider/'+this.state.service+"/"+this.state.city;
+        var choose=0;
+        var url;
+        if(this.state.domain && this.state.service && this.state.region && this.state.city)
+        {
+          choose=0; //filtru pe toate-serviciu +oras , care e cel mai explicit
+        }
+        else if(this.state.domain && this.state.city)
+        {
+          choose=6;// filtru pe domeniu si oras, putin probabil
+        }
+        else if(this.state.domain && this.state.region)
+        {
+          choose=5;// filtru pe domeniu si judet, putin probabil
+        }
+        else if((this.state.domain && this.state.service )|| this.state.service)
+        {
+          choose=2; //filtru pe serviciu
+        }
+        else if(this.state.domain)
+        {
+          choose=1; //filtru doar pe domeniu
+        }
+        else if((this.state.region && this.state.city) || this.state.city)
+        {
+          choose=4; //filtru pe oras
+        }
+        else if(this.state.region)
+        {
+          choose=3; //filtru doar pe judet
+        }
+        
+        else 
+        {
+          alert("Trebuie să selectezi măcar unul din câmpuri pentru a filtra rezultatele!");
+        }
+        switch(choose) {
+          case 0:
+            url='http://127.0.0.1:3000/searchprovider/'+this.state.service+"/"+this.state.city;
+            break;
+          case 1:
+            url='http://127.0.0.1:3000/searchprovider1/'+this.state.domain;
+            break;
+          case 2:
+            url='http://127.0.0.1:3000/searchprovider2/'+this.state.service;
+            break;
+          case 3:
+            url='http://127.0.0.1:3000/searchprovider3/'+this.state.region;
+            break;
+          case 4:
+            url='http://127.0.0.1:3000/searchprovider4/'+this.state.city;
+            break;
+          case 5:
+            url='http://127.0.0.1:3000/searchprovider5/'+this.state.domain+"/"+this.state.region;
+            break;
+          case 6:
+            url='http://127.0.0.1:3000/searchprovider6/'+this.state.domain+"/"+this.state.city;
+            break;
+          default:
+            // code block
+        }
+        
         console.log(url);
         fetch(url)
         .then(function(response) {
@@ -292,7 +381,6 @@ class Provider extends Component {
                     onLoad={this.loadDomain()}
                     value={this.state.domain}
                     onChange={this.handleChange}
-                    required
                     >
                  </Form.Control>
                 </Form.Group>
@@ -301,7 +389,6 @@ class Provider extends Component {
                     onLoad={this.loadServices()}
                     value={this.state.service}
                     onChange={this.handleChange}
-                    required
                     />
                 </Form.Group>
                 <Form.Group as={Col} controlId="region" bssize="large">
@@ -309,7 +396,6 @@ class Provider extends Component {
                     onLoad={this.loadCounties()}
                     value={this.state.region}
                     onChange={this.handleChange}
-                    required
                     >
                  </Form.Control>
                 </Form.Group>
@@ -318,7 +404,6 @@ class Provider extends Component {
                     onLoad={this.loadCities()}
                     value={this.state.city}
                     onChange={this.handleChange}
-                    required
                     />
                 </Form.Group>
                 <Form.Group as={Col} controlId="search" bssize="large">

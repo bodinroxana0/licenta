@@ -42,7 +42,11 @@ import LockRoundedIcon from '@material-ui/icons/LockRounded';
           return response.text();
         })
         .then(function(data) {
-          console.log(data);
+          alert(data);
+          if(data!="Nume sau parolă incorectă!")
+          {
+            window.location.href = "http://localhost:3001";
+          }
         })
         .catch(err => {
           console.log('Error!', err);
