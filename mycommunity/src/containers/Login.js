@@ -48,7 +48,7 @@ import LockRoundedIcon from '@material-ui/icons/LockRounded';
           alert(data);
           if(data!="Nume sau parolă incorectă!")
           {
-            window.location.href = "https://localhost:3002";
+            window.location.href = "https://comunitate.netlify.app/";
           }
         })
         .catch(err => {
@@ -77,7 +77,7 @@ import LockRoundedIcon from '@material-ui/icons/LockRounded';
             .post('http://127.0.0.1:3000/LoginFB',user)
             .then((response) => {
               alert(response.data);
-              window.location.href = "https://localhost:3002/";
+              window.location.href = "https://comunitate.netlify.app";
             })
             .catch(err => {
               console.error(err);
@@ -105,7 +105,7 @@ import LockRoundedIcon from '@material-ui/icons/LockRounded';
             .then((response) =>{
               console.log(response.data);
               alert(response.data);
-              window.location.href = "https://localhost:3002/";
+              window.location.href = "https://comunitate.netlify.app";
             })
             .catch(err => {
               console.error(err);

@@ -109,7 +109,7 @@ import GoogleLogin from 'react-google-login';
           .post('http://127.0.0.1:3000/SignUpUser', user)
           .then(() =>{
             alert('Contul a fost creat cu succes!')
-            window.location.href = "https://localhost:3002/Login";
+            window.location.href = "https://comunitate.netlify.app/Login";
           })
           .catch(err => {
             console.error(err);
@@ -139,7 +139,7 @@ import GoogleLogin from 'react-google-login';
             .post('http://127.0.0.1:3000/LoginFB',user)
             .then((response) => {
               alert(response);
-              window.location.href = "https://localhost:3002/";
+              window.location.href = "https://comunitate.netlify.app/";
             })
             .catch(err => {
               console.error(err);
@@ -170,7 +170,7 @@ import GoogleLogin from 'react-google-login';
               // var navbar=document.getElementById("intra");
               // var nav0=navbar.getElementsByTagName("a")[1];
               // nav0.style.display="none";
-              window.location.href = "https://localhost:3002/";
+              window.location.href = "https://comunitate.netlify.app/";
             })
             .catch(err => {
               console.error(err);
