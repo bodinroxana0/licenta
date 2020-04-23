@@ -18,11 +18,11 @@ class Routes extends Component {
     <Router>
       <div>
       <Navbar id="intra" bg="dark" variant="dark">
-        <Navbar.Brand href="/">Acasă</Navbar.Brand>
+        <Navbar.Brand href="https://comunitate.netlify.app/">Acasă</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link href="/Login">Intră în cont</Nav.Link>
-          <Nav.Link href="/Logout">Deconectare</Nav.Link>
-          <Nav.Link href="/SignUp">Creează un cont</Nav.Link>
+          <Nav.Link href="https://comunitate.netlify.app/Login">Intră în cont</Nav.Link>
+          <Nav.Link href="https://comunitate.netlify.app/Logout">Deconectare</Nav.Link>
+          <Nav.Link href="https://comunitate.netlify.app/SignUp">Creează un cont</Nav.Link>
         </Nav>
         </Navbar>
         <Switch>
