@@ -1,4 +1,9 @@
 @media all {
+  .was-validated .FB {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+  }
   .was-validated form {
     margin: 0 auto;
     max-width: 500px;
@@ -18,4 +23,5 @@
   .toggle{
     display:block;
   }
+
 }

@@ -12,14 +12,24 @@ const algorithm = 'aes-256-cbc';
 var Buffer = require('buffer').Buffer;
 var zlib = require('zlib');
 var fs = require("fs");
+var https = require('https');
 const key = crypto.randomBytes(32);
 const iv = crypto.randomBytes(16);
 var sess; //to store session
 
+https.createServer({
+  key: fs.readFileSync('server.key'),
+  cert: fs.readFileSync('server.cert')
+}, app)
+.listen(3001, function () {
+  console.log('Example app listening on port 3000! Go to https://localhost:3000/')
+})
+
+
 //use cors to allow cross origin resource sharing
 app.use(
   cors({
-    origin: 'http://localhost:3001',
+    origin: 'https://localhost:3002',
     credentials: true,
   }));
 //mysql connection
@@ -86,7 +96,7 @@ app.use((req, res, next) => {
 
 // //rest api to get all customers
 app.get('/users', function (req, res) {
-	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	res.setHeader('Access-Control-Allow-Origin', 'https://localhost:3002');
 	connection.query('select * from user', function (error, results, fields) {
 	   if (error) throw error;
 	   res.end(JSON.stringify(results));
@@ -94,7 +104,7 @@ app.get('/users', function (req, res) {
 	 });
  });
  app.get('/services', function (req, res) {
-	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	res.setHeader('Access-Control-Allow-Origin', 'https://localhost:3002');
 	connection.query('select * from services', function (error, results, fields) {
 	   if (error) throw error;
 	   res.end(JSON.stringify(results));
@@ -102,7 +112,7 @@ app.get('/users', function (req, res) {
 	 });
  });
  app.get('/provider', function (req, res) {
-	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	res.setHeader('Access-Control-Allow-Origin', 'https://localhost:3002');
 	connection.query('SELECT * FROM community.provider INNER JOIN community.services ON community.provider.services_Id = community.services.Id', function (error, results, fields) {
 	   if (error) throw error;
 	   res.end(JSON.stringify(results));
@@ -110,7 +120,7 @@ app.get('/users', function (req, res) {
 	 });
  });
  app.get('/searchprovider/:service/:city', function (req, res) {
-	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	res.setHeader('Access-Control-Allow-Origin', 'https://localhost:3002');
 	var service = req.params.service;
 	var city = req.params.city;
 	connection.query('SELECT * FROM community.provider INNER JOIN community.services ON community.provider.services_Id = community.services.Id WHERE ServiceName= ? AND City= ?',[service,city], function (error, results, fields) {
@@ -120,7 +130,7 @@ app.get('/users', function (req, res) {
 	 });
  });
  app.get('/searchprovider1/:domain', function (req, res) {
-	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	res.setHeader('Access-Control-Allow-Origin', 'https://localhost:3002');
 	var domain = req.params.domain;
 	connection.query('SELECT * FROM community.provider INNER JOIN community.services ON community.provider.services_Id = community.services.Id WHERE ServiceDomain= ?',[domain], function (error, results, fields) {
 	   if (error) throw error;
@@ -129,7 +139,7 @@ app.get('/users', function (req, res) {
 	 });
  });
  app.get('/searchprovider2/:service', function (req, res) {
-	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	res.setHeader('Access-Control-Allow-Origin', 'https://localhost:3002');
 	var service = req.params.service;
 	connection.query('SELECT * FROM community.provider INNER JOIN community.services ON community.provider.services_Id = community.services.Id WHERE ServiceName= ?',[service], function (error, results, fields) {
 	   if (error) throw error;
@@ -138,7 +148,7 @@ app.get('/users', function (req, res) {
 	 });
  });
  app.get('/searchprovider3/:region', function (req, res) {
-	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	res.setHeader('Access-Control-Allow-Origin', 'https://localhost:3002');
 	var region = req.params.region;
 	connection.query('SELECT * FROM community.provider INNER JOIN community.services ON community.provider.services_Id = community.services.Id WHERE Region= ?',[region], function (error, results, fields) {
 	   if (error) throw error;
@@ -147,7 +157,7 @@ app.get('/users', function (req, res) {
 	 });
  });
  app.get('/searchprovider4/:city', function (req, res) {
-	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	res.setHeader('Access-Control-Allow-Origin', 'https://localhost:3002');
 	var city = req.params.city;
 	connection.query('SELECT * FROM community.provider INNER JOIN community.services ON community.provider.services_Id = community.services.Id WHERE City= ?',[city], function (error, results, fields) {
 	   if (error) throw error;
@@ -156,7 +166,7 @@ app.get('/users', function (req, res) {
 	 });
  });
  app.get('/searchprovider5/:domain/:region', function (req, res) {
-	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	res.setHeader('Access-Control-Allow-Origin', 'https://localhost:3002');
 	var domain = req.params.domain;
 	var region = req.params.region;
 	connection.query('SELECT * FROM community.provider INNER JOIN community.services ON community.provider.services_Id = community.services.Id WHERE ServiceDomain= ? AND Region= ?',[domain,region], function (error, results, fields) {
@@ -166,7 +176,7 @@ app.get('/users', function (req, res) {
 	 });
  });
  app.get('/searchprovider6/:domain/:city', function (req, res) {
-	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	res.setHeader('Access-Control-Allow-Origin', 'https://localhost:3002');
 	var domain = req.params.domain;
 	var city = req.params.city;
 	connection.query('SELECT * FROM community.provider INNER JOIN community.services ON community.provider.services_Id = community.services.Id WHERE ServiceDomain= ? AND City= ?',[domain,city], function (error, results, fields) {
@@ -176,7 +186,7 @@ app.get('/users', function (req, res) {
 	 });
  });
  app.get('/cities', function (req, res) {
-	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	res.setHeader('Access-Control-Allow-Origin', 'https://localhost:3002');
 	connection.query('select * from cities', function (error, results, fields) {
 	   if (error) throw error;
 	   res.end(JSON.stringify(results));
@@ -184,7 +194,7 @@ app.get('/users', function (req, res) {
 	 });
  });
  app.get('/counties', function (req, res) {
-	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	res.setHeader('Access-Control-Allow-Origin', 'https://localhost:3002');
 	connection.query('select * from counties', function (error, results, fields) {
 	   if (error) throw error;
 	   res.end(JSON.stringify(results));
@@ -192,7 +202,7 @@ app.get('/users', function (req, res) {
 	 });
  });
  app.get('/cities/:county_name', function (req, res) {
-	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	res.setHeader('Access-Control-Allow-Origin', 'https://localhost:3002');
 	var county_name = req.params.county_name;
 	//console.log(county_name);
 	if(county_name){
@@ -204,7 +214,7 @@ app.get('/users', function (req, res) {
 	}
  });
  app.get('/domain', function (req, res) {
-	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	res.setHeader('Access-Control-Allow-Origin', 'https://localhost:3002');
 	connection.query('select * from services', function (error, results, fields) {
 	   if (error) throw error;
 	   res.end(JSON.stringify(results));
@@ -212,7 +222,7 @@ app.get('/users', function (req, res) {
 	 });
  });
  app.get('/services/:domain', function (req, res) {
-	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	res.setHeader('Access-Control-Allow-Origin', 'https://localhost:3002');
 	var domain = req.params.domain;
 	if(domain){
 		connection.query('select * from services  WHERE ServiceDomain = ?', [domain], function (error, results, fields) {
@@ -222,7 +232,7 @@ app.get('/users', function (req, res) {
 	}
  });
  app.get('/phone/:username',function (req, res) {
-	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	res.setHeader('Access-Control-Allow-Origin', 'https://localhost:3002');
 	var username = req.params.username;
 	if(username){
 		connection.query('select Phone from provider WHERE UserName = ?', [username], function (error, results, fields) {
@@ -242,9 +252,29 @@ app.get('/users', function (req, res) {
 		});
 	}
  });
+ app.post('/LoginFB', function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin', 'https://localhost:3002');
+	var username = req.body.name;
+	var email = req.body.email;
+	var userID = req.body.userID;
+	sess=req.session;
+	sess.username=userID;
+	console.log('Cookie: '+sess.username);
+	res.send('Bun venit, '+username+" !");
+});
+app.post('/LoginGoogle', function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin', 'https://localhost:3002');
+	var username = req.body.username;
+	var email = req.body.email;
+	var userID = req.body.Googleid;
+	sess=req.session;
+	sess.username=userID;
+	console.log('Cookie: '+sess.username);
+	res.end('Bun venit, '+username+" !");
+});
  //Login + setarea session 
 app.get('/users/:UserName/:Password', function(req, res) {
-	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+	res.setHeader('Access-Control-Allow-Origin', 'https://localhost:3002');
 	var username = req.params.UserName;
 	var password = req.params.Password;
 	if (username && password) {
@@ -314,7 +344,7 @@ app.post('/SignUpProvider', function(req, res) {
 		Description:req.body.description,
 		Photo:req.body.path
 		};
-		console.log(newUser);
+		//console.log(newUser);
 		connection.query('INSERT INTO provider SET ?', newUser, function (error, results, fields) {
 			if (error) {
 				if(error.code == 'ER_DUP_ENTRY' || error.errno == 1062)
@@ -329,14 +359,39 @@ app.post('/SignUpProvider', function(req, res) {
 			res.end(JSON.stringify(results));
 		  });
 	});
+app.post('/Docs', function(req, res) {
+		var img= req.body.path2;
+		var username=req.body.userName;
+		var id;
+		var elem;
+		var res;
+		console.log(username);
+		connection.query('SELECT Id FROM provider WHERE UserName = ? ', [username], function (error, results, fields) {
+			if (error) throw error;
+			id=results[0].Id;
+			console.log(id);
+		img.forEach(element => {
+			elem={
+				IdProvider: id,
+				Image:element
+			};
+			connection.query('INSERT INTO docs SET ?', elem, function (error, results, fields) {
+				if (error) throw error;
+				res.end(JSON.stringify(results));
+			  });
+		});
+	});
+});
 // route for user logout
 app.get('/logout', (req, res) => {
+	console.log('Cookie before: '+sess.username);
 	req.session.destroy((err) => {
         if(err) {
             res.end(err);
 		}
 		try{
 			sess.username=0;
+			console.log('Cookie after: '+sess.username);
 			res.end('ok');
 		}
 		catch{
@@ -344,6 +399,4 @@ app.get('/logout', (req, res) => {
 		}
 		
 	});
-	console.log(sess.username);
 });
-

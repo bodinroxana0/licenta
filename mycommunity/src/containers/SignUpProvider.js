@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col';
 import axios from 'axios';
 import $ from 'jquery';
 var path;
+var path2;
 function printString(callback){
   var file = document.getElementById("photo").files[0];
   var preview = document.getElementById("preview");
@@ -21,6 +22,26 @@ function printString(callback){
      reader.readAsDataURL(file);
    }
 }
+function printString2(callback){
+  path2=new Array();
+  var length = document.getElementById("docs").files.length;
+  console.log(length);
+  for(var i=0;i<length;i++)
+  {
+    var file = document.getElementById("docs").files[i];
+    const reader = new FileReader();
+    reader.addEventListener("load", function () {
+      // convert image file to base64 string
+      path2[path2.length] = reader.result;
+      callback();
+    }, false);
+      
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  }
+}
+
   class SignUpProvider extends Component{
     constructor(props) {
         super(props);
@@ -47,12 +68,11 @@ function printString(callback){
           domain:"",
           service:"",
           photo:"",
+          docs:"",
           description:""
         };
       }
-    
-
-      loadCounties(){
+    loadCounties(){
        if(!this.state.load){
          //fetch is async, that's why you can;t set setstate inside of their responses...
          //now it enters only once in this function
@@ -86,7 +106,6 @@ function printString(callback){
           })
         }   
     }
-    
     loadCities(){
       if(!this.state.region==" "){
         if(this.state.city==""){
@@ -118,7 +137,6 @@ function printString(callback){
           }
       }
     }
-    
     loadDomain(){
       if(!this.state.load2){
          this.setState((state, props) => ({
@@ -196,7 +214,11 @@ function printString(callback){
         printString(() => {
           console.log(path);
         })
-        
+      }
+      handlePhoto2=event=>{
+        printString2(() => {
+          console.log(path2);
+        })
       }
       handleChange = event => {
           this.setState({
@@ -234,13 +256,20 @@ function printString(callback){
           .catch(err => {
             console.error(err);
           }); 
+        const docs={path2,userName};
+          axios
+          .post('http://127.0.0.1:3000/Docs', docs)
+          .then((response) => {
+            console.log(response);
+          })
+          .catch(err => {
+            console.error(err);
+          }); 
         })
         .catch(err => {
           console.log('Error!', err);
         })
-      
-
-        }
+      }
       
       //novalidate disables browser default feedback
       //controlId is super important, it must have the same name as the variable!if not , then the select will not set anything
@@ -353,7 +382,6 @@ function printString(callback){
               <Form.Text className="text-muted">Alege o poză de profil</Form.Text>
                 <Form.Control
                   type="file"
-                  multiple
                   value={this.state.photo}
                   onChange={this.handlePhoto}
                 />
@@ -362,7 +390,17 @@ function printString(callback){
                 <img src="" id="preview" width="40" height="40" ></img>
               </Form.Group>
               </Form.Row> 
-              
+              <Form.Row>
+              <Form.Group as={Col} controlId="docs">
+              <Form.Text className="text-muted">Alege poze care să ateste calificarea ta profesională/CV</Form.Text>
+                <Form.Control
+                  type="file"
+                  multiple
+                  value={this.state.docs}
+                  onChange={this.handlePhoto2}
+                />
+                </Form.Group>
+              </Form.Row> 
               <Form.Group controlId="description">
                 <Form.Control 
                 as="textarea" 

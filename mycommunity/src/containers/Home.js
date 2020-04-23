@@ -11,6 +11,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import Container from 'react-bootstrap/Container';
 import '../design/Home.css';
 import Provider from './Provider.js';
+import FacebookLogin from 'react-facebook-login';
 class Home extends Component {
    
     

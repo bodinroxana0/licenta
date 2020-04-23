@@ -17,7 +17,7 @@ class Routes extends Component {
   return (
     <Router>
       <div>
-      <Navbar bg="dark" variant="dark">
+      <Navbar id="intra" bg="dark" variant="dark">
         <Navbar.Brand href="/">Acasă</Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Link href="/Login">Intră în cont</Nav.Link>
