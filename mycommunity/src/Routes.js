@@ -26,9 +26,9 @@ class Routes extends Component {
         </Nav>
         </Navbar>
         <Switch>
-          <Route path="/Login" exact component={Login}></Route>
-          <Route path="/Logout" exact component={Logout}></Route>
-          <Route path="/SignUp" exact component={SignUp}></Route>
+          <Route path="/Login" component={Login}></Route>
+          <Route path="/Logout" component={Logout}></Route>
+          <Route path="/SignUp" component={SignUp}></Route>
           <Route path="/" exact component={Home}></Route>
         </Switch>
       </div>
