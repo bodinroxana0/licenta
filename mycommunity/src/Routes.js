@@ -18,18 +18,18 @@ class Routes extends Component {
     <Router>
       <div>
       <Navbar id="intra" bg="dark" variant="dark">
-        <Navbar.Brand href="https://comunitate.netlify.app/">Acasă</Navbar.Brand>
+        <Navbar.Brand href="/">Acasă</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link href="https://comunitate.netlify.app/Login">Intră în cont</Nav.Link>
-          <Nav.Link href="https://comunitate.netlify.app/Logout">Deconectare</Nav.Link>
-          <Nav.Link href="https://comunitate.netlify.app/SignUp">Creează un cont</Nav.Link>
+          <Nav.Link href="/Login">Intră în cont</Nav.Link>
+          <Nav.Link href="/Logout">Deconectare</Nav.Link>
+          <Nav.Link href="/SignUp">Creează un cont</Nav.Link>
         </Nav>
         </Navbar>
         <Switch>
-          <Route path="https://comunitate.netlify.app/Login" exact component={Login}></Route>
-          <Route path="https://comunitate.netlify.app/Logout" exact component={Logout}></Route>
-          <Route path="https://comunitate.netlify.app/SignUp" exact component={SignUp}></Route>
-          <Route path="https://comunitate.netlify.app/" exact component={Home}></Route>
+          <Route path="/Login" exact component={Login}></Route>
+          <Route path="/Logout" exact component={Logout}></Route>
+          <Route path="/SignUp" exact component={SignUp}></Route>
+          <Route path="/" exact component={Home}></Route>
         </Switch>
       </div>
     </Router>
