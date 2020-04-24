@@ -124,7 +124,6 @@ import GoogleLogin from 'react-google-login';
           var name=response.name;
           var email= response.email;
           var userID=response.userID;
-          var user_birthday=response.user_birthday;
           const user = { name , email,userID};
           if (response.authResponse) {
             console.log('Welcome!  Fetching your information.... ');
@@ -187,7 +186,6 @@ import GoogleLogin from 'react-google-login';
               appId="635668626990364" 
               fields="name,email,userID"
               callback={responseFacebook}
-              scope="user_birthday"
               textButton={<span>Continuă cu Facebook</span>}
             />
             <br />
