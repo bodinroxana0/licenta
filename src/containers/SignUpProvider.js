@@ -257,19 +257,19 @@ function printString2(callback){
             console.error(err);
           }); 
         const docs={path2,userName};
-          axios
-          .post('https://hidden-fortress-80148.herokuapp.com/Docs', docs)
-          .then((response) => {
-            console.log(response);
-          })
-          .catch(err => {
-            console.error(err);
-          }); 
+        //   axios
+        //   .post('https://hidden-fortress-80148.herokuapp.com/Docs', docs)
+        //   .then((response) => {
+        //     console.log(response);
+        //   })
+        //   .catch(err => {
+        //     console.error(err);
+        //   }); 
         })
         .catch(err => {
           console.log('Error!', err);
         })
-      }
+     }
       
       //novalidate disables browser default feedback
       //controlId is super important, it must have the same name as the variable!if not , then the select will not set anything
