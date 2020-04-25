@@ -37,7 +37,7 @@ import GoogleLogin from 'react-google-login';
             load:true,
             city:""
           }));
-          fetch('http://127.0.0.1:3000/counties')
+          fetch('https://hidden-fortress-80148.herokuapp.com/counties')
           .then(function(response) {
             if (response.status >= 400) {
                 throw new Error("Bad response from server");
@@ -67,7 +67,7 @@ import GoogleLogin from 'react-google-login';
           for (let i = length-1; i >= 0; i--) {
             select.options[i] = null;
           }
-        fetch('http://127.0.0.1:3000/cities/'+this.state.region)
+        fetch('https://hidden-fortress-80148.herokuapp.com/cities/'+this.state.region)
             .then(function(response) {
               if (response.status >= 400) {
                   throw new Error("Bad response from server");
@@ -106,7 +106,7 @@ import GoogleLogin from 'react-google-login';
         const user = { userName, password, firstName, lastName, email,phone,city,region,birthdate};
         console.log(user);
         axios
-          .post('http://127.0.0.1:3000/SignUpUser', user)
+          .post('https://hidden-fortress-80148.herokuapp.com/SignUpUser', user)
           .then(() =>{
             alert('Contul a fost creat cu succes!')
             window.location.href = "https://comunitate.netlify.app/Login";
@@ -135,7 +135,7 @@ import GoogleLogin from 'react-google-login';
           {
             console.log(user);
             axios
-            .post('http://127.0.0.1:3000/LoginFB',user)
+            .post('https://hidden-fortress-80148.herokuapp.com/LoginFB',user)
             .then((response) => {
               alert(response);
               window.location.href = "https://comunitate.netlify.app/";
@@ -162,7 +162,7 @@ import GoogleLogin from 'react-google-login';
           
             console.log(user);
             axios
-            .post('http://127.0.0.1:3000/LoginGoogle',user)
+            .post('https://hidden-fortress-80148.herokuapp.com/LoginGoogle',user)
             .then((response) =>{
               console.log(response.data);
               alert(response.data);

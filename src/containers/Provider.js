@@ -9,7 +9,7 @@ import pers1 from '../images/person_1.jpg';
 import '../design/Provider.css';
 //arata numarul de telefon doar daca esti logat, verifica sesiunea
 function showPhone(username){
-  fetch('http://127.0.0.1:3000/phone/'+username)
+  fetch('https://hidden-fortress-80148.herokuapp.com/phone/'+username)
   .then(function(response) {
     if (response.status >= 400) {
         throw new Error("Bad response from server");
@@ -140,7 +140,7 @@ class Provider extends Component {
              load:true,
              city:""
            }));
-           fetch('http://127.0.0.1:3000/counties')
+           fetch('https://hidden-fortress-80148.herokuapp.com/counties')
            .then(function(response) {
              if (response.status >= 400) {
                  throw new Error("Bad response from server");
@@ -175,7 +175,7 @@ class Provider extends Component {
            for (let i = length-1; i >= 0; i--) {
              select.options[i] = null;
            }
-         fetch('http://127.0.0.1:3000/cities/'+this.state.region)
+         fetch('https://hidden-fortress-80148.herokuapp.com/cities/'+this.state.region)
              .then(function(response) {
                if (response.status >= 400) {
                    throw new Error("Bad response from server");
@@ -204,7 +204,7 @@ class Provider extends Component {
              load2:true,
              service:""
            }));
-           fetch('http://127.0.0.1:3000/domain')
+           fetch('https://hidden-fortress-80148.herokuapp.com/domain')
            .then(function(response) {
              if (response.status >= 400) {
                  throw new Error("Bad response from server");
@@ -243,7 +243,7 @@ class Provider extends Component {
               for (let i = length-1; i >= 0; i--) {
                 select.options[i] = null;
               }
-          fetch('http://127.0.0.1:3000/services/'+this.state.domain)
+          fetch('https://hidden-fortress-80148.herokuapp.com/services/'+this.state.domain)
               .then(function(response) {
                 if (response.status >= 400) {
                     throw new Error("Bad response from server");
@@ -310,25 +310,25 @@ class Provider extends Component {
         }
         switch(choose) {
           case 0:
-            url='http://127.0.0.1:3000/searchprovider/'+this.state.service+"/"+this.state.city;
+            url='https://hidden-fortress-80148.herokuapp.com/searchprovider/'+this.state.service+"/"+this.state.city;
             break;
           case 1:
-            url='http://127.0.0.1:3000/searchprovider1/'+this.state.domain;
+            url='https://hidden-fortress-80148.herokuapp.com/searchprovider1/'+this.state.domain;
             break;
           case 2:
-            url='http://127.0.0.1:3000/searchprovider2/'+this.state.service;
+            url='https://hidden-fortress-80148.herokuapp.com/searchprovider2/'+this.state.service;
             break;
           case 3:
-            url='http://127.0.0.1:3000/searchprovider3/'+this.state.region;
+            url='https://hidden-fortress-80148.herokuapp.com/searchprovider3/'+this.state.region;
             break;
           case 4:
-            url='http://127.0.0.1:3000/searchprovider4/'+this.state.city;
+            url='https://hidden-fortress-80148.herokuapp.com/searchprovider4/'+this.state.city;
             break;
           case 5:
-            url='http://127.0.0.1:3000/searchprovider5/'+this.state.domain+"/"+this.state.region;
+            url='https://hidden-fortress-80148.herokuapp.com/searchprovider5/'+this.state.domain+"/"+this.state.region;
             break;
           case 6:
-            url='http://127.0.0.1:3000/searchprovider6/'+this.state.domain+"/"+this.state.city;
+            url='https://hidden-fortress-80148.herokuapp.com/searchprovider6/'+this.state.domain+"/"+this.state.city;
             break;
           default:
             // code block
@@ -352,7 +352,7 @@ class Provider extends Component {
         })
       }
       componentDidMount() {
-        var url = 'http://127.0.0.1:3000/provider';
+        var url = 'https://hidden-fortress-80148.herokuapp.com/provider';
         fetch(url)
         .then(function(response) {
           if (response.status >= 400) {

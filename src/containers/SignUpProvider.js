@@ -80,7 +80,7 @@ function printString2(callback){
             load:true,
             city:""
           }));
-          fetch('http://127.0.0.1:3000/counties')
+          fetch('https://hidden-fortress-80148.herokuapp.com/counties')
           .then(function(response) {
             if (response.status >= 400) {
                 throw new Error("Bad response from server");
@@ -114,7 +114,7 @@ function printString2(callback){
           for (let i = length-1; i >= 0; i--) {
             select.options[i] = null;
           }
-        fetch('http://127.0.0.1:3000/cities/'+this.state.region)
+        fetch('https://hidden-fortress-80148.herokuapp.com/cities/'+this.state.region)
             .then(function(response) {
               if (response.status >= 400) {
                   throw new Error("Bad response from server");
@@ -143,7 +143,7 @@ function printString2(callback){
            load2:true,
            service:""
          }));
-         fetch('http://127.0.0.1:3000/domain')
+         fetch('https://hidden-fortress-80148.herokuapp.com/domain')
          .then(function(response) {
            if (response.status >= 400) {
                throw new Error("Bad response from server");
@@ -181,7 +181,7 @@ function printString2(callback){
             for (let i = length-1; i >= 0; i--) {
               select.options[i] = null;
             }
-        fetch('http://127.0.0.1:3000/services/'+this.state.domain)
+        fetch('https://hidden-fortress-80148.herokuapp.com/services/'+this.state.domain)
             .then(function(response) {
               if (response.status >= 400) {
                   throw new Error("Bad response from server");
@@ -230,7 +230,7 @@ function printString2(callback){
         const { userName,password ,firstName, lastName, email,phone,city,region,birthdate,domain,service,description } = this.state;
         var services_Id=0;
         
-        fetch('http://127.0.0.1:3000/services/'+domain)
+        fetch('https://hidden-fortress-80148.herokuapp.com/services/'+domain)
         .then(function(response) {
           if (response.status >= 400) {
               throw new Error("Bad response from server");
@@ -249,7 +249,7 @@ function printString2(callback){
         const user = { userName, password, firstName, lastName, email,phone,city,region,birthdate,domain,services_Id,path, description};
         console.log(user);
         axios
-          .post('http://127.0.0.1:3000/SignUpProvider', user)
+          .post('https://hidden-fortress-80148.herokuapp.com/SignUpProvider', user)
           .then((response) => {
             console.log(response);
           })
@@ -258,7 +258,7 @@ function printString2(callback){
           }); 
         const docs={path2,userName};
           axios
-          .post('http://127.0.0.1:3000/Docs', docs)
+          .post('https://hidden-fortress-80148.herokuapp.com/Docs', docs)
           .then((response) => {
             console.log(response);
           })

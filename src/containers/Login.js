@@ -37,7 +37,7 @@ import LockRoundedIcon from '@material-ui/icons/LockRounded';
       handleSubmit (event) {
         event.preventDefault();
         console.log(this.state.userName);
-        fetch('http://127.0.0.1:3000/users/'+this.state.userName+'/'+this.state.password)
+        fetch('https://hidden-fortress-80148.herokuapp.com/users/'+this.state.userName+'/'+this.state.password)
         .then(function(response) {
           if (response.status >= 400) {
               throw new Error("Bad response from server");
@@ -74,7 +74,7 @@ import LockRoundedIcon from '@material-ui/icons/LockRounded';
           {
             console.log(user);
             axios
-            .post('http://127.0.0.1:3000/LoginFB',user)
+            .post('https://hidden-fortress-80148.herokuapp.com/LoginFB',user)
             .then((response) => {
               alert(response.data);
               window.location.href = "https://comunitate.netlify.app";
@@ -101,7 +101,7 @@ import LockRoundedIcon from '@material-ui/icons/LockRounded';
           
             console.log(user);
             axios
-            .post('http://127.0.0.1:3000/LoginGoogle',user)
+            .post('https://hidden-fortress-80148.herokuapp.com/LoginGoogle',user)
             .then((response) =>{
               console.log(response.data);
               alert(response.data);

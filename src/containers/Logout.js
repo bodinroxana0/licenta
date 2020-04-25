@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 class Logout extends Component {
     constructor(props) {
       super(props);
-      fetch('http://127.0.0.1:3000/logout')
+      fetch('https://hidden-fortress-80148.herokuapp.com/logout')
         .then(function(response) {
           if (response.status >= 400) {
               throw new Error("Bad response from server");
