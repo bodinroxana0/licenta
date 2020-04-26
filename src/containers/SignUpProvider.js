@@ -253,25 +253,23 @@ function printString2(callback){
         const docs={path2,userName};
         axios
           .post('https://hidden-fortress-80148.herokuapp.com/SignUpProvider', user)
-          .then((response) => {
-            console.log(response);
-            alert(response);
-            axios
+          .then((data) => {
+            console.log(data.response);
+          })
+          .catch(err => {
+            console.error(err);
+          }); 
+          if(data.response='ok'){
+          axios
             .post('https://hidden-fortress-80148.herokuapp.com/Docs', docs)
             .then((response) => {
-              console.log(response);
+              alert(response);
               window.location.href = "https://comunitate.netlify.app/Login";
             })
             .catch(err => {
               console.error(err);
             }); 
-          })
-          .catch(err => {
-            console.error(err);
-          }); 
-       
-          
-        
+          }
      }
       
       //novalidate disables browser default feedback
