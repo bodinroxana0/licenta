@@ -240,8 +240,11 @@ function printString2(callback){
         .then(function(data) {
           var obj=JSON.parse(data);
           for (let i = 0; i < obj.length; i++) {
-            if(obj[i].ServiceName==service)
+            if(obj[i].ServiceName==this.state.service)
+            {
               services_Id=obj[i].Id;
+              console.log(services_Id);
+            }
           }
         })
         .catch(err => {
