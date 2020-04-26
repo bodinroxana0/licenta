@@ -257,14 +257,14 @@ function printString2(callback){
             console.error(err);
           }); 
         const docs={path2,userName};
-        //   axios
-        //   .post('https://hidden-fortress-80148.herokuapp.com/Docs', docs)
-        //   .then((response) => {
-        //     console.log(response);
-        //   })
-        //   .catch(err => {
-        //     console.error(err);
-        //   }); 
+          axios
+          .post('https://hidden-fortress-80148.herokuapp.com/Docs', docs)
+          .then((response) => {
+            console.log(response);
+          })
+          .catch(err => {
+            console.error(err);
+          }); 
         })
         .catch(err => {
           console.log('Error!', err);
