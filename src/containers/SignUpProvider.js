@@ -251,28 +251,37 @@ function printString2(callback){
         const user = { userName, password, firstName, lastName, email,phone,city,region,birthdate,domain,services_Id,path, description};
         console.log(user);
         const docs={path2,userName};
-        var resp;
         axios
-          .post('https://hidden-fortress-80148.herokuapp.com/SignUpProvider', user)
-          .then((response) => {
-            console.log(response.data);
-            resp=response.data;
-          })
-          .catch(err => {
-            console.error(err);
-          }); 
-          if(resp='ok'){
-          axios
-            .post('https://hidden-fortress-80148.herokuapp.com/Docs', docs)
-            .then((response) => {
-              alert(response);
-              window.location.href = "https://comunitate.netlify.app/Login";
-            })
-            .catch(err => {
-              console.error(err);
-            }); 
-          }
-     }
+        .post('https://hidden-fortress-80148.herokuapp.com/SignUpProvider', user)
+        .then(() =>{
+          alert('Contul a fost creat cu succes!')
+          window.location.href = "https://comunitate.netlify.app/Login";
+        })
+        .catch(err => {
+          console.error(err);
+        });
+      }
+    //     axios
+    //       .post('https://hidden-fortress-80148.herokuapp.com/SignUpProvider', user)
+    //       .then((response) => {
+    //         console.log(response.data);
+    //         resp=response.data;
+    //       })
+    //       .catch(err => {
+    //         console.error(err);
+    //       }); 
+    //       if(resp='ok'){
+    //       axios
+    //         .post('https://hidden-fortress-80148.herokuapp.com/Docs', docs)
+    //         .then((response) => {
+    //           alert(response.data);
+    //           window.location.href = "https://comunitate.netlify.app/Login";
+    //         })
+    //         .catch(err => {
+    //           console.error(err);
+    //         }); 
+    //       }
+    //  }
       
       //novalidate disables browser default feedback
       //controlId is super important, it must have the same name as the variable!if not , then the select will not set anything
