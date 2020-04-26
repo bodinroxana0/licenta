@@ -229,7 +229,7 @@ function printString2(callback){
         event.preventDefault();
         const { userName,password ,firstName, lastName, email,phone,city,region,birthdate,domain,service,description } = this.state;
         var services_Id=0;
-        
+        console.log(service);
         fetch('https://hidden-fortress-80148.herokuapp.com/services/'+domain)
         .then(function(response) {
           if (response.status >= 400) {
@@ -240,7 +240,7 @@ function printString2(callback){
         .then(function(data) {
           var obj=JSON.parse(data);
           for (let i = 0; i < obj.length; i++) {
-            if(obj[i].ServiceName==this.state.service)
+            if(obj[i].ServiceName==service)
             {
               services_Id=obj[i].Id;
               console.log(services_Id);
