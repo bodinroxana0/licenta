@@ -185,6 +185,10 @@ class Provider extends Component {
              .then(function(data) {
                var obj=JSON.parse(data);
                var select = document.getElementById("city");
+              var option = document.createElement("option");
+              option.text = 'Alege un oras ...';
+              select.add(option);
+              select.options[0].disabled = true;
                obj.sort((a,b) => (a.city_name > b.city_name) ? 1 : ((b.city_name > a.city_name) ? -1 : 0)); 
                for (let i = 0; i < obj.length; i++) {
                  var option = document.createElement("option");
@@ -253,7 +257,10 @@ class Provider extends Component {
               .then(function(data) {
                 var obj=JSON.parse(data);
                 var select = document.getElementById("service");
-                
+                var option = document.createElement("option");
+                option.text = 'Alege un serviciu ...';
+                select.add(option);
+                select.options[0].disabled = true;
                 for (let i = 0; i < obj.length; i++) {
                   var option = document.createElement("option");
                   option.text = obj[i].ServiceName;
