@@ -254,7 +254,7 @@ function printString2(callback){
         axios
         .post('https://hidden-fortress-80148.herokuapp.com/SignUpProvider', user)
         .then(() =>{
-          alert('Contul a fost creat cu succes!')
+          alert('Contul a fost creat cu succes!');
           window.location.href = "https://comunitate.netlify.app/Login";
         })
         .catch(err => {
