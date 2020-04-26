@@ -261,6 +261,7 @@ function printString2(callback){
           .post('https://hidden-fortress-80148.herokuapp.com/Docs', docs)
           .then((response) => {
             console.log(response);
+            window.location.href = "https://comunitate.netlify.app/";
           })
           .catch(err => {
             console.error(err);
