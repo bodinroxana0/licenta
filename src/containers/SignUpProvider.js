@@ -244,25 +244,24 @@ function printString2(callback){
             {
               services_Id=obj[i].Id;
               console.log(services_Id);
+              const user = { userName, password, firstName, lastName, email,phone,city,region,birthdate,domain,services_Id,path, description};
+              console.log(user);
+              const docs={path2,userName};
+              axios
+              .post('https://hidden-fortress-80148.herokuapp.com/SignUpProvider', user)
+              .then(() =>{
+                alert('Contul a fost creat cu succes!');
+                window.location.href = "https://comunitate.netlify.app/Login";
+              })
+              .catch(err => {
+                console.error(err);
+              });
             }
           }
         })
         .catch(err => {
           console.log('Error!', err);
         })
-        if(services_Id!=0){
-        const user = { userName, password, firstName, lastName, email,phone,city,region,birthdate,domain,services_Id,path, description};
-        console.log(user);
-        const docs={path2,userName};
-        axios
-        .post('https://hidden-fortress-80148.herokuapp.com/SignUpProvider', user)
-        .then(() =>{
-          alert('Contul a fost creat cu succes!');
-          window.location.href = "https://comunitate.netlify.app/Login";
-        })
-        .catch(err => {
-          console.error(err);
-        });
       }
     //     axios
     //       .post('https://hidden-fortress-80148.herokuapp.com/SignUpProvider', user)
@@ -285,7 +284,7 @@ function printString2(callback){
     //         }); 
     //       }
     //  }
-    }
+    
       //novalidate disables browser default feedback
       //controlId is super important, it must have the same name as the variable!if not , then the select will not set anything
       render() {
