@@ -250,24 +250,27 @@ function printString2(callback){
           
         const user = { userName, password, firstName, lastName, email,phone,city,region,birthdate,domain,services_Id,path, description};
         console.log(user);
+        const docs={path2,userName};
         axios
           .post('https://hidden-fortress-80148.herokuapp.com/SignUpProvider', user)
           .then((response) => {
             console.log(response);
+            alert(response);
+            axios
+            .post('https://hidden-fortress-80148.herokuapp.com/Docs', docs)
+            .then((response) => {
+              console.log(response);
+              window.location.href = "https://comunitate.netlify.app/Login";
+            })
+            .catch(err => {
+              console.error(err);
+            }); 
           })
           .catch(err => {
             console.error(err);
           }); 
-        const docs={path2,userName};
-          axios
-          .post('https://hidden-fortress-80148.herokuapp.com/Docs', docs)
-          .then((response) => {
-            console.log(response);
-            window.location.href = "https://comunitate.netlify.app/Login";
-          })
-          .catch(err => {
-            console.error(err);
-          }); 
+       
+          
         
      }
       
