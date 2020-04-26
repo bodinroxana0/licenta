@@ -253,13 +253,13 @@ function printString2(callback){
         const docs={path2,userName};
         axios
           .post('https://hidden-fortress-80148.herokuapp.com/SignUpProvider', user)
-          .then((data) => {
-            console.log(data.response);
+          .then((response) => {
+            console.log(response.data);
           })
           .catch(err => {
             console.error(err);
           }); 
-          if(data.response='ok'){
+          if(response.data='ok'){
           axios
             .post('https://hidden-fortress-80148.herokuapp.com/Docs', docs)
             .then((response) => {
