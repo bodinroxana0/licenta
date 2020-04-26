@@ -239,19 +239,19 @@ function printString2(callback){
         })
         .then(function(data) {
           var obj=JSON.parse(data);
-         // console.log(service);
           for (let i = 0; i < obj.length; i++) {
             if(obj[i].ServiceName==service)
               services_Id=obj[i].Id;
           }
-         // console.log(services_Id); 
+        })
+        .catch(err => {
+          console.log('Error!', err);
+        })
           
         const user = { userName, password, firstName, lastName, email,phone,city,region,birthdate,domain,services_Id,path, description};
         console.log(user);
         axios
-          .post('https://hidden-fortress-80148.herokuapp.com/SignUpProvider', user,{ headers: {
-            'Access-Control-Allow-Origin': '*'}
-          })
+          .post('https://hidden-fortress-80148.herokuapp.com/SignUpProvider', user)
           .then((response) => {
             console.log(response);
           })
@@ -260,20 +260,15 @@ function printString2(callback){
           }); 
         const docs={path2,userName};
           axios
-          .post('https://hidden-fortress-80148.herokuapp.com/Docs', docs,{ headers: {
-            'Access-Control-Allow-Origin': '*'}
-          })
+          .post('https://hidden-fortress-80148.herokuapp.com/Docs', docs)
           .then((response) => {
             console.log(response);
-            window.location.href = "https://comunitate.netlify.app/";
+            window.location.href = "https://comunitate.netlify.app/Login";
           })
           .catch(err => {
             console.error(err);
           }); 
-        })
-        .catch(err => {
-          console.log('Error!', err);
-        })
+        
      }
       
       //novalidate disables browser default feedback
