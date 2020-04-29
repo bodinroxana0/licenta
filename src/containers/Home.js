@@ -30,7 +30,13 @@ class Home extends Component {
         />
         </div>
         <Carousel.Caption>
+          <Row>
           <h1 class="motto">Cel mai ușor mod de a găsi serviciul de care ai nevoie</h1>
+          </Row>
+          <Row>
+            <br></br>
+            <br></br>
+          </Row>
           <Row>
           <Col>
           <LocationCityIcon color="action" fontSize="large"/>

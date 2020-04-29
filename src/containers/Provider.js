@@ -62,7 +62,11 @@ function printProviders(obj,nr){
               image.setAttribute("width", "150");
               image.setAttribute("height", "130");
               image.setAttribute("alt", "provider "+i);
-              
+              cell.appendChild(image);
+              cell.style.backgroundColor="white";
+              row.appendChild(cell);
+
+              var cell2 = document.createElement("td");
               var name = document.createElement("H3");
               var text = document.createTextNode(obj[i].FirstName+" "+obj[i].LastName);
               name.appendChild(text); 
@@ -83,16 +87,16 @@ function printProviders(obj,nr){
               //btn.onclick => showPhone(obj[i].UserName);
               //var phone = document.createTextNode(obj[i].Phone);
               var phone = document.createTextNode('07xxxxxxxx');
-              cell.appendChild(image);
+              
               div.appendChild(name);
               div.appendChild(info);
               div.appendChild(info2);
               btn.appendChild(phone);
               div.appendChild(btn);
-              div.style.cssFloat = "right";
-              cell.appendChild(div);
-              cell.style.backgroundColor="white";
-              row.appendChild(cell);
+              //div.style.cssFloat = "right";
+              cell2.appendChild(div);
+              cell2.style.backgroundColor="white";
+              row.appendChild(cell2);
               x++;
           }
           
