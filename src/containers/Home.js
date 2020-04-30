@@ -35,8 +35,9 @@ class Home extends Component {
       return response.text();
     })
     .then(function(data) {
-      var object=JSON.parse(data); 
-      users=users+object;
+      var object=JSON.parse(data);
+      console.log(object);
+      users=users+object[0];
       
     })
     .catch(err => {
