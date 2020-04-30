@@ -26,7 +26,9 @@ class Home extends Component {
   
   componentDidMount() {
     var users=0;
-    var url = 'https://hidden-fortress-80148.herokuapp.com/provider_count';
+    var cities=0;
+    var services=0;
+    var url = 'https://hidden-fortress-80148.herokuapp.com/cities_count';
     fetch(url)
     .then(function(response) {
       if (response.status >= 400) {
@@ -36,7 +38,25 @@ class Home extends Component {
     })
     .then(function(data) {
       var object=JSON.parse(data);
-      console.log(object[0].count);
+      cities=cities+object[0].count;
+      var city_count=document.getElementById('city');
+      city_count.textContent=cities;
+      console.log(cities);
+      
+    })
+    .catch(err => {
+      console.log('Error!', err);
+    })
+    url = 'https://hidden-fortress-80148.herokuapp.com/provider_count';
+    fetch(url)
+    .then(function(response) {
+      if (response.status >= 400) {
+          throw new Error("Bad response from server");
+      }
+      return response.text();
+    })
+    .then(function(data) {
+      var object=JSON.parse(data);
       users=users+object[0].count;
       
     })
@@ -53,11 +73,29 @@ class Home extends Component {
     })
     .then(function(data) {
       var object=JSON.parse(data); 
-      console.log(object[0].count);
       users=users+object[0].count;
       var user_count=document.getElementById('user');
       user_count.textContent=users;
       console.log(users);
+      
+    })
+    .catch(err => {
+      console.log('Error!', err);
+    })
+    url = 'https://hidden-fortress-80148.herokuapp.com/services_count';
+    fetch(url)
+    .then(function(response) {
+      if (response.status >= 400) {
+          throw new Error("Bad response from server");
+      }
+      return response.text();
+    })
+    .then(function(data) {
+      var object=JSON.parse(data); 
+      services=services+object[0].count;
+      var service_count=document.getElementById('service');
+      service_count.textContent=services;
+      console.log(services);
       
     })
     .catch(err => {
