@@ -42,7 +42,7 @@ class Home extends Component {
     .catch(err => {
       console.log('Error!', err);
     })
-    url = 'https://hidden-fortress-80148.herokuapp.com/user_count';
+    url = 'https://hidden-fortress-80148.herokuapp.com/users_count';
     fetch(url)
     .then(function(response) {
       if (response.status >= 400) {
