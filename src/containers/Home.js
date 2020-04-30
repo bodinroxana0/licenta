@@ -36,8 +36,8 @@ class Home extends Component {
     })
     .then(function(data) {
       var object=JSON.parse(data);
-      console.log(object);
-      users=users+object[0];
+      console.log(object[0].count);
+      users=users+object[0].count;
       
     })
     .catch(err => {
@@ -53,7 +53,8 @@ class Home extends Component {
     })
     .then(function(data) {
       var object=JSON.parse(data); 
-      users=users+object;
+      console.log(object[0].count);
+      users=users+object[0].count;
       var user_count=document.getElementById('user');
       user_count.textContent=users;
       console.log(users);
