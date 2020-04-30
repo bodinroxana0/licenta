@@ -12,13 +12,13 @@ import Container from 'react-bootstrap/Container';
 import '../design/Home.css';
 import Provider from './Provider.js';
 import FacebookLogin from 'react-facebook-login';
-function click_profile(name)
-{
-  var name = $(this).data('username');        
-  if (name != undefined && name != null) {
-      window.location = '/player_detail?username=' + name;
-  }
-}​
+// function click_profile(name)
+// {
+//   var name = $(this).data('username');        
+//   if (name != undefined && name != null) {
+//       window.location = '/player_detail?username=' + name;
+//   }
+// }​
 class Home extends Component {
   constructor(props) {
     super(props);
