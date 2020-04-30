@@ -170,7 +170,6 @@ class Provider extends Component {
            })
          }   
      }
-     
      loadCities(){
        if(!this.state.region==" "){
          if(this.state.city==""){
@@ -206,7 +205,7 @@ class Provider extends Component {
            }
        }
      }
-      loadDomain(){
+    loadDomain(){
         if(!this.state.load2){
            this.setState((state, props) => ({
              load2:true,
@@ -243,7 +242,7 @@ class Provider extends Component {
            })
          }   
       }
-      loadServices(){
+    loadServices(){
         if(!this.state.domain==" "){
           if(this.state.service==""){
               var select = document.getElementById("service");
