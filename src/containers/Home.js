@@ -12,13 +12,7 @@ import Container from 'react-bootstrap/Container';
 import '../design/Home.css';
 import Provider from './Provider.js';
 import FacebookLogin from 'react-facebook-login';
-// function click_profile(name)
-// {
-//   var name = $(this).data('username');        
-//   if (name != undefined && name != null) {
-//       window.location = '/player_detail?username=' + name;
-//   }
-// }​
+
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -39,7 +33,7 @@ class Home extends Component {
     .then(function(data) {
       var object=JSON.parse(data);
       cities=cities+object[0].count;
-      var city_count=document.getElementById('city');
+      var city_count=document.getElementById('cities');
       city_count.textContent=cities;
       console.log(cities);
       
@@ -74,7 +68,7 @@ class Home extends Component {
     .then(function(data) {
       var object=JSON.parse(data); 
       users=users+object[0].count;
-      var user_count=document.getElementById('user');
+      var user_count=document.getElementById('users');
       user_count.textContent=users;
       console.log(users);
       
@@ -93,7 +87,7 @@ class Home extends Component {
     .then(function(data) {
       var object=JSON.parse(data); 
       services=services+object[0].count;
-      var service_count=document.getElementById('service');
+      var service_count=document.getElementById('services');
       service_count.textContent=services;
       console.log(services);
       
@@ -127,17 +121,17 @@ class Home extends Component {
           <Row>
           <Col>
           <LocationCityIcon color="action" fontSize="large"/>
-          <strong class="number" id="city">0</strong>
+          <strong class="number" id="cities">0</strong>
           <span> Orașe și sate</span>
           </Col>
           <Col>
           <FaceIcon color="action" fontSize="large"/>
-          <strong class="number" id="user">0</strong>
+          <strong class="number" id="users">0</strong>
           <span> Utilizatori</span>
           </Col>
           <Col>
           <img class="image" src={Services} alt="Services" width="40" height="40" ></img>
-          <strong class="number" id="service">0</strong>
+          <strong class="number" id="services">0</strong>
           <span> Servicii</span>
           </Col>
           </Row>

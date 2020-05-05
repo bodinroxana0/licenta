@@ -6,7 +6,12 @@ import Col from 'react-bootstrap/Col';
 import Figure from 'react-bootstrap/Figure'
 import Container from 'react-bootstrap/Container';
 import pers1 from '../images/person_1.jpg';
+import Spinner from 'react-bootstrap/Spinner';
 import '../design/Provider.css';
+
+function displayProfile(params) {
+  window.location.href = "https://localhost:3000/Profile/"+params;
+}
 //arata numarul de telefon doar daca esti logat, verifica sesiunea
 function showPhone(username){
   fetch('https://hidden-fortress-80148.herokuapp.com/phone/'+username)
@@ -69,7 +74,19 @@ function printProviders(obj,nr){
               var cell2 = document.createElement("td");
               var name = document.createElement("H3");
               var text = document.createTextNode(obj[i].FirstName+" "+obj[i].LastName);
-              name.appendChild(text); 
+              name.id="?FirstName="+obj[i].FirstName+"&LastName="+obj[i].LastName;
+              name.addEventListener("click", function(){
+                displayProfile(this.id);
+              });
+              name.addEventListener("mouseenter", function( event ) {   
+                // highlight the mouseenter target
+                event.target.style.backgroundColor = " #f2f2f2";
+                 // reset the color after a short delay
+                setTimeout(function() {
+                  event.target.style.backgroundColor = "";
+                }, 2000);
+              }, false);      
+              name.appendChild(text);
 
               var info = document.createElement("H5");
               var text = document.createTextNode(obj[i].City+", "+obj[i].Region);
@@ -84,8 +101,6 @@ function printProviders(obj,nr){
               btn.addEventListener("click", function(){
                 showPhone(this.name);
               });
-              //btn.onclick => showPhone(obj[i].UserName);
-              //var phone = document.createTextNode(obj[i].Phone);
               var phone = document.createTextNode('07xxxxxxxx');
               
               div.appendChild(name);
@@ -235,7 +250,6 @@ class Provider extends Component {
                  x.add(option);
               }
             }
-             
            })
            .catch(err => {
              console.log('Error!', err);
@@ -245,10 +259,10 @@ class Provider extends Component {
     loadServices(){
         if(!this.state.domain==" "){
           if(this.state.service==""){
-              var select = document.getElementById("service");
-              var length = select.options.length;
+              var sel = document.getElementById("service");
+              var length = sel.options.length;
               for (let i = length-1; i >= 0; i--) {
-                select.options[i] = null;
+                sel.options[i] = null;
               }
           fetch('https://hidden-fortress-80148.herokuapp.com/services/'+this.state.domain)
               .then(function(response) {
@@ -259,15 +273,15 @@ class Provider extends Component {
               })
               .then(function(data) {
                 var obj=JSON.parse(data);
-                var select = document.getElementById("service");
+                var sel = document.getElementById("service");
                 var option = document.createElement("option");
                 option.text = 'Alege un serviciu ...';
-                select.add(option);
-                select.options[0].disabled = true;
+                sel.add(option);
+                sel.options[0].disabled = true;
                 for (let i = 0; i < obj.length; i++) {
                   var option = document.createElement("option");
                   option.text = obj[i].ServiceName;
-                  select.add(option);
+                  sel.add(option);
                 }
               })
               .catch(err => {
@@ -394,14 +408,14 @@ class Provider extends Component {
                     >
                  </Form.Control>
                 </Form.Group>
-                <Form.Group as={Col} controlId="service" bssize="large">
+                <Form.Group as={Col} controlId="service">
                 <Form.Control as="select" 
                     onLoad={this.loadServices()}
                     value={this.state.service}
                     onChange={this.handleChange}
                     />
                 </Form.Group>
-                <Form.Group as={Col} controlId="region" bssize="large">
+                <Form.Group as={Col} controlId="region">
                 <Form.Control as="select"
                     onLoad={this.loadCounties()}
                     value={this.state.region}
@@ -409,14 +423,14 @@ class Provider extends Component {
                     >
                  </Form.Control>
                 </Form.Group>
-                <Form.Group as={Col} controlId="city" bssize="large">
+                <Form.Group as={Col} controlId="city">
                 <Form.Control as="select" 
                     onLoad={this.loadCities()}
                     value={this.state.city}
                     onChange={this.handleChange}
                     />
                 </Form.Group>
-                <Form.Group as={Col} controlId="search" bssize="large">
+                <Form.Group as={Col} controlId="search" >
                 <Button
                   block
                   type="submit"
@@ -424,6 +438,9 @@ class Provider extends Component {
                 Caută
                 </Button>
                 </Form.Group>
+                <div id="center">
+                    <Spinner id="spinner" animation="border" variant="secondary" />
+                </div>
           </Form.Row>
           </Form>
          
