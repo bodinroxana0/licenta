@@ -10,7 +10,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import '../design/Provider.css';
 
 function displayProfile(params) {
-  window.location.href = "https://localhost:3000/Profile/"+params;
+  window.location.href = "https://comunitate.netlify.app/Profile/"+params;
 }
 //arata numarul de telefon doar daca esti logat, verifica sesiunea
 function showPhone(username){
