@@ -109,7 +109,7 @@ import GoogleLogin from 'react-google-login';
           .post('https://hidden-fortress-80148.herokuapp.com/SignUpUser', user)
           .then(() =>{
             alert('Contul a fost creat cu succes!')
-            window.location.href = "https://localhost:3001/Login";
+            window.location.href = "https://localhost:3000/Login";
           })
           .catch(err => {
             console.error(err);
@@ -138,7 +138,7 @@ import GoogleLogin from 'react-google-login';
             .post('https://hidden-fortress-80148.herokuapp.com/LoginFB',user)
             .then((response) => {
               alert(response);
-              window.location.href = "https://localhost:3001/";
+              window.location.href = "https://localhost:3000/";
             })
             .catch(err => {
               console.error(err);
@@ -169,7 +169,7 @@ import GoogleLogin from 'react-google-login';
               // var navbar=document.getElementById("intra");
               // var nav0=navbar.getElementsByTagName("a")[1];
               // nav0.style.display="none";
-              window.location.href = "https://localhost:3001/";
+              window.location.href = "https://localhost:3000/";
             })
             .catch(err => {
               console.error(err);

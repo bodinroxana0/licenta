@@ -14,7 +14,7 @@ class Logout extends Component {
           alert('V-ati deconectat cu succes!');
           if(data=="ok")
           {
-            window.location.href = "https://localhost:3001";
+            window.location.href = "https://localhost:3000";
           }
         })
         .catch(err => {
