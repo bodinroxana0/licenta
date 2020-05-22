@@ -36,7 +36,7 @@ import LockRoundedIcon from '@material-ui/icons/LockRounded';
       
       handleSubmit (event) {
         event.preventDefault();
-        console.log(this.state.userName);
+        //console.log(this.state.userName);
         fetch('https://hidden-fortress-80148.herokuapp.com/users/'+this.state.userName+'/'+this.state.password)
         .then(function(response) {
           if (response.status >= 400) {
@@ -45,17 +45,25 @@ import LockRoundedIcon from '@material-ui/icons/LockRounded';
           return response.text();
         })
         .then(function(data) {
-          alert(data);
-          if(data!="Nume sau parolă incorectă!")
+          console.log(data);
+          if(data=="wrong")
           {
-            window.location.href = "https://localhost:3000";
+            alert("Nume sau Parolă incorectă!");
+          }
+          else
+          {
+            alert('Bun venit, '+data+" !");
+            window.location.href = "https://localhost:3000?user="+data;
           }
         })
         .catch(err => {
           console.log('Error!', err);
         })
       }
-      
+      componentDidMount() {
+        var user = document.getElementsByClassName("collasible-nav-dropdown")[0];
+        user.style.display = "none";
+      }
       render() {
         const responseFacebook = (response) => {
           console.log(response);
@@ -76,8 +84,13 @@ import LockRoundedIcon from '@material-ui/icons/LockRounded';
             axios
             .post('https://hidden-fortress-80148.herokuapp.com/LoginFB',user)
             .then((response) => {
-              alert(response.data);
-              window.location.href = "https://localhost:3000";
+              alert('Bun venit, '+response.data+" !");
+              // var login = document.getElementsByClassName("mr-auto")[2];
+              // login.style.display = "none";
+              window.location.href = "https://localhost:3000?user="+response.data;
+            //   .mr-auto .collasible-nav-dropdown{
+            //     display: none;
+            // }
             })
             .catch(err => {
               console.error(err);
@@ -104,8 +117,8 @@ import LockRoundedIcon from '@material-ui/icons/LockRounded';
             .post('https://hidden-fortress-80148.herokuapp.com/LoginGoogle',user)
             .then((response) =>{
               console.log(response.data);
-              alert(response.data);
-              window.location.href = "https://localhost:3000";
+              alert('Bun venit, '+response.data+" !");
+              window.location.href = "https://localhost:3000?user="+response.data;
             })
             .catch(err => {
               console.error(err);

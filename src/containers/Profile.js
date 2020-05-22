@@ -93,6 +93,7 @@ class Profile extends Component {
         var dialog = document.getElementById("dialog");
         dialog.style.display = "none";
         centerpoint.style.display = "none";
+        window.location.href = window.location.pathname + window.location.search + window.location.hash;
       }.bind(this));
       btn_nu.addEventListener("click", function () {
         var dialog = document.getElementById("dialog");
@@ -105,13 +106,25 @@ class Profile extends Component {
       centerpoint.style.display = "block";
     }
   componentDidMount() {
+    ///navbar
+    var user = document.getElementsByClassName("collasible-nav-dropdown")[0];
+    var connect = document.getElementsByClassName("signup")[0];
+    var login = document.getElementsByClassName("login")[0];
+    user.style.display = "block";
+    connect.style.display = "none";
+    login.style.display = "none";
+    ////confirmation box
     var centerpoint = document.getElementById("centerpoint");
     var dialog = document.getElementById("dialog");
     dialog.style.display = "none";
     centerpoint.style.display = "none";
+    //take param name from url
     var url = window.location.href;
     var firstName = getUrlVars()["FirstName"];
     var lastName = getUrlVars()["LastName"];
+    var user = getUrlVars()["user"];
+    var title=document.getElementsByClassName("text-primary")[0];
+        title.innerHTML=user;
     console.log(firstName);
     console.log(lastName);
     fetch("https://hidden-fortress-80148.herokuapp.com/provider/" + firstName + "/" + lastName)

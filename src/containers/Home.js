@@ -12,13 +12,59 @@ import Container from 'react-bootstrap/Container';
 import '../design/Home.css';
 import Provider from './Provider.js';
 import FacebookLogin from 'react-facebook-login';
-
+function getUrlVars() {
+  var vars = {};
+  var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+    vars[key] = value;
+  });
+  return vars;
+}
 class Home extends Component {
   constructor(props) {
     super(props);
   }
   
   componentDidMount() {
+    var user = document.getElementsByClassName("collasible-nav-dropdown")[0];
+    var connect = document.getElementsByClassName("signup")[0];
+    var login = document.getElementsByClassName("login")[0];
+    user.style.display = "none";
+    connect.style.display = "block";
+    login.style.display = "block";
+    var username = getUrlVars()["user"];
+    console.log(username);
+    var url = 'https://hidden-fortress-80148.herokuapp.com/logged';
+    fetch(url)
+    .then(function(response) {
+      if (response.status >= 400) {
+          throw new Error("Bad response from server");
+      }
+      return response.text();
+    })
+    .then(function(data) {
+      if(data!="Null") 
+      {
+        user.style.display = data;
+        if(data=="block"){
+          connect.style.display = "none";
+          login.style.display = "none";
+        }
+        else
+        {
+          connect.style.display ="block";
+          login.style.display = "block";
+        }
+      }
+      if(username)
+      {
+        var title=document.getElementsByClassName("text-primary")[0];
+        title.innerHTML=username;
+      }
+      console.log(data);
+    })
+    .catch(err => {
+      console.log('Error!', err);
+    })
     var users=0;
     var cities=0;
     var services=0;

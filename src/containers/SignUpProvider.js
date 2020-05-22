@@ -157,6 +157,9 @@ function printString2(callback){
            option.text = 'Alege un domeniu ...';
             x.add(option);
             x.options[0].disabled = true;
+            var option2 = document.createElement("option");
+           option2.text = '...';
+            x.add(option2);
            var unique=[0];
            for (let i = 0; i < obj.length; i++) {
             var option = document.createElement("option");
@@ -221,9 +224,24 @@ function printString2(callback){
         })
       }
       handleChange = event => {
+          if(event.target.id=="region"){
           this.setState({
               [event.target.id]: event.target.value
           });
+          this.setState({
+            city:""
+        });
+          this.setState({
+            domain:""
+        });
+        console.log("am setat");
+        }
+        else{
+          this.setState({
+            [event.target.id]: event.target.value
+        });
+        }
+
       }
       handleSubmit (event) {
         event.preventDefault();

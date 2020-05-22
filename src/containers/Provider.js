@@ -8,9 +8,36 @@ import Container from 'react-bootstrap/Container';
 import pers1 from '../images/person_1.jpg';
 import Spinner from 'react-bootstrap/Spinner';
 import '../design/Provider.css';
-
+function getUrlVars() {
+  var vars = {};
+  var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+    vars[key] = value;
+  });
+  return vars;
+}
 function displayProfile(params) {
-  window.location.href = "https://localhost:3000/Profile/"+params;
+    var username = getUrlVars()["user"];
+    console.log(username);
+    var url = 'https://hidden-fortress-80148.herokuapp.com/logged';
+    fetch(url)
+    .then(function(response) {
+      if (response.status >= 400) {
+          throw new Error("Bad response from server");
+      }
+      return response.text();
+    })
+    .then(function(data) {
+      if(data!="Null" && data!="none") 
+      {
+        window.location.href = "https://localhost:3000/Profile/"+params+"&user="+username;
+      }
+      else
+        alert("Trebuie să vă logați ca să vedeți mai multe informații!");
+    })
+    .catch(err => {
+      console.log('Error!', err);
+    })
+ 
 }
 //arata numarul de telefon doar daca esti logat, verifica sesiunea
 function showPhone(username){
@@ -36,8 +63,6 @@ function showPhone(username){
     console.log('Error!', err);
   })
 }
-
-
 function printProviders(obj,nr){
   var x=0;
   var body = document.getElementsByTagName("body")[0];
@@ -120,7 +145,6 @@ function printProviders(obj,nr){
           body.style.backgroundColor="#f2f2f2";
           body.appendChild(tbl);
 }
-
 function bufferFromBufferString(bufferStr) {
   return Buffer.from(
       bufferStr
@@ -291,9 +315,30 @@ class Provider extends Component {
         }
       }
       handleChange = event => {
-        this.setState({
-          [event.target.id]: event.target.value
+        if(event.target.id=="region"){
+          this.setState({
+              [event.target.id]: event.target.value
+          });
+          this.setState({
+            city:""
+         });
+        console.log("am setat");
+        }
+        else if(event.target.id=="domain"){
+          this.setState({
+              [event.target.id]: event.target.value
+          });
+          this.setState({
+            service:""
+         });
+        console.log("am setat2");
+        }
+        else{
+          this.setState({
+            [event.target.id]: event.target.value
         });
+        }
+
       }
       handleSubmit (event) {
         event.preventDefault();
@@ -397,7 +442,6 @@ class Provider extends Component {
     render(){
       return (
         <div class="background">
-       <br></br><br></br>
         <Form onSubmit={this.handleSubmit}>
         <Form.Row>
                 <Form.Group as={Col} controlId="domain" bssize="large">
@@ -438,9 +482,9 @@ class Provider extends Component {
                 Caută
                 </Button>
                 </Form.Group>
-                <div id="center">
+                {/* <div id="center">
                     <Spinner id="spinner" animation="border" variant="secondary" />
-                </div>
+                </div> */}
           </Form.Row>
           </Form>
          
