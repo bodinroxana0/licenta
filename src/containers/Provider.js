@@ -8,7 +8,7 @@ import Container from 'react-bootstrap/Container';
 import pers1 from '../images/person_1.jpg';
 import Spinner from 'react-bootstrap/Spinner';
 import '../design/Provider.css';
-const ENDPOINT="https://localhost:3000";//"https://comunitate.netlify.app";
+const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
 
 function getUrlVars() {
   var vars = {};
