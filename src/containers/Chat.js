@@ -62,6 +62,8 @@ function message(user,mess,SendingTime){
 }
 
 function printChat(obj,obj2) {
+  
+  console.log("am intrat");
   var sender = getUrlVars()["Sender"];
   var receiver = getUrlVars()["Receiver"];
   Array.prototype.push.apply(obj,obj2); 
@@ -172,6 +174,43 @@ class Chat extends Component {
     var name=Sender;
     socket.emit('join', {name,room}, ()=>{
     });
+    fetch(ENDPOINT+"/chat/" + Sender + "/" + Receiver)
+      .then(function (response) {
+        if (response.status >= 400) {
+          throw new Error("Bad response from server");
+        }
+        return response.text();
+      })
+      .then(function (data) {
+        object1 = JSON.parse(data);
+        console.log(object1);
+      })
+      .catch(err => {
+        console.log('Error!', err);
+      })
+      fetch(ENDPOINT+"/chat/" + Receiver + "/" + Sender)
+      .then(function (response) {
+        if (response.status >= 400) {
+          throw new Error("Bad response from server");
+        }
+        return response.text();
+      })
+      .then(function (data) {
+        var object2 = JSON.parse(data);
+      try{
+        console.log(object2);
+        printChat(object1,object2);
+        console.log("am iesit");
+      }
+      catch{
+        console.log("obiectul 2 nu e incarcat");
+      }
+
+      })
+      .catch(err => {
+        console.log('Error!', err);
+      })
+    
   }
   
   //   // Setup the `beforeunload` event listener
@@ -199,42 +238,43 @@ class Chat extends Component {
     title.innerHTML = sender;
    
     var object1;
-    fetch(ENDPOINT+"/chat/" + sender + "/" + receiver)
-      .then(function (response) {
-        if (response.status >= 400) {
-          throw new Error("Bad response from server");
-        }
-        return response.text();
-      })
-      .then(function (data) {
-        object1 = JSON.parse(data);
-       // console.log(object1);
-      })
-      .catch(err => {
-        console.log('Error!', err);
-      })
-      // setTimeout(() => {
-      // }, 2000);
-      fetch(ENDPOINT+"/chat/" + receiver + "/" + sender)
-      .then(function (response) {
-        if (response.status >= 400) {
-          throw new Error("Bad response from server");
-        }
-        return response.text();
-      })
-      .then(function (data) {
-        var object2 = JSON.parse(data);
-        try{
+  //   fetch(ENDPOINT+"/chat/" + sender + "/" + receiver)
+  //     .then(function (response) {
+  //       if (response.status >= 400) {
+  //         throw new Error("Bad response from server");
+  //       }
+  //       return response.text();
+  //     })
+  //     .then(function (data) {
+  //       object1 = JSON.parse(data);
+  //      // console.log(object1);
+  //     })
+  //     .catch(err => {
+  //       console.log('Error!', err);
+  //     })
+  //     // setTimeout(() => {
+  //     // }, 2000);
+  //     fetch(ENDPOINT+"/chat/" + receiver + "/" + sender)
+  //     .then(function (response) {
+  //       if (response.status >= 400) {
+  //         throw new Error("Bad response from server");
+  //       }
+  //       return response.text();
+  //     })
+  //     .then(function (data) {
+  //       var object2 = JSON.parse(data);
+  //       try{
         
-        console.log(object2);
-        printChat(object1,object2);
-      }
-      catch{}
+  //       console.log(object2);
+  //       printChat(object1,object2);
+  //       console.log("am iesit");
+  //     }
+  //     catch{}
 
-      })
-      .catch(err => {
-        console.log('Error!', err);
-      })
+  //     })
+  //     .catch(err => {
+  //       console.log('Error!', err);
+  //    })
     
   }
  
