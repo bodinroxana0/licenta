@@ -178,7 +178,7 @@ class Chat extends Component {
     
    
     var object1;
-    fetch(ENDPOINT+"/chat/" + sender + "/" + receiver)
+    fetch(ENDPOINT+"/chat/" + Sender + "/" + Receiver)
       .then(function (response) {
         if (response.status >= 400) {
           throw new Error("Bad response from server");
@@ -194,7 +194,7 @@ class Chat extends Component {
       })
       // setTimeout(() => {
       // }, 2000);
-      fetch(ENDPOINT+"/chat/" + receiver + "/" + sender)
+      fetch(ENDPOINT+"/chat/" + Receiver + "/" + Sender)
       .then(function (response) {
         if (response.status >= 400) {
           throw new Error("Bad response from server");
