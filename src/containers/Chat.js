@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Table from 'react-bootstrap/Table';
-import Tabs from 'react-bootstrap/Tabs';
-import Tab from 'react-bootstrap/Tab';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import ChatIcon from '@material-ui/icons/Chat';
 import default_img from '../images/user-avatar.png';
@@ -158,7 +155,7 @@ class Chat extends Component {
       } else {
           console.log("There is a problem:", data);
       }
-   });
+    });
     var Sender = getUrlVars()["Sender"];
     var Receiver = getUrlVars()["Receiver"];
     var n = Sender.localeCompare(Receiver);
@@ -175,10 +172,34 @@ class Chat extends Component {
     var name=Sender;
     socket.emit('join', {name,room}, ()=>{
     });
+  }
+  
+  //   // Setup the `beforeunload` event listener
+  //   setupBeforeUnloadListener = () => {
+  //     window.addEventListener("beforeunload", (ev) => {
+  //         ev.preventDefault();
+  //         socket.emit('disconnect');
+  //         socket.off();
+  //     });
+  // };
+  componentDidMount() {
     
+    ///navbar
+    var user = document.getElementsByClassName("collasible-nav-dropdown")[0];
+    var connect = document.getElementsByClassName("signup")[0];
+    var login = document.getElementsByClassName("login")[0];
+    user.style.display = "block";
+    connect.style.display = "none";
+    login.style.display = "none";
+    //take param name from url
+    var url = window.location.href;
+    var sender = getUrlVars()["Sender"];
+    var receiver = getUrlVars()["Receiver"];
+    var title = document.getElementsByClassName("text-primary")[0];
+    title.innerHTML = sender;
    
     var object1;
-    fetch(ENDPOINT+"/chat/" + Sender + "/" + Receiver)
+    fetch(ENDPOINT+"/chat/" + sender + "/" + receiver)
       .then(function (response) {
         if (response.status >= 400) {
           throw new Error("Bad response from server");
@@ -194,7 +215,7 @@ class Chat extends Component {
       })
       // setTimeout(() => {
       // }, 2000);
-      fetch(ENDPOINT+"/chat/" + Receiver + "/" + Sender)
+      fetch(ENDPOINT+"/chat/" + receiver + "/" + sender)
       .then(function (response) {
         if (response.status >= 400) {
           throw new Error("Bad response from server");
@@ -214,30 +235,6 @@ class Chat extends Component {
       .catch(err => {
         console.log('Error!', err);
       })
-    
-  }
-  
-  //   // Setup the `beforeunload` event listener
-  //   setupBeforeUnloadListener = () => {
-  //     window.addEventListener("beforeunload", (ev) => {
-  //         ev.preventDefault();
-  //         socket.emit('disconnect');
-  //         socket.off();
-  //     });
-  // };
-  componentDidMount() {
-    ///navbar
-    var user = document.getElementsByClassName("collasible-nav-dropdown")[0];
-    var connect = document.getElementsByClassName("signup")[0];
-    var login = document.getElementsByClassName("login")[0];
-    user.style.display = "block";
-    connect.style.display = "none";
-    login.style.display = "none";
-    //take param name from url
-    var url = window.location.href;
-    var sender = getUrlVars()["Sender"];
-    var title = document.getElementsByClassName("text-primary")[0];
-    title.innerHTML = sender;
     
   }
  

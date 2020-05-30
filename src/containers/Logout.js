@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Form from 'react-bootstrap/Form';
 const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
 
 class Logout extends Component {

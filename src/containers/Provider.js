@@ -1,12 +1,7 @@
 import React, { Component } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Figure from 'react-bootstrap/Figure'
-import Container from 'react-bootstrap/Container';
-import pers1 from '../images/person_1.jpg';
-import Spinner from 'react-bootstrap/Spinner';
 import '../design/Provider.css';
 const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
 

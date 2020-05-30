@@ -9,7 +9,6 @@ import BuildIcon from '@material-ui/icons/Build';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import SignUpUser from "./SignUpUser";
 import SignUpProvider from "./SignUpProvider";
-import Button from 'react-bootstrap/Button';
 import $ from 'jquery';
 import "../design/SignUp.css";
 
