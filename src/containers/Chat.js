@@ -203,13 +203,13 @@ class Chat extends Component {
       .catch(err => {
         console.log('Error!', err);
       })
-     
-      while(object1==null || object2==null){
-        setTimeout(() => {
-        }, 2000);
+      setTimeout(() => {
+      }, 2000);
+      if(object1==null || object2==null){
         console.log(".");
       }
-      printChat(object1,object2);
+      else
+        printChat(object1,object2);
   }
   
   //   // Setup the `beforeunload` event listener
