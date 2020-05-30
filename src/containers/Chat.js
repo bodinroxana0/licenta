@@ -45,13 +45,17 @@ function message(user,mess,SendingTime){
   if(user==sender)
   {
     div.id = "left";
+    div.style.paddingLeft="50px";
     div2.id="right";
+    div2.style.paddingRight="50px";
     info2.style.backgroundColor="#99e6ff";
   }
   else
   {
     div.id="right";
+    div.style.paddingRight="50px";
     div2.id="left";
+    div2.style.paddingLeft="50px";
     info2.style.backgroundColor="#D3D3D3";
   }
   //div2.style.paddingBottom="100px";
@@ -263,6 +267,7 @@ class Chat extends Component {
     {
       socket.emit('sendmessage', Message,SendingTime, ()=>{
         this.setState({message:""});
+        console.log("after:"+this.state.message);
       });
     }
     axios

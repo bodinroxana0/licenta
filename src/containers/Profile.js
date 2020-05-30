@@ -188,7 +188,7 @@ class Profile extends Component {
                 <Button size="lg" 
                 onClick={function openChat(){
                   var sender=getUrlVars()["user"];
-                  window.location.href = ENDPOINT+"/Chat?Sender="+sender+"&Receiver="+username;
+                  window.location.href = ENDPOINT+"/Chat/?Sender="+sender+"&Receiver="+username;
                 }}
                 >Trimite mesaj</Button>
                 </div>
