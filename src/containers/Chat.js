@@ -61,12 +61,12 @@ function message(user,mess,SendingTime){
   body.appendChild(br2);
 }
 
-function printChat(obj,obj2) {
+function printChat(obj) {
   
   console.log("am intrat");
   var sender = getUrlVars()["Sender"];
   var receiver = getUrlVars()["Receiver"];
-  Array.prototype.push.apply(obj,obj2); 
+  //Array.prototype.push.apply(obj,obj2); 
   console.log(obj);
   obj.sort((a, b) => (a.SendingTime > b.SendingTime) ? 1 : -1);
   var body = document.getElementsByClassName("box")[0];
@@ -175,7 +175,6 @@ class Chat extends Component {
     socket.emit('join', {name,room}, ()=>{
     });
     
-    var object1,object2;
     fetch(ENDPOINT+"/chat/" + Sender + "/" + Receiver)
       .then(function (response) {
         if (response.status >= 400) {
@@ -184,32 +183,18 @@ class Chat extends Component {
         return response.text();
       })
       .then(function (data) {
-        object1 = JSON.parse(data);
+        var object1 = JSON.parse(data);
+        try{
         console.log(object1);
-      })
-      .catch(err => {
-        console.log('Error!', err);
-      })
-      fetch(ENDPOINT+"/chat/" + Receiver + "/" + Sender)
-      .then(function (response) {
-        if (response.status >= 400) {
-          throw new Error("Bad response from server");
+        printChat(object1);
         }
-        return response.text();
-      })
-      .then(function (data) {
-        object2 = JSON.parse(data);
+        catch{
+          console.log("nu s-a incarcat");
+        }
       })
       .catch(err => {
         console.log('Error!', err);
       })
-      setTimeout(() => {
-      }, 2000);
-      if(object1==null || object2==null){
-        console.log(".");
-      }
-      else
-        printChat(object1,object2);
   }
   
   //   // Setup the `beforeunload` event listener
