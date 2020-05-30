@@ -83,8 +83,6 @@ class Profile extends Component {
         const {rating}=this.state;
         const user_rating={username,rating};
         
-        console.log(username);
-        console.log(user_rating);
         axios
               .post('https://hidden-fortress-80148.herokuapp.com/rating', user_rating)
               .then((response) => {
@@ -130,8 +128,6 @@ class Profile extends Component {
     var user = getUrlVars()["user"];
     var title=document.getElementsByClassName("text-primary")[0];
         title.innerHTML=user;
-    console.log(firstName);
-    console.log(lastName);
     fetch("https://hidden-fortress-80148.herokuapp.com/provider/" + firstName + "/" + lastName)
       .then(function (response) {
         if (response.status >= 400) {
@@ -141,7 +137,6 @@ class Profile extends Component {
       })
       .then(function (data) {
         var object = JSON.parse(data);
-        console.log(object);
         printProfile(object);
         no=object[0].Rating;
        
