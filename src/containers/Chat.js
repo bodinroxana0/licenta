@@ -158,20 +158,7 @@ class Chat extends Component {
       } else {
           console.log("There is a problem:", data);
       }
-  });
-  }
-  
-  //   // Setup the `beforeunload` event listener
-  //   setupBeforeUnloadListener = () => {
-  //     window.addEventListener("beforeunload", (ev) => {
-  //         ev.preventDefault();
-  //         socket.emit('disconnect');
-  //         socket.off();
-  //     });
-  // };
-  componentDidMount() {
-     // Activate the event listener
-     //this.setupBeforeUnloadListener();
+   });
     var Sender = getUrlVars()["Sender"];
     var Receiver = getUrlVars()["Receiver"];
     var n = Sender.localeCompare(Receiver);
@@ -239,6 +226,19 @@ class Chat extends Component {
       .catch(err => {
         console.log('Error!', err);
       })
+    
+  }
+  
+  //   // Setup the `beforeunload` event listener
+  //   setupBeforeUnloadListener = () => {
+  //     window.addEventListener("beforeunload", (ev) => {
+  //         ev.preventDefault();
+  //         socket.emit('disconnect');
+  //         socket.off();
+  //     });
+  // };
+  componentDidMount() {
+    
     
   }
  
