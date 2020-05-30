@@ -10,12 +10,10 @@ import GoogleLogin from 'react-google-login';
 import PersonIcon from '@material-ui/icons/Person';
 import LockRoundedIcon from '@material-ui/icons/LockRounded';
 const ENDPOINT="https://comunitate.netlify.app";
-
     class Login extends Component {
       constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
-      
         this.state = {
           userName: "",
           password: ""
@@ -35,7 +33,6 @@ const ENDPOINT="https://comunitate.netlify.app";
       
       handleSubmit (event) {
         event.preventDefault();
-        //console.log(this.state.userName);
         fetch('https://hidden-fortress-80148.herokuapp.com/users/'+this.state.userName+'/'+this.state.password)
         .then(function(response) {
           if (response.status >= 400) {
@@ -84,12 +81,7 @@ const ENDPOINT="https://comunitate.netlify.app";
             .post('https://hidden-fortress-80148.herokuapp.com/LoginFB',user)
             .then((response) => {
               alert('Bun venit, '+response.data+" !");
-              // var login = document.getElementsByClassName("mr-auto")[2];
-              // login.style.display = "none";
               window.location.href = ENDPOINT+"?user="+response.data;
-            //   .mr-auto .collasible-nav-dropdown{
-            //     display: none;
-            // }
             })
             .catch(err => {
               console.error(err);
