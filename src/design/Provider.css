@@ -120,6 +120,10 @@ p{
   display: inline-block; 
   border-radius: 5px;
 }
+.chat .box {
+  height: 1466px;
+}
+/*
 #left {
   float: left;
   text-align: left;
@@ -131,7 +135,7 @@ p{
   text-align: right;
   padding-right: 50px;
 }
-/* .chat .body{
+ .chat .body{
   padding-bottom: 50px;
 } */
 

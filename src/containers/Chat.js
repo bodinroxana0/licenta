@@ -25,7 +25,7 @@ function getUrlVars() {
 function message(user,mess,SendingTime){
   console.log(SendingTime);
   var sender = getUrlVars()["Sender"];
-  var body = document.getElementsByTagName("body")[0];
+  var body = document.getElementsByClassName("box")[0];
   //clock time
   var div = document.createElement("DIV");
   var info = document.createElement("P");
@@ -54,7 +54,7 @@ function message(user,mess,SendingTime){
     div2.style.textAlign="left";
     info2.style.backgroundColor="#D3D3D3";
   }
-  div2.style.paddingBottom="100px";
+  //div2.style.paddingBottom="100px";
   div2.appendChild(info2);
   body.appendChild(div);
   body.appendChild(div2);
@@ -68,7 +68,7 @@ function printChat(obj,obj2) {
   Array.prototype.push.apply(obj,obj2); 
   //console.log(obj);
   obj.sort((a, b) => (a.SendingTime > b.SendingTime) ? 1 : -1);
-  var body = document.getElementsByTagName("body")[0];
+  var body = document.getElementsByClassName("box")[0];
   var day="0";
   //for one message
   for (var i = 0; i < obj.length; i++) {
@@ -105,14 +105,14 @@ function printChat(obj,obj2) {
     div2.appendChild(info2);
     if(obj[i].Sender==sender)
     {
-      div.id = "left";
-      div2.id="right";
+      div.style.textAlign = "left";
+      div2.style.textAlign="right";
       info2.style.backgroundColor="#99e6ff";
     }
     else
     {
-      div.id="right";
-      div2.id="left";
+      div.style.textAlign="right";
+      div2.style.textAlign="left";
       info2.style.backgroundColor="#D3D3D3";
     }
      if(i==obj.length-1)
@@ -283,8 +283,8 @@ class Chat extends Component {
     return (
       
       <div className="chat">
-        <body>
-        </body>
+        <div className="box">
+        </div>
         <div className="messagebox">
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="message">
