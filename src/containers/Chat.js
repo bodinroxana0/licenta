@@ -26,6 +26,7 @@ function message(user,mess,SendingTime){
   console.log(SendingTime);
   var sender = getUrlVars()["Sender"];
   var body = document.getElementsByClassName("box")[0];
+  console.log(body.className);
   //clock time
   var div = document.createElement("DIV");
   var info = document.createElement("P");
@@ -44,7 +45,7 @@ function message(user,mess,SendingTime){
   info2.style.fontSize="large";
   if(user==sender)
   {
-    div.style.textAlign = "left";
+    div.style.textAlign= "left";
     div2.style.textAlign="right";
     info2.style.backgroundColor="#99e6ff";
   }
@@ -62,13 +63,15 @@ function message(user,mess,SendingTime){
   var br2 = document.createElement("br");
   body.appendChild(br2);
 }
+
 function printChat(obj,obj2) {
   var sender = getUrlVars()["Sender"];
   var receiver = getUrlVars()["Receiver"];
   Array.prototype.push.apply(obj,obj2); 
-  //console.log(obj);
+  console.log(obj);
   obj.sort((a, b) => (a.SendingTime > b.SendingTime) ? 1 : -1);
   var body = document.getElementsByClassName("box")[0];
+  console.log(body.className);
   var day="0";
   //for one message
   for (var i = 0; i < obj.length; i++) {
@@ -93,8 +96,8 @@ function printChat(obj,obj2) {
       info1.style.fontSize="xx-small";
       info1.style.fontWeight="lighter";
       div1.appendChild(info1);
+      body.appendChild(div1);
     }
-    
     day=SendingDay;
     //message
     var div2 = document.createElement("DIV");
@@ -105,14 +108,14 @@ function printChat(obj,obj2) {
     div2.appendChild(info2);
     if(obj[i].Sender==sender)
     {
-      div.style.textAlign = "left";
-      div2.style.textAlign="right";
+      div.id = "left";
+      div2.id="right";
       info2.style.backgroundColor="#99e6ff";
     }
     else
     {
-      div.style.textAlign="right";
-      div2.style.textAlign="left";
+      div.id="right";
+      div2.id="left";
       info2.style.backgroundColor="#D3D3D3";
     }
      if(i==obj.length-1)
@@ -120,7 +123,7 @@ function printChat(obj,obj2) {
        div2.style.paddingBottom="100px";
     }
     
-    body.appendChild(div1);
+   
     var br = document.createElement("br");
     body.appendChild(br);
     body.appendChild(div);
@@ -283,8 +286,7 @@ class Chat extends Component {
     return (
       
       <div className="chat">
-        <div className="box">
-        </div>
+        <div className="box"></div>
         <div className="messagebox">
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="message">

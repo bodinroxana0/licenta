@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 import axios from 'axios';
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
-const ENDPOINT="https://comunitate.netlify.app";
+const ENDPOINT="https://localhost:3000";//"https://comunitate.netlify.app";
 
   class SignUpUser extends Component{
     constructor(props) {

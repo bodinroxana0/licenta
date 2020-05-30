@@ -9,7 +9,7 @@ import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 import PersonIcon from '@material-ui/icons/Person';
 import LockRoundedIcon from '@material-ui/icons/LockRounded';
-const ENDPOINT="https://comunitate.netlify.app";
+const ENDPOINT="https://localhost:3000";//"https://comunitate.netlify.app";
     class Login extends Component {
       constructor(props) {
         super(props);

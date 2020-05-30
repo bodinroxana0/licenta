@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
 import $ from 'jquery';
-const ENDPOINT="https://comunitate.netlify.app";
+const ENDPOINT="https://localhost:3000";//"https://comunitate.netlify.app";
 
 var path;
 var path2;
