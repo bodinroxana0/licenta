@@ -5,6 +5,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
 import $ from 'jquery';
+const ENDPOINT="https://comunitate.netlify.app";
+
 var path;
 var path2;
 function printString(callback){
@@ -280,7 +282,7 @@ function printString2(callback){
               .post('https://hidden-fortress-80148.herokuapp.com/Docs', docs)
               .then((response) => {
                 alert(response.data);
-                window.location.href = "https://localhost:3000/Login";
+                window.location.href = ENDPOINT+"/Login";
               })
               .catch(err => {
                 console.error(err);

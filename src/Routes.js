@@ -12,6 +12,7 @@ import Login from "./containers/Login";
 import Logout from "./containers/Logout";
 import SignUp from "./containers/SignUp";
 import Profile from "./containers/Profile";
+import Chat from "./containers/Chat";
 import './design/Home.css';
 
 /* A <Switch> looks through its children <Route>s and renders the first one that matches the current URL. */
@@ -42,6 +43,7 @@ class Routes extends Component {
           <Route path="/Logout" component={Logout}></Route>
           <Route path="/SignUp" component={SignUp}></Route>
           <Route path="/Profile" component={Profile}></Route>
+          <Route path="/Chat" component={Chat}></Route>
           <Route path="/" exact component={Home}></Route>
         </Switch>
     </Router>

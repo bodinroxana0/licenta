@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Form from 'react-bootstrap/Form';
+const ENDPOINT="https://comunitate.netlify.app";
+
 class Logout extends Component {
     constructor(props) {
       super(props);
@@ -14,7 +16,7 @@ class Logout extends Component {
           alert('V-ati deconectat cu succes!');
           if(data=="ok")
           {
-            window.location.href = "https://localhost:3000";
+            window.location.href = ENDPOINT;
           }
         })
         .catch(err => {

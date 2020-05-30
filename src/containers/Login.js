@@ -7,10 +7,9 @@ import "../design/Login.css";
 import axios from 'axios';
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
-
 import PersonIcon from '@material-ui/icons/Person';
 import LockRoundedIcon from '@material-ui/icons/LockRounded';
-
+const ENDPOINT="https://comunitate.netlify.app";
 
     class Login extends Component {
       constructor(props) {
@@ -53,7 +52,7 @@ import LockRoundedIcon from '@material-ui/icons/LockRounded';
           else
           {
             alert('Bun venit, '+data+" !");
-            window.location.href = "https://localhost:3000?user="+data;
+            window.location.href = ENDPOINT+"?user="+data;
           }
         })
         .catch(err => {
@@ -87,7 +86,7 @@ import LockRoundedIcon from '@material-ui/icons/LockRounded';
               alert('Bun venit, '+response.data+" !");
               // var login = document.getElementsByClassName("mr-auto")[2];
               // login.style.display = "none";
-              window.location.href = "https://localhost:3000?user="+response.data;
+              window.location.href = ENDPOINT+"?user="+response.data;
             //   .mr-auto .collasible-nav-dropdown{
             //     display: none;
             // }
@@ -118,7 +117,7 @@ import LockRoundedIcon from '@material-ui/icons/LockRounded';
             .then((response) =>{
               console.log(response.data);
               alert('Bun venit, '+response.data+" !");
-              window.location.href = "https://localhost:3000?user="+response.data;
+              window.location.href = ENDPOINT+"?user="+response.data;
             })
             .catch(err => {
               console.error(err);

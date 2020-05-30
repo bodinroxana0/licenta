@@ -8,6 +8,8 @@ import Container from 'react-bootstrap/Container';
 import pers1 from '../images/person_1.jpg';
 import Spinner from 'react-bootstrap/Spinner';
 import '../design/Provider.css';
+const ENDPOINT="https://comunitate.netlify.app";
+
 function getUrlVars() {
   var vars = {};
   var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
@@ -29,7 +31,7 @@ function displayProfile(params) {
     .then(function(data) {
       if(data!="Null" && data!="none") 
       {
-        window.location.href = "https://localhost:3000/Profile/"+params+"&user="+username;
+        window.location.href = ENDPOINT+"/Profile/"+params+"&user="+username;
       }
       else
         alert("Trebuie să vă logați ca să vedeți mai multe informații!");

@@ -5,10 +5,14 @@ import Table from 'react-bootstrap/Table';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import ChatIcon from '@material-ui/icons/Chat';
 import default_img from '../images/user-avatar.png';
 import ReactStars from 'react-rating-stars-component';
 import axios from 'axios';
+const ENDPOINT="https://comunitate.netlify.app";
+
 var username="";
+var receiver="";
 var no=0;
 function getUrlVars() {
   var vars = {};
@@ -17,6 +21,7 @@ function getUrlVars() {
   });
   return vars;
 }
+
 function printProfile(obj) {
   var i = 0;
   username=obj[i].UserName;
@@ -180,6 +185,17 @@ class Profile extends Component {
                 <label id="rating">0</label>
                 <div id="centerpoint">
                   <div id="dialog"></div>
+                </div>
+                <br></br>
+                <br></br>
+                <div id="message">
+                <ChatIcon color="action" fontSize="small"/>
+                <Button size="lg" 
+                onClick={function openChat(){
+                  var sender=getUrlVars()["user"];
+                  window.location.href = ENDPOINT+"/Chat/?Sender="+sender+"&Receiver="+username;
+                }}
+                >Trimite mesaj</Button>
                 </div>
               </td>
             </tr>
