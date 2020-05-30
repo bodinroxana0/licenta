@@ -175,7 +175,7 @@ class Chat extends Component {
     socket.emit('join', {name,room}, ()=>{
     });
     
-    var object1;
+    var object1,object2;
     fetch(ENDPOINT+"/chat/" + Sender + "/" + Receiver)
       .then(function (response) {
         if (response.status >= 400) {
@@ -198,21 +198,18 @@ class Chat extends Component {
         return response.text();
       })
       .then(function (data) {
-        var object2 = JSON.parse(data);
-      try{
-        console.log(object2);
-        printChat(object1,object2);
-        console.log("am iesit");
-      }
-      catch{
-        console.log("obiectul 2 nu e incarcat");
-      }
-
+        object2 = JSON.parse(data);
       })
       .catch(err => {
         console.log('Error!', err);
       })
-    
+     
+      while(object1==null || object2==null){
+        setTimeout(() => {
+        }, 2000);
+        console.log(".");
+      }
+      printChat(object1,object2);
   }
   
   //   // Setup the `beforeunload` event listener
