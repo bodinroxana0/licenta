@@ -44,21 +44,17 @@ function message(user,mess,SendingTime){
   info2.style.fontSize="large";
   if(user==sender)
   {
-    div.id = "left";
-    div.style.paddingLeft="50px";
-    div2.id="right";
-    div2.style.paddingRight="50px";
+    div.style.textAlign = "left";
+    div2.style.textAlign="right";
     info2.style.backgroundColor="#99e6ff";
   }
   else
   {
-    div.id="right";
-    div.style.paddingRight="50px";
-    div2.id="left";
-    div2.style.paddingLeft="50px";
+    div.style.textAlign="right";
+    div2.style.textAlign="left";
     info2.style.backgroundColor="#D3D3D3";
   }
-  //div2.style.paddingBottom="100px";
+  div2.style.paddingBottom="100px";
   div2.appendChild(info2);
   body.appendChild(div);
   body.appendChild(div2);
