@@ -174,6 +174,8 @@ class Chat extends Component {
     var name=Sender;
     socket.emit('join', {name,room}, ()=>{
     });
+    
+    var object1;
     fetch(ENDPOINT+"/chat/" + Sender + "/" + Receiver)
       .then(function (response) {
         if (response.status >= 400) {
@@ -237,7 +239,7 @@ class Chat extends Component {
     var title = document.getElementsByClassName("text-primary")[0];
     title.innerHTML = sender;
    
-    var object1;
+   // var object1;
   //   fetch(ENDPOINT+"/chat/" + sender + "/" + receiver)
   //     .then(function (response) {
   //       if (response.status >= 400) {
