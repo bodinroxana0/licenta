@@ -175,19 +175,7 @@ class Chat extends Component {
     var name=Sender;
     socket.emit('join', {name,room}, ()=>{
     });
-    ///navbar
-    var user = document.getElementsByClassName("collasible-nav-dropdown")[0];
-    var connect = document.getElementsByClassName("signup")[0];
-    var login = document.getElementsByClassName("login")[0];
-    user.style.display = "block";
-    connect.style.display = "none";
-    login.style.display = "none";
-    //take param name from url
-    var url = window.location.href;
-    var sender = getUrlVars()["Sender"];
-    var receiver = getUrlVars()["Receiver"];
-    var title = document.getElementsByClassName("text-primary")[0];
-    title.innerHTML = sender;
+    
    
     var object1;
     fetch(ENDPOINT+"/chat/" + sender + "/" + receiver)
@@ -238,7 +226,18 @@ class Chat extends Component {
   //     });
   // };
   componentDidMount() {
-    
+    ///navbar
+    var user = document.getElementsByClassName("collasible-nav-dropdown")[0];
+    var connect = document.getElementsByClassName("signup")[0];
+    var login = document.getElementsByClassName("login")[0];
+    user.style.display = "block";
+    connect.style.display = "none";
+    login.style.display = "none";
+    //take param name from url
+    var url = window.location.href;
+    var sender = getUrlVars()["Sender"];
+    var title = document.getElementsByClassName("text-primary")[0];
+    title.innerHTML = sender;
     
   }
  
