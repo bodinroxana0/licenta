@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 var VIEW_ID = '219697764';
 
-class Repo extends Component {
+class Statistici extends Component {
     constructor(props) {
       super(props);    
     }
@@ -66,4 +66,4 @@ class Repo extends Component {
     );
   }
 }
-export default Repo;
+export default Statistici;
