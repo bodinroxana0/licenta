@@ -28,7 +28,7 @@ class Statistici extends Component {
           }
         ]
       }
-    }).then(console.log("da"), console.error.bind(console));
+    }).then(displayResults, console.error.bind(console));
     }
     const responseGoogleFailure = (error) => {
       console.error(error);
