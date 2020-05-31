@@ -32,7 +32,7 @@ class Statistici extends Component {
       
       //var formattedJson = JSON.stringify(response.result.reports[0].data.rows[0].metrics[0], null, 2);
       
-      document.getElementById('query-output').value = response.result.reports[0].data.totals.values;
+      document.getElementById('query-output').value = response.result.reports[0].data.rows[0].metrics[0].values;
 }); 
     }
   render(){
