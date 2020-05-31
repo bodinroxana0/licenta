@@ -9,8 +9,8 @@ import ChatIcon from '@material-ui/icons/Chat';
 import default_img from '../images/user-avatar.png';
 import ReactStars from 'react-rating-stars-component';
 import axios from 'axios';
-import initGA from './GA_analytics';
-import GApageView from './GA_analytics';
+import ReactGA from 'react-ga';
+const trackingId = "UA-167975679-1";
 const ENDPOINT= "https://comunitate.netlify.app";  //"https://localhost:3000";
 
 var username="";
@@ -111,8 +111,8 @@ class Profile extends Component {
       centerpoint.style.display = "block";
     }
   componentDidMount() {
-    GA_analytics.initGA();
-    GA_analytics.GApageView(window.location.href);
+    ReactGA.initialize(trackingId); 
+    ReactGA.pageview(window.location.href);
     ///navbar
     var user = document.getElementsByClassName("collasible-nav-dropdown")[0];
     var connect = document.getElementsByClassName("signup")[0];
