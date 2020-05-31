@@ -300,6 +300,7 @@ function printString2(callback){
         .catch(err => {
           console.log('Error!', err);
         })
+        this.fireEvent();
       }
     
       //novalidate disables browser default feedback
@@ -309,7 +310,7 @@ function printString2(callback){
           <div className="was-validated">
             <br></br>
             <br></br>
-            <Form onSubmit={this.handleSubmit,this.fireEvent} noValidate > 
+            <Form onSubmit={this.handleSubmit} noValidate > 
             <Form.Row> 
               <Form.Group as={Col} controlId="firstName" bssize="large">
                 <Form.Control

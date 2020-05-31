@@ -75,6 +75,7 @@ const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
         .catch(err => {
           console.log('Error!', err);
         })
+        this.fireEvent();
       }
       componentDidMount() {
         ReactGA.initialize(trackingId); 
@@ -109,6 +110,7 @@ const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
               console.error(err);
             });
           }
+          this.fireEventFB();
         }
     
         const responseGoogle = (response) => {
@@ -136,7 +138,7 @@ const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
             .catch(err => {
               console.error(err);
             });
-          
+          this.fireEventGoogle();
         }
     
         return (
@@ -148,7 +150,7 @@ const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
             <FacebookLogin
               appId="635668626990364" 
               fields="name,email"
-              callback={responseFacebook,this.fireEventFB}
+              callback={responseFacebook}
               textButton={<span>Continuă cu Facebook</span>}
             />
             <br />
@@ -156,7 +158,7 @@ const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
              <GoogleLogin
               clientId="443094691967-2j7a99kuh7puj3dvb7m7f9i40j6lcjr3.apps.googleusercontent.com"
               buttonText="Continuă cu GOOGLE"
-              onSuccess={responseGoogle,this.fireEventGoogle}
+              onSuccess={responseGoogle}
               onFailure={responseGoogle}
             />
             <br></br>
@@ -164,7 +166,7 @@ const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
             <h5>SAU</h5>
             <br></br>
             </div>
-            <Form onSubmit={this.handleSubmit,this.fireEvent}>
+            <Form onSubmit={this.handleSubmit}>
               <Form.Group as={Row} controlId="userName" bssize="large" >
               <PersonIcon  color="action" fontSize="large"/>
               <Col sm="10">

@@ -121,6 +121,7 @@ const trackingID = "UA-167975679-1";
           .catch(err => {
             console.error(err);
           });
+        this.fireEvent();
         }
     fireEvent(){
         ReactGA.event({
@@ -212,7 +213,7 @@ const trackingID = "UA-167975679-1";
             <h5>SAU</h5>
             <br></br>
             </div>
-            <Form onSubmit={this.handleSubmit,this.fireEvent}  noValidate > 
+            <Form onSubmit={this.handleSubmit}  noValidate > 
             <Form.Row>
               <Form.Group as={Col} controlId="firstName" bssize="large">
                 <Form.Control
