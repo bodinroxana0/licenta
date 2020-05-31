@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 var VIEW_ID = '219697764';
-
+function  displayResults(response) {
+  var formattedJson = JSON.stringify(response.result, null, 2);
+  document.getElementById('query-output').value = formattedJson;
+}
 class Statistici extends Component {
     constructor(props) {
       super(props);    
     }
      // Query the API and print the results to the page.
    queryReports() {
-    gapi.client.request({
+    window.gapi.client.request({
       path: '/v4/reports:batchGet',
       root: 'https://analyticsreporting.googleapis.com/',
       method: 'POST',
@@ -32,10 +35,7 @@ class Statistici extends Component {
     }).then(displayResults, console.error.bind(console));
   }
 
-   displayResults(response) {
-    var formattedJson = JSON.stringify(response.result, null, 2);
-    document.getElementById('query-output').value = formattedJson;
-  }
+  
   render(){
     return (
         <body>
