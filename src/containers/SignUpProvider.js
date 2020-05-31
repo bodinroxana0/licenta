@@ -75,7 +75,7 @@ function printString2(callback){
       }
      componentDidMount(){
         ReactGA.initialize(trackingID); 
-       ReactGA.pageview("/SignUpProvider");  
+       //ReactGA.pageview("/SignUpProvider");  
     }
     loadCounties(){
        if(!this.state.load){
@@ -213,6 +213,12 @@ function printString2(callback){
           }
       }
     }
+    fireEvent(){
+      ReactGA.event({
+        category: 'Inregistrare',
+        action: 'Un furnizor de servicii a creat un cont!'
+      });
+    }
       validateForm() {
         return this.state.password.length>5 && this.state.firstName.length>0 && this.state.lastName.length>0 && this.state.email.length>0 && this.state.phone.length>0 && this.state.userName.length>0 && this.state.region.length>0 && this.state.city.length>0 && this.state.domain.length>0 && this.state.service.length>0;
       }
@@ -303,7 +309,7 @@ function printString2(callback){
           <div className="was-validated">
             <br></br>
             <br></br>
-            <Form onSubmit={this.handleSubmit} noValidate > 
+            <Form onSubmit={this.handleSubmit,this.fireEvent} noValidate > 
             <Form.Row> 
               <Form.Group as={Col} controlId="firstName" bssize="large">
                 <Form.Control

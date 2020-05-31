@@ -7,6 +7,8 @@ import default_img from '../images/user-avatar.png';
 import ReactStars from 'react-rating-stars-component';
 import axios from 'axios';
 import socketIOClient from "socket.io-client";
+import ReactGA from 'react-ga';
+const trackingID = "UA-167975679-1"; 
 const ENDPOINT="https://hidden-fortress-80148.herokuapp.com";
 const socket = socketIOClient("https://vast-atoll-37075.herokuapp.com");
 
@@ -196,7 +198,14 @@ class Chat extends Component {
         console.log('Error!', err);
       })
   }
+  fireEvent(){
+    ReactGA.event({
+      category: 'Chat',
+      action: 'Un utilizator a trimis un mesaj!'
+    });
+  }
   componentDidMount() {
+    ReactGA.initialize(trackingID);
     ///navbar
     var user = document.getElementsByClassName("collasible-nav-dropdown")[0];
     var connect = document.getElementsByClassName("signup")[0];
@@ -258,7 +267,7 @@ class Chat extends Component {
       <div className="chat">
         <div className="box"></div>
         <div className="messagebox">
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit,this.fireEvent}>
           <Form.Group controlId="message">
             <Form.Control
               as="textarea"

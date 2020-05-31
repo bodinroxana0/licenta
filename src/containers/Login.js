@@ -33,7 +33,24 @@ const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
         });
       }
 
-      
+      fireEvent(){
+        ReactGA.event({
+          category: 'Conectare',
+          action: 'Un utilizator s-a conectat!'
+        });
+      }
+      fireEventFB(){
+        ReactGA.event({
+          category: 'Conectare',
+          action: 'Un utilizator s-a conectat cu Facebook!'
+        });
+      }
+      fireEventGoogle(){
+        ReactGA.event({
+          category: 'Conectare',
+          action: 'Un utilizator s-a conectat cu Google!'
+        });
+      }
       handleSubmit (event) {
         event.preventDefault();
         fetch('https://hidden-fortress-80148.herokuapp.com/users/'+this.state.userName+'/'+this.state.password)
@@ -61,7 +78,7 @@ const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
       }
       componentDidMount() {
         ReactGA.initialize(trackingId); 
-        ReactGA.pageview("/home");
+       // ReactGA.pageview("/home");
         var user = document.getElementsByClassName("collasible-nav-dropdown")[0];
         user.style.display = "none";
       }
@@ -131,7 +148,7 @@ const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
             <FacebookLogin
               appId="635668626990364" 
               fields="name,email"
-              callback={responseFacebook}
+              callback={responseFacebook,this.fireEventFB}
               textButton={<span>Continuă cu Facebook</span>}
             />
             <br />
@@ -139,7 +156,7 @@ const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
              <GoogleLogin
               clientId="443094691967-2j7a99kuh7puj3dvb7m7f9i40j6lcjr3.apps.googleusercontent.com"
               buttonText="Continuă cu GOOGLE"
-              onSuccess={responseGoogle}
+              onSuccess={responseGoogle,this.fireEventGoogle}
               onFailure={responseGoogle}
             />
             <br></br>
@@ -147,7 +164,7 @@ const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
             <h5>SAU</h5>
             <br></br>
             </div>
-            <Form onSubmit={this.handleSubmit}>
+            <Form onSubmit={this.handleSubmit,this.fireEvent}>
               <Form.Group as={Row} controlId="userName" bssize="large" >
               <PersonIcon  color="action" fontSize="large"/>
               <Col sm="10">
