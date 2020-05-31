@@ -34,7 +34,7 @@ const trackingID = "UA-167975679-1";
       }
       componentDidMount(){
         ReactGA.initialize(trackingID); 
-       ReactGA.pageview("/SignUpUser");  
+       //ReactGA.pageview("/SignUpUser");  
     }
     loadCounties(){
        if(!this.state.load){
@@ -122,7 +122,12 @@ const trackingID = "UA-167975679-1";
             console.error(err);
           });
         }
-     
+    fireEvent(){
+        ReactGA.event({
+          category: 'Inregistrare',
+          action: 'Un utilizator a creat un cont!'
+        });
+      }
       //novalidate disables browser default feedback
       render() {
 
@@ -207,7 +212,7 @@ const trackingID = "UA-167975679-1";
             <h5>SAU</h5>
             <br></br>
             </div>
-            <Form onSubmit={this.handleSubmit}  noValidate > 
+            <Form onSubmit={this.handleSubmit,this.fireEvent}  noValidate > 
             <Form.Row>
               <Form.Group as={Col} controlId="firstName" bssize="large">
                 <Form.Control
