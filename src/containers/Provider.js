@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import '../design/Provider.css';
+
 const ENDPOINT="https://comunitate.netlify.app";  //"https://localhost:3000";
 
 function getUrlVars() {
@@ -171,7 +172,6 @@ class Provider extends Component {
           load2:false
         };
       }
-      
       loadCounties(){
         if(!this.state.load){
           //fetch is async, that's why you can;t set setstate inside of their responses...

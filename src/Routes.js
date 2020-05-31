@@ -15,30 +15,16 @@ import Profile from "./containers/Profile";
 import Chat from "./containers/Chat";
 import Statistici from "./containers/Statistici";
 import './design/Home.css';
-import ReactDOM from 'react-dom';
-import ReactGA from 'react-ga';
-import { createBrowserHistory } from 'history';
-const trackingId = "UA-167975679-1";
-var history;
-
 
 /* A <Switch> looks through its children <Route>s and renders the first one that matches the current URL. */
 class Routes extends Component {
   constructor(props) {
     super(props);    
   }
-  componentDidMount(){
-    ReactGA.initialize(trackingId);
-    const history = createBrowserHistory();
-    // Initialize google analytics page view tracking
-    history.listen(location => {
-      ReactGA.set({ page: location.pathname }); // Update the user's current page
-      ReactGA.pageview(location.pathname); // Record a pageview for the given page
-    });
-  }
+
   render(){
   return (
-    <Router history={history}>
+    <Router >
       <Navbar ollapseOnSelect expand="lg" bg="dark" variant="dark">
         <Navbar.Brand href="/">Acasă</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
