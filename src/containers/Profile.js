@@ -111,8 +111,6 @@ class Profile extends Component {
       centerpoint.style.display = "block";
     }
   componentDidMount() {
-    ReactGA.initialize(trackingId); 
-    ReactGA.pageview(window.location.href);
     ///navbar
     var user = document.getElementsByClassName("collasible-nav-dropdown")[0];
     var connect = document.getElementsByClassName("signup")[0];
@@ -132,6 +130,9 @@ class Profile extends Component {
     var user = getUrlVars()["user"];
     var title=document.getElementsByClassName("text-primary")[0];
         title.innerHTML=user;
+    
+    ReactGA.initialize(trackingId); 
+    ReactGA.pageview("/provider/" + firstName + "/" + lastName);
     fetch("https://hidden-fortress-80148.herokuapp.com/provider/" + firstName + "/" + lastName)
       .then(function (response) {
         if (response.status >= 400) {

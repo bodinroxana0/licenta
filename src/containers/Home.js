@@ -12,6 +12,9 @@ import Container from 'react-bootstrap/Container';
 import '../design/Home.css';
 import Provider from './Provider.js';
 import FacebookLogin from 'react-facebook-login';
+import ReactGA from 'react-ga';
+
+const trackingId = "UA-167975679-1";
 function getUrlVars() {
   var vars = {};
   var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
@@ -25,6 +28,8 @@ class Home extends Component {
   }
   
   componentDidMount() {
+    ReactGA.initialize(trackingId); 
+    ReactGA.pageview("/home");
     var user = document.getElementsByClassName("collasible-nav-dropdown")[0];
     var connect = document.getElementsByClassName("signup")[0];
     var login = document.getElementsByClassName("login")[0];

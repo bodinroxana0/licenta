@@ -6,7 +6,9 @@ import Col from 'react-bootstrap/Col';
 import axios from 'axios';
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
-const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
+import ReactGA from 'react-ga';
+const ENDPOINT= "https://comunitate.netlify.app"; //"https://localhost:3000";
+const trackingID = "UA-167975679-1"; 
 
   class SignUpUser extends Component{
     constructor(props) {
@@ -30,6 +32,10 @@ const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
           load:false
         }; 
       }
+      componentDidMount(){
+        ReactGA.initialize(trackingID); 
+       ReactGA.pageview("/SignUpUser");  
+    }
     loadCounties(){
        if(!this.state.load){
          //fetch is async, that's why you can;t set setstate inside of their responses...

@@ -48,13 +48,11 @@ function printString2(callback){
   class SignUpProvider extends Component{
     constructor(props) {
         super(props);
-        // This binding is necessary to make `this` work in the callback
         this.handleSubmit = this.handleSubmit.bind(this);
         this.loadCounties = this.loadCounties.bind(this);
         this.loadCities=this.loadCities.bind(this);
         this.loadDomain=this.loadDomain.bind(this);
         this.loadServices=this.loadServices.bind(this);
-        //this.encrypt=this.encrypt.bind(this);
 
         this.state = {
           firstName: "",
@@ -74,24 +72,13 @@ function printString2(callback){
           docs:"",
           description:""
         };
-        // const Event = (category, action, label) => {
-        //   ReactGA.event({
-        //     category: category,
-        //     action: action,
-        //     label: label
-        //   });
-        // }
       }
-      // componentDidMount(){
-      //   ReactGA.initialize(trackingID); 
-      //   ReactGA.pageview(window.location.pathname +  
-      //     window.location.search);
-      //     onClick={()=>new Event("Creare cont", "S-a inregistrat un nou furnizor de servicii!", "Creare cont furnizor de servicii")}
-      // }
+     componentDidMount(){
+        ReactGA.initialize(trackingID); 
+       ReactGA.pageview("/SignUpProvider");  
+    }
     loadCounties(){
        if(!this.state.load){
-         //fetch is async, that's why you can;t set setstate inside of their responses...
-         //now it enters only once in this function
           this.setState((state, props) => ({
             load:true,
             city:""

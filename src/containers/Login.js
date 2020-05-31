@@ -9,6 +9,9 @@ import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 import PersonIcon from '@material-ui/icons/Person';
 import LockRoundedIcon from '@material-ui/icons/LockRounded';
+import ReactGA from 'react-ga';
+
+const trackingId = "UA-167975679-1";
 const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000"; 
     class Login extends Component {
       constructor(props) {
@@ -57,6 +60,8 @@ const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
         })
       }
       componentDidMount() {
+        ReactGA.initialize(trackingId); 
+        ReactGA.pageview("/home");
         var user = document.getElementsByClassName("collasible-nav-dropdown")[0];
         user.style.display = "none";
       }
