@@ -140,7 +140,9 @@ const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
           }
          
         }
-    
+        const responseGoogleFailure = (error) => {
+          console.error(error);
+        };
         return (
           <div className="Login">
             <br></br>
@@ -159,7 +161,7 @@ const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
               clientId="443094691967-2j7a99kuh7puj3dvb7m7f9i40j6lcjr3.apps.googleusercontent.com"
               buttonText="Continuă cu GOOGLE"
               onSuccess={responseGoogle}
-              onFailure={responseGoogle}
+              onFailure={responseGoogleFailure}
             />
             <br></br>
             <br></br>
