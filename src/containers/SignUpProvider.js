@@ -5,8 +5,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
 import $ from 'jquery';
-const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
-
+import ReactGA from 'react-ga';
+const ENDPOINT= "https://comunitate.netlify.app"; //"https://localhost:3000";
+const trackingID = "UA-167975679-1"; 
 var path;
 var path2;
 function printString(callback){
@@ -73,7 +74,20 @@ function printString2(callback){
           docs:"",
           description:""
         };
+        // const Event = (category, action, label) => {
+        //   ReactGA.event({
+        //     category: category,
+        //     action: action,
+        //     label: label
+        //   });
+        // }
       }
+      // componentDidMount(){
+      //   ReactGA.initialize(trackingID); 
+      //   ReactGA.pageview(window.location.pathname +  
+      //     window.location.search);
+      //     onClick={()=>new Event("Creare cont", "S-a inregistrat un nou furnizor de servicii!", "Creare cont furnizor de servicii")}
+      // }
     loadCounties(){
        if(!this.state.load){
          //fetch is async, that's why you can;t set setstate inside of their responses...
@@ -302,7 +316,7 @@ function printString2(callback){
           <div className="was-validated">
             <br></br>
             <br></br>
-            <Form onSubmit={this.handleSubmit}  noValidate > 
+            <Form onSubmit={this.handleSubmit} noValidate > 
             <Form.Row> 
               <Form.Group as={Col} controlId="firstName" bssize="large">
                 <Form.Control

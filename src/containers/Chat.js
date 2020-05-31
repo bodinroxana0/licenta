@@ -196,17 +196,7 @@ class Chat extends Component {
         console.log('Error!', err);
       })
   }
-  
-  //   // Setup the `beforeunload` event listener
-  //   setupBeforeUnloadListener = () => {
-  //     window.addEventListener("beforeunload", (ev) => {
-  //         ev.preventDefault();
-  //         socket.emit('disconnect');
-  //         socket.off();
-  //     });
-  // };
   componentDidMount() {
-    
     ///navbar
     var user = document.getElementsByClassName("collasible-nav-dropdown")[0];
     var connect = document.getElementsByClassName("signup")[0];
@@ -220,46 +210,6 @@ class Chat extends Component {
     var receiver = getUrlVars()["Receiver"];
     var title = document.getElementsByClassName("text-primary")[0];
     title.innerHTML = sender;
-   
-   // var object1;
-  //   fetch(ENDPOINT+"/chat/" + sender + "/" + receiver)
-  //     .then(function (response) {
-  //       if (response.status >= 400) {
-  //         throw new Error("Bad response from server");
-  //       }
-  //       return response.text();
-  //     })
-  //     .then(function (data) {
-  //       object1 = JSON.parse(data);
-  //      // console.log(object1);
-  //     })
-  //     .catch(err => {
-  //       console.log('Error!', err);
-  //     })
-  //     // setTimeout(() => {
-  //     // }, 2000);
-  //     fetch(ENDPOINT+"/chat/" + receiver + "/" + sender)
-  //     .then(function (response) {
-  //       if (response.status >= 400) {
-  //         throw new Error("Bad response from server");
-  //       }
-  //       return response.text();
-  //     })
-  //     .then(function (data) {
-  //       var object2 = JSON.parse(data);
-  //       try{
-        
-  //       console.log(object2);
-  //       printChat(object1,object2);
-  //       console.log("am iesit");
-  //     }
-  //     catch{}
-
-  //     })
-  //     .catch(err => {
-  //       console.log('Error!', err);
-  //    })
-    
   }
  
   handleChange = event => {

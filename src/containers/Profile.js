@@ -9,7 +9,7 @@ import ChatIcon from '@material-ui/icons/Chat';
 import default_img from '../images/user-avatar.png';
 import ReactStars from 'react-rating-stars-component';
 import axios from 'axios';
-const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
+const ENDPOINT= "https://comunitate.netlify.app";  //"https://localhost:3000";
 
 var username="";
 var receiver="";
