@@ -111,8 +111,8 @@ class Profile extends Component {
       centerpoint.style.display = "block";
     }
   componentDidMount() {
-    initGA();
-    GApageView(window.location.href);
+    GA_analytics.initGA();
+    GA_analytics.GApageView(window.location.href);
     ///navbar
     var user = document.getElementsByClassName("collasible-nav-dropdown")[0];
     var connect = document.getElementsByClassName("signup")[0];
