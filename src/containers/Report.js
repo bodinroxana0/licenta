@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { renderButton, checkSignedIn } from "./utils";
+import Repo from './repo';
 import ReactGA from 'react-ga';
 const trackingId = "UA-167975679-1"; // Replace with your Google Analytics tracking ID
 const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
 var VIEW_ID = '219697764';
-
 
 function Report() {
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -35,7 +35,7 @@ function Report() {
       {!isSignedIn ? (
         <div id="signin-button"></div>
       ) : (
-        <Report />
+        <Repo />
       )}
     </div>
   );
