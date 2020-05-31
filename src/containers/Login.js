@@ -115,17 +115,12 @@ const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
     
         const responseGoogle = (response) => {
           console.log(response);
+         
           try{
-            var username=response.Qt.Ad;
-            var email=response.Qt.zu;
-          }
-          catch{
-            var username=response.Pt.Ad;
-            var email=response.Pt.yu;
-          }
-          
-          var Googleid=response.Ca;
-          var user={username,email,Googleid};
+            var username=response.profileObj.name;
+            var email=response.profileObj.email;
+            var Googleid=response.profileObj.googleId;
+            var user={username,email,Googleid};
           
             console.log(user);
             axios
@@ -139,6 +134,11 @@ const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
               console.error(err);
             });
           this.fireEventGoogle();
+          }
+          catch{
+            console.log("not profileObj");
+          }
+         
         }
     
         return (
