@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 var VIEW_ID = '219697764';
 function  displayResults(response) {
+  console.log("aici");
   var formattedJson = JSON.stringify(response.result, null, 2);
+  console.log(formattedJson);
   document.getElementById('query-output').value = formattedJson;
 }
 class Statistici extends Component {
@@ -26,7 +28,7 @@ class Statistici extends Component {
             ],
             metrics: [
               {
-                expression: 'ga:sessions'
+                expression: 'ga:users'
               }
             ]
           }
