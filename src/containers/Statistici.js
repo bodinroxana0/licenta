@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 var VIEW_ID = '219697764';
-function  displayResults(response) {
-  console.log("aici");
-  var formattedJson = JSON.stringify(response.result, null, 2);
-  console.log(formattedJson);
-  document.getElementById('query-output').value = formattedJson;
-}
+
 class Statistici extends Component {
     constructor(props) {
       super(props);    
+    }
+    displayResults(response) {
+      console.log("aici");
+      var formattedJson = JSON.stringify(response.result, null, 2);
+      console.log(formattedJson);
+      document.getElementById('query-output').value = formattedJson;
     }
      // Query the API and print the results to the page.
    queryReports() {
@@ -34,7 +35,7 @@ class Statistici extends Component {
           }
         ]
       }
-    }).then(displayResults, console.error.bind(console));
+    }).then(this.displayResults(), console.error.bind(console));
   }
 
   
