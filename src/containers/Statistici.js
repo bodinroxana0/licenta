@@ -22,7 +22,7 @@ class Statistici extends Component {
             ],
             metrics: [
               {
-                expression: 'ga:users'
+                expression: 'rt:activeUsers'
               }
             ]
           }
