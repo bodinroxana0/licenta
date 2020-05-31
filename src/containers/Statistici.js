@@ -5,57 +5,46 @@ class Statistici extends Component {
     constructor(props) {
       super(props);    
     }
-    
-  render(){
-    const queryReport = () => {//(1)
-      window.gapi.client
-        .request({
-          path: "/v4/reports:batchGet",
-          root: "https://analyticsreporting.googleapis.com/",
-          method: "POST",
-          body: {
-            reportRequests: [
+     // Query the API and print the results to the page.
+   queryReports() {
+    gapi.client.request({
+      path: '/v4/reports:batchGet',
+      root: 'https://analyticsreporting.googleapis.com/',
+      method: 'POST',
+      body: {
+        reportRequests: [
+          {
+            viewId: VIEW_ID,
+            dateRanges: [
               {
-                viewId: VIEW_ID, //enter your view ID here
-                dateRanges: [
-                  {
-                    startDate: "10daysAgo",
-                    endDate: "today",
-                  },
-                ],
-                metrics: [
-                  {
-                    expression: "ga:users",
-                  },
-                ],
-                dimensions: [
-                  {
-                    name: "ga:date",
-                  },
-                ],
-              },
+                startDate: '7daysAgo',
+                endDate: 'today'
+              }
             ],
-          },
-        })
-        .then(displayResults, console.error.bind(console));
-    };
-   const displayResults = (response) => {//(2)
-      const queryResult = response.result.reports[0].data.rows;
-      console.log(queryResult);
-      const result = queryResult.map((row) => {
-        const dateSting = row.dimensions[0];
-        const formattedDate = `${dateSting.substring(0, 4)}
-        -${dateSting.substring(4, 6)}-${dateSting.substring(6, 8)}`;
-        return {
-          date: formattedDate,
-          visits: row.metrics[0].values[0],
-        };
-      });
-    };
+            metrics: [
+              {
+                expression: 'ga:sessions'
+              }
+            ]
+          }
+        ]
+      }
+    }).then(displayResults, console.error.bind(console));
+  }
+
+   displayResults(response) {
+    var formattedJson = JSON.stringify(response.result, null, 2);
+    document.getElementById('query-output').value = formattedJson;
+  }
+  render(){
     return (
-      <div>
-        <button onClick={queryReport}>Click me</button>
-      </div>
+        <body>
+        <h1>Hello Analytics Reporting API V4</h1>
+
+        <p class="g-signin2" data-onsuccess="queryReports"></p>
+
+        <textarea cols="80" rows="20" id="query-output"></textarea>
+        </body>
     );
   }
 }
