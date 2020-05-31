@@ -63,6 +63,7 @@ class Repo extends Component {
       <div>
         <button onClick={queryReport}>Click me</button>
       </div>
-    )}
+    );
+  }
 }
 export default Repo;
