@@ -280,7 +280,10 @@ function printString2(callback){
                 if(response.data!='ok')
                 {
                   alert(response.data);
-                  window.location.href = ENDPOINT+"/Login";
+                }
+                else{
+                  alert("Contul a fost creat cu succes!");
+                window.location.href = ENDPOINT+"/Login";
                 }
               })
               .catch(err => {
