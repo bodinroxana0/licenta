@@ -271,29 +271,21 @@ function printString2(callback){
             {
               services_Id=obj[i].Id;
               console.log(services_Id);
-              const user = { userName, password, firstName, lastName, email,phone,city,region,birthdate,domain,services_Id,path, description};
+              const user = { path2,userName, password, firstName, lastName, email,phone,city,region,birthdate,domain,services_Id,path, description};
               console.log(user);
-              const docs={path2,userName};
               //doar dupa ce am gasit id-ul serviciului pe care vrem sa il introducem , face cerere post
               axios
               .post('https://hidden-fortress-80148.herokuapp.com/SignUpProvider', user)
               .then((response) =>{
                 if(response.data!='ok')
+                {
                   alert(response.data);
+                  window.location.href = ENDPOINT+"/Login";
+                }
               })
               .catch(err => {
                 console.error(err);
               });
-              //adaugam imaginile in tabela docs
-              axios
-              .post('https://hidden-fortress-80148.herokuapp.com/Docs', docs)
-              .then((response) => {
-                alert(response.data);
-                window.location.href = ENDPOINT+"/Login";
-              })
-              .catch(err => {
-                console.error(err);
-              }); 
             }
           }
         })
