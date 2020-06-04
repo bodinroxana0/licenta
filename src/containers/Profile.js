@@ -12,6 +12,7 @@ import axios from 'axios';
 import ReactGA from 'react-ga';
 const trackingId = "UA-167975679-1";
 const ENDPOINT= "https://comunitate.netlify.app";  //"https://localhost:3000";
+const server= "https://hidden-fortress-80148.herokuapp.com";//"http://localhost:5000";//
 
 var username="";
 var receiver="";
@@ -86,10 +87,10 @@ class Profile extends Component {
         const user_rating={username,rating};
         console.log(user_rating);
         axios
-              .post('https://hidden-fortress-80148.herokuapp.com/rating', user_rating)
+              .post(server+'/rating', user_rating)
               .then((response) => {
                 alert(response.data);
-                
+                window.location.href = window.location.pathname + window.location.search + window.location.hash;
               })
               .catch(err => {
                 console.error(err);
@@ -98,7 +99,7 @@ class Profile extends Component {
         var dialog = document.getElementById("dialog");
         dialog.style.display = "none";
         centerpoint.style.display = "none";
-        window.location.href = window.location.pathname + window.location.search + window.location.hash;
+        
       }.bind(this));
       btn_nu.addEventListener("click", function () {
         var dialog = document.getElementById("dialog");
@@ -133,7 +134,7 @@ class Profile extends Component {
     
     ReactGA.initialize(trackingId); 
     ReactGA.pageview("/provider/" + firstName + "/" + lastName);
-    fetch("https://hidden-fortress-80148.herokuapp.com/provider/" + firstName + "/" + lastName)
+    fetch(server+"/provider/" + firstName + "/" + lastName)
       .then(function (response) {
         if (response.status >= 400) {
           throw new Error("Bad response from server");

@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import '../design/Provider.css';
-
+const server='https://hidden-fortress-80148.herokuapp.com'; //"http://localhost:5000";
 const ENDPOINT="https://comunitate.netlify.app";  //"https://localhost:3000";
 
 function getUrlVars() {
@@ -16,7 +16,7 @@ function getUrlVars() {
 function displayProfile(params) {
     var username = getUrlVars()["user"];
     console.log(username);
-    var url = 'https://hidden-fortress-80148.herokuapp.com/logged';
+    var url = server+'/logged';
     fetch(url)
     .then(function(response) {
       if (response.status >= 400) {
@@ -39,7 +39,7 @@ function displayProfile(params) {
 }
 //arata numarul de telefon doar daca esti logat, verifica sesiunea
 function showPhone(username){
-  fetch('https://hidden-fortress-80148.herokuapp.com/phone/'+username)
+  fetch(server+'/phone/'+username)
   .then(function(response) {
     if (response.status >= 400) {
         throw new Error("Bad response from server");
@@ -180,7 +180,7 @@ class Provider extends Component {
              load:true,
              city:""
            }));
-           fetch('https://hidden-fortress-80148.herokuapp.com/counties')
+           fetch(server+'/counties')
            .then(function(response) {
              if (response.status >= 400) {
                  throw new Error("Bad response from server");
@@ -214,7 +214,7 @@ class Provider extends Component {
            for (let i = length-1; i >= 0; i--) {
              select.options[i] = null;
            }
-         fetch('https://hidden-fortress-80148.herokuapp.com/cities/'+this.state.region)
+         fetch(server+'cities/'+this.state.region)
              .then(function(response) {
                if (response.status >= 400) {
                    throw new Error("Bad response from server");
@@ -247,7 +247,7 @@ class Provider extends Component {
              load2:true,
              service:""
            }));
-           fetch('https://hidden-fortress-80148.herokuapp.com/domain')
+           fetch(server+'/domain')
            .then(function(response) {
              if (response.status >= 400) {
                  throw new Error("Bad response from server");
@@ -285,7 +285,7 @@ class Provider extends Component {
               for (let i = length-1; i >= 0; i--) {
                 sel.options[i] = null;
               }
-          fetch('https://hidden-fortress-80148.herokuapp.com/services/'+this.state.domain)
+          fetch(server+'/services/'+this.state.domain)
               .then(function(response) {
                 if (response.status >= 400) {
                     throw new Error("Bad response from server");
@@ -376,25 +376,25 @@ class Provider extends Component {
         }
         switch(choose) {
           case 0:
-            url='https://hidden-fortress-80148.herokuapp.com/searchprovider/'+this.state.service+"/"+this.state.city;
+            url=server+'/searchprovider/'+this.state.service+"/"+this.state.city;
             break;
           case 1:
-            url='https://hidden-fortress-80148.herokuapp.com/searchprovider1/'+this.state.domain;
+            url=server+'/searchprovider1/'+this.state.domain;
             break;
           case 2:
-            url='https://hidden-fortress-80148.herokuapp.com/searchprovider2/'+this.state.service;
+            url=server+'/searchprovider2/'+this.state.service;
             break;
           case 3:
-            url='https://hidden-fortress-80148.herokuapp.com/searchprovider3/'+this.state.region;
+            url=server+'/searchprovider3/'+this.state.region;
             break;
           case 4:
-            url='https://hidden-fortress-80148.herokuapp.com/searchprovider4/'+this.state.city;
+            url=server+'/searchprovider4/'+this.state.city;
             break;
           case 5:
-            url='https://hidden-fortress-80148.herokuapp.com/searchprovider5/'+this.state.domain+"/"+this.state.region;
+            url=server+'/searchprovider5/'+this.state.domain+"/"+this.state.region;
             break;
           case 6:
-            url='https://hidden-fortress-80148.herokuapp.com/searchprovider6/'+this.state.domain+"/"+this.state.city;
+            url=server+'/searchprovider6/'+this.state.domain+"/"+this.state.city;
             break;
           default:
             // code block
@@ -418,7 +418,7 @@ class Provider extends Component {
         })
       }
       componentDidMount() {
-        var url = 'https://hidden-fortress-80148.herokuapp.com/provider';
+        var url = server+'/provider';
         fetch(url)
         .then(function(response) {
           if (response.status >= 400) {

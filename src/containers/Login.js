@@ -10,7 +10,7 @@ import GoogleLogin from 'react-google-login';
 import PersonIcon from '@material-ui/icons/Person';
 import LockRoundedIcon from '@material-ui/icons/LockRounded';
 import ReactGA from 'react-ga';
-
+const server='https://hidden-fortress-80148.herokuapp.com'; //"http://localhost:5000";//
 const trackingId = "UA-167975679-1";
 const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000"; 
     class Login extends Component {
@@ -53,7 +53,7 @@ const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
       }
       handleSubmit (event) {
         event.preventDefault();
-        fetch('https://hidden-fortress-80148.herokuapp.com/users/'+this.state.userName+'/'+this.state.password)
+        fetch(server+'/users/'+this.state.userName+'/'+this.state.password)
         .then(function(response) {
           if (response.status >= 400) {
               throw new Error("Bad response from server");
@@ -101,7 +101,7 @@ const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
           {
             console.log(user);
             axios
-            .post('https://hidden-fortress-80148.herokuapp.com/LoginFB',user)
+            .post(server+'/LoginFB',user)
             .then((response) => {
               alert('Bun venit, '+response.data+" !");
               window.location.href = ENDPOINT+"?user="+response.data;
@@ -124,7 +124,7 @@ const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
           
             console.log(user);
             axios
-            .post('https://hidden-fortress-80148.herokuapp.com/LoginGoogle',user)
+            .post(server+'/LoginGoogle',user)
             .then((response) =>{
               console.log(response.data);
               alert('Bun venit, '+response.data+" !");
