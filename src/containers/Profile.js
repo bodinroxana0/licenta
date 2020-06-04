@@ -84,7 +84,7 @@ class Profile extends Component {
         this.setState({ rating: newRating });
         const {rating}=this.state;
         const user_rating={username,rating};
-        
+        console.log(user_rating);
         axios
               .post('https://hidden-fortress-80148.herokuapp.com/rating', user_rating)
               .then((response) => {
