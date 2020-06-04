@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import CanvasJSReact from '../canvasjs/canvasjs.react';
 import $ from 'jquery';
+import ChartViews from './ChartViews';
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 var VIEW_ID = '219697764';
@@ -12,7 +13,7 @@ var event_action=[];
 var event_count=[];
 var page_name=[];
 var page_views=[];
-var page_percent=[];
+var view_count=0;
 
 
 class Statistici extends Component {
@@ -20,7 +21,8 @@ class Statistici extends Component {
     super(props);
     this.queryReports = this.queryReports.bind(this);
     this.state={
-      options:""
+      options:"",
+      options2:""
     }
   }
   queryReports() {
@@ -51,9 +53,6 @@ class Statistici extends Component {
                 expression:"ga:totalEvents",
                 formattingType:"INTEGER"
              }
-            //  {
-            //    expression:"rt:pageviews"
-            //  }
             ]
           }
         ]
@@ -76,7 +75,7 @@ class Statistici extends Component {
       exportEnabled: true,
       theme: "dark2", // "light1", "dark1", "dark2"
       title:{
-        text: "Evenimente"
+        text: "Evenimente Conectare"
       },
       data: [{
         type: "pie",
@@ -91,9 +90,41 @@ class Statistici extends Component {
         {
           opt.data[0].dataPoints.push({ y: Math.round(event_count[i]*100/count),label:event_action[i]});
         }
+        else if(event_category[i]=="Vizualizari")
+        {
+          page_name.push(event_action[i]);
+          page_views.push(event_count[i]);
+          view_count=parseInt(view_count)+parseInt(event_count[i]);
+        }
+      }
+      var opt2 = {
+        animationEnabled: true,
+        exportEnabled: true,
+        theme: "light2", //"light1", "dark1", "dark2"
+        title:{
+          text: "Topul profilurilor în funcție de numărul de vizualizări"
+        },
+        data: [{
+          type: "column", //change type to bar, line, area, pie, etc
+          //indexLabel: "{y}", //Shows y value on all Data Points
+          indexLabelFontColor: "#5A5757",
+          indexLabelPlacement: "outside",
+          dataPoints: [
+          ]
+        }]
+      };
+      page_views.sort();
+      console.log(page_views);
+      for(var i=0;i<page_views.length;i++)
+      {
+        if(i==0)
+          opt2.data[0].dataPoints.push({ x:page_name[i] ,y: Math.round(page_views[i]*100/view_count),indexLabel:"Cel mai vizualizat profil"});
+        else
+          opt2.data[0].dataPoints.push({ x:page_name[i] ,y: Math.round(page_views[i]*100/view_count)});
       }
       this.setState((state, props) => ({
-        options:opt
+        options:opt,
+        options2:opt2
       }));
 
   }.bind(this));
@@ -113,7 +144,8 @@ class Statistici extends Component {
               onSuccess={this.queryReports}
               onFailure={responseGoogleFailure}
             />
-         <CanvasJSChart options={this.state.options} ></CanvasJSChart>
+         <CanvasJSChart options={this.state.options} ></CanvasJSChart> 
+         <ChartViews opti2={this.state.options2}></ChartViews>
           </body>
     );
   }

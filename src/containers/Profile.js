@@ -133,7 +133,10 @@ class Profile extends Component {
         title.innerHTML=user;
     
     ReactGA.initialize(trackingId); 
-    ReactGA.pageview("/provider/" + firstName + "/" + lastName);
+    ReactGA.event({
+      category: 'Vizualizari',
+      action: firstName+" "+lastName
+    });
     fetch(server+"/provider/" + firstName + "/" + lastName)
       .then(function (response) {
         if (response.status >= 400) {
