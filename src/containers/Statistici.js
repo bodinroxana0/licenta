@@ -97,6 +97,9 @@ class Statistici extends Component {
           view_count=parseInt(view_count)+parseInt(event_count[i]);
         }
       }
+      this.setState((state, props) => ({
+        options:opt
+      }));
       var opt2 = {
         animationEnabled: true,
         exportEnabled: true,
@@ -123,7 +126,6 @@ class Statistici extends Component {
           opt2.data[0].dataPoints.push({ x:page_name[i] ,y: Math.round(page_views[i]*100/view_count)});
       }
       this.setState((state, props) => ({
-        options:opt,
         options2:opt2
       }));
 
