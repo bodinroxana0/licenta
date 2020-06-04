@@ -36,6 +36,7 @@
     "react-scripts": "3.3.0",
     "react-validation": "^3.0.7",
     "readline": "^1.3.0",
+    "realtime-analytics": "^1.0.6",
     "si-file": "^1.1.12",
     "socket.io-client": "^2.3.0"
   },

@@ -10,6 +10,10 @@ var VIEW_ID = '219697764';
 var event_category=[];
 var event_action=[];
 var event_count=[];
+var page_name=[];
+var page_views=[];
+var page_percent=[];
+
 
 class Statistici extends Component {
   constructor(props) {
@@ -47,6 +51,9 @@ class Statistici extends Component {
                 expression:"ga:totalEvents",
                 formattingType:"INTEGER"
              }
+            //  {
+            //    expression:"rt:pageviews"
+            //  }
             ]
           }
         ]
@@ -59,11 +66,10 @@ class Statistici extends Component {
       {
         event_category.push(formattedJson[i].dimensions[0]);
         event_action.push(formattedJson[i].dimensions[1]);
-        event_count.push(formattedJson[i].metrics[0].values); 
-        count=parseInt(count)+parseInt(formattedJson[i].metrics[0].values);
-      // document.getElementById('query-output').value += event_category[i]+"-"+event_action[i]+"-"+event_count[i]+"\n";
-      }
-     console.log(event_category,event_action,event_count);
+        event_count.push(formattedJson[i].metrics[0].values[0]); 
+        count=parseInt(count)+parseInt(formattedJson[i].metrics[0].values[0]);
+       
+       }
       console.log(count);
      var opt={
       animationEnabled: true,
@@ -82,15 +88,17 @@ class Statistici extends Component {
       for(var i=0;i<event_category.length;i++)
       {
         if(event_category[i]=="Conectare")
-          opt.data[0].dataPoints.push({ y: event_count[i]*100/count,label:event_action[i]});
+        {
+          opt.data[0].dataPoints.push({ y: Math.round(event_count[i]*100/count),label:event_action[i]});
+        }
       }
       this.setState((state, props) => ({
         options:opt
       }));
-  }.bind(this));
-  
-}
 
+  }.bind(this));
+ 
+   }
   render(){
     const responseGoogleFailure = (error) => {
       console.error(error);
