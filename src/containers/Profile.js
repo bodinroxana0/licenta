@@ -10,8 +10,8 @@ import default_img from '../images/user-avatar.png';
 import ReactStars from 'react-rating-stars-component';
 import axios from 'axios';
 import ReactGA from 'react-ga';
-const trackingId = "UA-167975679-1";
-const ENDPOINT= "https://comunitate.netlify.app";  //"https://localhost:3000";
+const trackingId = "UA-167975679-2";
+const ENDPOINT= "https://comunitate.netlify.app"; //"https://localhost:3000"; 
 const server= "https://hidden-fortress-80148.herokuapp.com";//"http://localhost:5000";//
 
 var username="";
@@ -38,9 +38,6 @@ function printProfile(obj) {
 
   var location = document.getElementById("locatie");
   location.innerHTML = obj[i].City + ", " + obj[i].Region;
-
-  //var table=document.getElementsByTagName("table")[0];
-  //var cell2=table.rows[0].cells[1];
 
   var service = document.getElementById("H_6");
   service.innerHTML = obj[i].ServiceName + ", " + obj[i].ServiceDomain;

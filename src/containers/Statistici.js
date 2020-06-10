@@ -3,11 +3,12 @@ import GoogleLogin from 'react-google-login';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import CanvasJSReact from '../canvasjs/canvasjs.react';
+import Grid from '@material-ui/core/Grid';
 import $ from 'jquery';
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 var CanvasJSChart1 = CanvasJSReact.CanvasJSChart;
-var VIEW_ID = '219697764';
+var VIEW_ID = '220652351';
 var event_category = [];
 var event_action = [];
 var event_count = [];
@@ -35,7 +36,7 @@ var opt2 = {
   animationEnabled: true,
   theme: "light2", // "light1", "light2", "dark1", "dark2"
   title: {
-    text: "Topul profilurilor din ultimele 7 zile"
+    text: "Cele mai vizualizate profiluri din ultimele 7 zile"
   },
   axisY: {
     title: "Numărul de vizualizări",
@@ -44,6 +45,8 @@ var opt2 = {
   axisX: {
     title: "Nume profil"
   },
+  //height:260,
+  //width:320,
   data: [{
     type: "column",
     dataPoints: [
@@ -147,14 +150,25 @@ class Statistici extends Component {
     return (
       <body>
         <h1>Rapoarte Google Analytics</h1>
+        <br></br>
+        <Grid container spacing={3}>
+        {/* <Grid item xs={12}>
+          <Paper className={classes.paper}>xs=12</Paper>
+        </Grid> */}
+        <Grid item xs={6}>
+        <CanvasJSChart options={this.state.options1} ></CanvasJSChart>
+        </Grid>
+        <Grid item xs={6}>
+        <CanvasJSChart1 options={this.state.options2}></CanvasJSChart1> 
+        </Grid>
+        </Grid>
+        <br></br>
         <GoogleLogin
           clientId="443094691967-2j7a99kuh7puj3dvb7m7f9i40j6lcjr3.apps.googleusercontent.com"
           buttonText="Continuă cu GOOGLE"
           onSuccess={this.queryReports}
           onFailure={responseGoogleFailure}
         />
-        <CanvasJSChart options={this.state.options1} ></CanvasJSChart>
-        <CanvasJSChart1 options={this.state.options2}></CanvasJSChart1> 
       </body>
     );
   }

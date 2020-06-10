@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import '../design/Provider.css';
 const server='https://hidden-fortress-80148.herokuapp.com'; //"http://localhost:5000";
-const ENDPOINT="https://comunitate.netlify.app";  //"https://localhost:3000";
+const ENDPOINT= "https://comunitate.netlify.app"; //"https://localhost:3000";
 
 function getUrlVars() {
   var vars = {};

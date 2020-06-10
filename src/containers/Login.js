@@ -11,8 +11,9 @@ import PersonIcon from '@material-ui/icons/Person';
 import LockRoundedIcon from '@material-ui/icons/LockRounded';
 import ReactGA from 'react-ga';
 const server='https://hidden-fortress-80148.herokuapp.com'; //"http://localhost:5000";//
-const trackingId = "UA-167975679-1";
-const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000"; 
+const ENDPOINT= "https://comunitate.netlify.app"; //"https://localhost:3000";
+const trackingId = "UA-167975679-2";
+
     class Login extends Component {
       constructor(props) {
         super(props);
@@ -36,19 +37,19 @@ const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
       fireEvent(){
         ReactGA.event({
           category: 'Conectare',
-          action: 'Un utilizator s-a conectat!'
+          action: 'Utilizatori care s-au conectat folosind aplicația'
         });
       }
       fireEventFB(){
         ReactGA.event({
           category: 'Conectare',
-          action: 'Un utilizator s-a conectat cu Facebook!'
+          action: 'Utilizatori s-au conectat cu Facebook'
         });
       }
       fireEventGoogle(){
         ReactGA.event({
           category: 'Conectare',
-          action: 'Un utilizator s-a conectat cu Google!'
+          action: 'Utilizatori s-au conectat cu Google'
         });
       }
       handleSubmit (event) {
