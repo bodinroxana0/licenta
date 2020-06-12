@@ -18,6 +18,7 @@
   }
   .background_profile{
       padding: 10px;
+      padding-left: 100px;
   }
   .background_profile #nume{
       font-size: 140%;
@@ -50,11 +51,6 @@
       background-color: white;
       
   }
-  .background #spinner{
-      top: 50%;
-      left: 50%;
-      position: absolute;
-    }
   .background_profile button {
           background-color: white;
           color: black;
