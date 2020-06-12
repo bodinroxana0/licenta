@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
+import Grid from '@material-ui/core/Grid';
 import '../design/Provider.css';
 const server='https://hidden-fortress-80148.herokuapp.com'; //"http://localhost:5000";
 const ENDPOINT= "https://localhost:3000"; // "https://comunitate.netlify.app"; 
@@ -484,11 +485,12 @@ class Provider extends Component {
                 </div> */}
           </Form.Row>
           </Form>
-         
+        <Grid container>
         <div class="providers">
         <body>
         </body>
         </div>
+        </Grid>
         </div>
     );
     }

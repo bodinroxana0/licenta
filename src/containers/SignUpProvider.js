@@ -61,6 +61,8 @@ function printString2(callback){
           phone:"",
           city:"",
           region:"",
+          street:"",
+          housenumber:"",
           birthdate:"",
           userName:"",
           password:"",
@@ -254,7 +256,7 @@ function printString2(callback){
       }
       handleSubmit (event) {
         event.preventDefault();
-        const { userName,password ,firstName, lastName, email,phone,city,region,birthdate,domain,service,description } = this.state;
+        const { userName,password ,firstName, lastName, email,phone,city,region,street,housenumber,birthdate,domain,service,description } = this.state;
         var services_Id=0;
         console.log(service);
         fetch('https://hidden-fortress-80148.herokuapp.com/services/'+domain)
@@ -271,7 +273,7 @@ function printString2(callback){
             {
               services_Id=obj[i].Id;
               console.log(services_Id);
-              const user = { path2,userName, password, firstName, lastName, email,phone,city,region,birthdate,domain,services_Id,path, description};
+              const user = { path2,userName, password, firstName, lastName, email,phone,city,region,street,housenumber,birthdate,domain,services_Id,path, description};
               console.log(user);
               //doar dupa ce am gasit id-ul serviciului pe care vrem sa il introducem , face cerere post
               axios
@@ -352,6 +354,23 @@ function printString2(callback){
               <Form.Control as="select" 
                   onLoad={this.loadCities()}
                   value={this.state.city}
+                  onChange={this.handleChange}
+                  required
+                  />
+              </Form.Group>
+              </Form.Row>
+              <Form.Row>
+              <Form.Group as={Col} controlId="street" bssize="large">
+              <Form.Control as="select"
+                  value={this.state.street}
+                  onChange={this.handleChange}
+                  required
+                  >
+               </Form.Control>
+              </Form.Group>
+              <Form.Group as={Col} controlId="housenumber" bssize="large">
+              <Form.Control as="select" 
+                  value={this.state.housenumber}
                   onChange={this.handleChange}
                   required
                   />
