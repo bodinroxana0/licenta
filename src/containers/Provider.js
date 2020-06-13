@@ -484,11 +484,15 @@ class Provider extends Component {
                 </Form.Group>
           </Form.Row>
           </Form>
+          </Grid>
+         
         <div class="providers">
         <body>
+        <Grid item xs={12}>
+          
+        </Grid>
         </body>
         </div>
-        </Grid>
         </Grid>
         </div>
     );
