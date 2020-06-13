@@ -4,6 +4,14 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import CanvasJSReact from '../canvasjs/canvasjs.react';
 import Grid from '@material-ui/core/Grid';
+import Select from 'react-select'
+
+const options = [
+  { value: 'Yesterday', label: 'ultimele 24 ore' },
+  { value: '7daysAgo', label: 'ultimele 7 zile' },
+  { value: '30daysAgo', label: 'ultimele 30 zile' }
+]
+
 import $ from 'jquery';
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -58,11 +66,14 @@ var opt2 = {
 class Statistici extends Component {
   constructor(props) {
     super(props);
-    this.queryReports = this.queryReports.bind(this);
     this.state = {
       options1: "",
-      options2: ""
+      options2: "",
+      period:"7daysAgo"
     }
+    
+    this.queryReports = this.queryReports.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   queryReports() {
     window.gapi.client.request({
@@ -75,7 +86,7 @@ class Statistici extends Component {
             viewId: VIEW_ID,
             dateRanges: [
               {
-                startDate: '7daysAgo',
+                startDate: this.state.period,
                 endDate: 'today'
               }
             ],
@@ -129,6 +140,8 @@ class Statistici extends Component {
       for (var i = 0; i < action.length; i++) {
         opt.data[0].dataPoints.push({ y: Math.round(count_per_event[i] * 100 / count), label: action[i] });
       }
+      //calculare si adaugare puncte pe chart pentru vizualizari
+      opt2.data[0].title="Cele mai vizualizate profiluri din "+this.state.period;
       for (var i = 0; i < page_views.length; i++) {
         if (i == 0)
           opt2.data[0].dataPoints.push({ label: page_name[i], y: parseInt(page_views[i]) });
@@ -143,6 +156,12 @@ class Statistici extends Component {
     }.bind(this));
     this.refs.googleLogIn.style.display="none";
   }
+  handleChange = event => {
+    this.setState({
+        [event.target.id]: event.target.value
+    });
+    this.queryReports();
+  }
   render() {
     const responseGoogleFailure = (error) => {
       console.error(error);
@@ -152,13 +171,24 @@ class Statistici extends Component {
       <body>
         <h1>Rapoarte Google Analytics</h1>
         <br></br>
+        <Form.Row>
         <div ref="googleLogIn">
+        <Form.Group as={Col}>
         <GoogleLogin
           clientId="443094691967-2j7a99kuh7puj3dvb7m7f9i40j6lcjr3.apps.googleusercontent.com"
           buttonText="Continuă cu GOOGLE"
           onSuccess={this.queryReports}
           onFailure={responseGoogleFailure}
-        /></div>
+        />
+        </Form.Group>
+        </div>
+        <Form.Group as={Col} controlId="period" bssize="large">
+                <Select options={options} 
+                  value={this.state.period}
+                  onChange={this.handleChange}
+                  />
+        </Form.Group>
+        </Form.Row>
         <Grid container spacing={3}>
         <Grid item xs={6}>
         <CanvasJSChart options={this.state.options1} ></CanvasJSChart>

@@ -19,7 +19,7 @@ import scriptLoader from 'react-async-script-loader';
 import Grid from '@material-ui/core/Grid';
 //const & var
 const trackingId = "UA-167975679-2";
-const ENDPOINT = "https://comunitate.netlify.app"; //"https://localhost:3000"; 
+const ENDPOINT = "https://localhost:3000"; //"https://comunitate.netlify.app";
 const server = "https://hidden-fortress-80148.herokuapp.com";//"http://localhost:5000";//
 
 var username = "";

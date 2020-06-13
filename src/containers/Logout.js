@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-const ENDPOINT="https://comunitate.netlify.app"; //"https://localhost:3000";
+const ENDPOINT= "https://localhost:3000"; //"https://comunitate.netlify.app";
 
 class Logout extends Component {
     constructor(props) {

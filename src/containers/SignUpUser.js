@@ -7,7 +7,7 @@ import axios from 'axios';
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 import ReactGA from 'react-ga';
-const ENDPOINT= "https://comunitate.netlify.app"; //"https://localhost:3000";
+const ENDPOINT= "https://localhost:3000"; //"https://comunitate.netlify.app"; 
 const trackingID = "UA-167975679-1"; 
 
   class SignUpUser extends Component{
