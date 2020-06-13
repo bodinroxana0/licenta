@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
-import Grid from '@material-ui/core/Grid';
 import '../design/Provider.css';
 const server='https://hidden-fortress-80148.herokuapp.com'; //"http://localhost:5000";
 const ENDPOINT= "https://comunitate.netlify.app"; //"https://localhost:3000";
@@ -440,8 +439,6 @@ class Provider extends Component {
     render(){
       return (
         <div class="background">
-        <Grid container spacing={0}>
-          <Grid item xs={12}>
         <Form onSubmit={this.handleSubmit}>
         <Form.Row>
                 <Form.Group as={Col} controlId="domain" bssize="large">
@@ -484,16 +481,11 @@ class Provider extends Component {
                 </Form.Group>
           </Form.Row>
           </Form>
-          </Grid>
          
         <div class="providers">
         <body>
-        <Grid item xs={12}>
-          
-        </Grid>
         </body>
         </div>
-        </Grid>
         </div>
     );
     }

@@ -238,7 +238,7 @@ class Profile extends Component {
       <div class="background_profile">
         <br></br><br></br>
         <div class="profile">
-        <Grid container spacing={3}>
+        <Grid container spacing={3} direction="row" justify="space-around"bbalignItems="center">
           <Grid item xs={4}>
               <img src={default_img} id="poza" width="250" height="200" ></img>
           </Grid>
