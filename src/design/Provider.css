@@ -31,12 +31,12 @@
   }
   .background_profile #small{
       border: 1px solid white;
-      padding-left: 30px;
-      width: 100px;
+      padding-right: 30px;
   }
   .background_profile #big{
       border: 1px solid white;
-      width: 500px;
+      padding-left: 30px;
+      padding-right: 30px;
     }
   .background_profile #centerpoint {
       top: 50%;

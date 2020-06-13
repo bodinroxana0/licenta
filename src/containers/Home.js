@@ -155,7 +155,6 @@ class Home extends Component {
           className="d-block w-100"
           src={House}
           alt="First slide"
-          width={400}
           height={500}
         />
         </div>

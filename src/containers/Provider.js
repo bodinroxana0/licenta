@@ -1,11 +1,15 @@
 import React, { Component } from "react";
+import ReactDOM from 'react-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
+import ReactStars from 'react-rating-stars-component';
+import scriptLoader from 'react-async-script-loader';
 import '../design/Provider.css';
 const server='https://hidden-fortress-80148.herokuapp.com'; //"http://localhost:5000";
-const ENDPOINT= "https://localhost:3000"; //"https://comunitate.netlify.app"; 
-
+const ENDPOINT= "https://comunitate.netlify.app"; //"https://localhost:3000"; 
+var map;
+var lookup = [];
 function getUrlVars() {
   var vars = {};
   var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
@@ -36,6 +40,76 @@ function displayProfile(params) {
       console.log('Error!', err);
     })
  
+}
+function geocodeLocation(address,title, callback) {
+  //geocoding: din adresa-coordonate
+  var geocoder = new window.google.maps.Geocoder();
+  geocoder.geocode({ address: address }, function (results, status) {
+    if (status == window.google.maps.GeocoderStatus.OK) {
+      var res = results[0];
+      callback(res,title);
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+  });
+}
+function showMap(object){
+  if(object){
+    for(var i=0;i<object.length;i++){
+      var address=object[i].City+","+object[i].Region;
+      var t=object[i].FirstName+" "+object[i].LastName;
+    //geocoding: din adresa-coordonate
+    geocodeLocation(address,t, (res,title) => {
+      //console.log(res);
+      var lat=res.geometry.location.lat();
+      var lng=res.geometry.location.lng();
+      //console.log(lat,lng);
+      for (var i = 0; i < lookup.length; i++) {
+        if (lookup[i][0] === lat && lookup[i][1] === lng)  {
+          lat=lat-0.001;
+          lng=lng-0.001;
+        }
+      }
+      //console.log(lat,lng);
+      lookup.push([lat,lng]);
+      var latlng = new window.google.maps.LatLng(lat,lng);
+      //map.setCenter(res.geometry.location);
+      //place a marker at the location
+      var marker = new window.google.maps.Marker({
+        map: map,
+        position: latlng,
+        title: title
+      });
+    });
+    }
+     //pentru locatia curenta
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+    position => {
+      const pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      map.setCenter(pos);
+
+      const marker = new window.google.maps.Marker({
+        position: pos,
+        map: map,
+        title: 'eu',
+        icon: {
+          url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+        }
+      });
+    },
+    () => {
+      console.log('navigator disabled');
+    }
+  );
+  }
+  else {
+  alert("Geolocation nu este suportat de acest browser.");
+  }
+}
 }
 //arata numarul de telefon doar daca esti logat, verifica sesiunea
 function showPhone(username){
@@ -80,6 +154,10 @@ function printProviders(obj,nr){
   }
   for (var i = 0; i < obj.length; i++) {
               var row = tbl.insertRow(x);
+              
+              var cell0 = document.createElement("td");
+              cell0.width="25%";
+              row.appendChild(cell0);
               var cell = document.createElement("td");
               var div =document.createElement("div");
 
@@ -88,13 +166,15 @@ function printProviders(obj,nr){
               var string=buf.toString();
               image.setAttribute("src",string);
               image.setAttribute("width", "150");
-              image.setAttribute("height", "130");
+              image.setAttribute("height", "150");
               image.setAttribute("alt", "provider "+i);
               cell.appendChild(image);
               cell.style.backgroundColor="white";
+              cell.width="20%";
               row.appendChild(cell);
 
               var cell2 = document.createElement("td");
+              var dv=document.createElement("DIV");
               var name = document.createElement("H3");
               var text = document.createTextNode(obj[i].FirstName+" "+obj[i].LastName);
               name.id="?FirstName="+obj[i].FirstName+"&LastName="+obj[i].LastName;
@@ -102,14 +182,28 @@ function printProviders(obj,nr){
                 displayProfile(this.id);
               });
               name.addEventListener("mouseenter", function( event ) {   
-                // highlight the mouseenter target
                 event.target.style.backgroundColor = " #f2f2f2";
-                 // reset the color after a short delay
                 setTimeout(function() {
                   event.target.style.backgroundColor = "";
                 }, 2000);
               }, false);      
               name.appendChild(text);
+              dv.appendChild(name);
+
+              var dv2=document.createElement("DIV");
+              const opt={
+                  count:5,
+                  value:obj[i].Rating,
+                  size:24,
+                  half:true,
+                  color2:'#ffd700'
+              };
+              
+              var title=React.createElement(ReactStars, opt, "rating");
+              ReactDOM.render(
+                title,
+                dv2
+              );
 
               var info = document.createElement("H5");
               var text = document.createTextNode(obj[i].City+", "+obj[i].Region);
@@ -126,19 +220,81 @@ function printProviders(obj,nr){
               });
               var phone = document.createTextNode('07xxxxxxxx');
               
-              div.appendChild(name);
+              div.appendChild(dv);
+              div.appendChild(dv2);
               div.appendChild(info);
               div.appendChild(info2);
               btn.appendChild(phone);
               div.appendChild(btn);
-              //div.style.cssFloat = "right";
+              cell2.width="30%";
               cell2.appendChild(div);
               cell2.style.backgroundColor="white";
               row.appendChild(cell2);
+
+              var cell00 = document.createElement("td");
+              cell00.width="25%";
+              row.appendChild(cell00);
               x++;
           }
+          var cell0=tbl.rows[0].cells[0];
           
-          tbl.style.width = "600px";
+          var div =document.createElement("div");
+          var p0 = document.createElement("P");
+          p0.innerHTML="Ordonare după: ";
+          p0.style.fontWeight = "lighter";
+          p0.style.textAlign="center";
+          div.appendChild(p0);
+          cell0.appendChild(div);
+
+          var br1 = document.createElement("BR");
+          cell0.appendChild(br1);
+          
+          var div1 =document.createElement("div");
+          var rating = document.createElement("INPUT");
+          rating.setAttribute("type", "checkbox");
+          //////////////
+          rating.addEventListener("click", function () {
+            console.log("aici");
+            fetch(server+'/provider_rating')
+           .then(function(response) {
+             if (response.status >= 400) {
+                 throw new Error("Bad response from server");
+             }
+             return response.text();
+           })
+           .then(function(data) {
+             var obj=JSON.parse(data);
+             printProviders(obj,1);
+           })
+           .catch(err => {
+             console.log('Error!', err);
+           })
+          }.bind(this));
+          ///////////////////
+          div1.appendChild(rating);
+          var p = document.createElement("P");
+          p.innerHTML="&nbsp;" + "&nbsp;"+"Rating";
+          p.style.fontWeight = "lighter";
+          div1.appendChild(p);
+          cell0.appendChild(div1);
+
+          var br2 = document.createElement("BR");
+          cell0.appendChild(br2);
+          
+          var div2 =document.createElement("div");
+          var location = document.createElement("INPUT");
+          location.setAttribute("type", "checkbox");
+          location.addEventListener("click", function () {
+            var mp=document.getElementsByClassName("map")[0].style.display="block";
+            showMap(obj);
+          }.bind(this));
+          div2.appendChild(location);
+          var p2 = document.createElement("P");
+          p2.innerHTML="&nbsp;" + "&nbsp;"+"Locație";
+          p2.style.fontWeight = "lighter";
+          div2.appendChild(p2);
+          cell0.appendChild(div2);
+
           tbl.align = "center";
           body.style.backgroundColor="#f2f2f2";
           body.appendChild(tbl);
@@ -417,7 +573,23 @@ class Provider extends Component {
           console.log('Error!', err);
         })
       }
+      
+  componentWillReceiveProps({ isScriptLoaded, isScriptLoadSucceed }) {
+    if (isScriptLoaded && !this.props.isScriptLoaded) {
+      // load finished
+      if (isScriptLoadSucceed) {
+        //intializare care se poate face si inainte sa vem adresa din baza de date
+        var latlng = new window.google.maps.LatLng(-34.397, 150.644);
+        var mapOptions = {
+          zoom: 12,
+          center: latlng
+        }
+        map = new window.google.maps.Map(this.refs.map, mapOptions);
+      }
+    }
+  }
       componentDidMount() {
+        var mp=document.getElementsByClassName("map")[0].style.display="none";
         var url = server+'/provider';
         fetch(url)
         .then(function(response) {
@@ -484,10 +656,11 @@ class Provider extends Component {
          
         <div class="providers">
         <body>
+        <div ref="map" className="map" style={{ height: '400px', width: '100%' }}></div>
         </body>
         </div>
         </div>
     );
     }
   }
- export default Provider;
+  export default scriptLoader(['https://maps.googleapis.com/maps/api/js?key=AIzaSyA5kW2qzrdcllO1rSEoTr4NMzpxNYPbHZ0'])(Provider);

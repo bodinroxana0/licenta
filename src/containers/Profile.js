@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
+import Col from 'react-bootstrap/Col';
 import axios from 'axios';
 import ReactGA from 'react-ga';
 ////material-ui
@@ -16,10 +17,9 @@ import CakeIcon from '@material-ui/icons/Cake';
 import default_img from '../images/user-avatar.png';
 import ReactStars from 'react-rating-stars-component';
 import scriptLoader from 'react-async-script-loader';
-import Grid from '@material-ui/core/Grid';
 //const & var
 const trackingId = "UA-167975679-2";
-const ENDPOINT = "https://localhost:3000"; //"https://comunitate.netlify.app";
+const ENDPOINT =  "https://comunitate.netlify.app"; //"https://localhost:3000";
 const server = "https://hidden-fortress-80148.herokuapp.com";//"http://localhost:5000";//
 
 var username = "";
@@ -159,27 +159,7 @@ class Profile extends Component {
       }
     }
   }
-  //pentru locatia curenta-vezi cand faci filtrare dupa nr km
-
-  // navigator.geolocation.getCurrentPosition(
-  //   position => {
-  //     const pos = {
-  //       lat: position.coords.latitude,
-  //       lng: position.coords.longitude
-  //     };
-
-  //     this.map.setCenter(pos);
-
-  //     const marker = new window.google.maps.Marker({
-  //       position: pos,
-  //       map: this.map,
-  //       title: 'Hello World!'
-  //     });
-  //   },
-  //   () => {
-  //     console.log('navigator disabled');
-  //   }
-  // );
+ 
   componentDidMount() {
     ///navbar
     var user = document.getElementsByClassName("collasible-nav-dropdown")[0];
@@ -238,13 +218,11 @@ class Profile extends Component {
       <div class="background_profile">
         <br></br><br></br>
         <div class="profile">
-        <Grid container spacing={1} direction="row"
-  justify="flex-start"
-  alignItems="center">
-          <Grid item xs={4}>
-              <img src={default_img} id="poza" width="250" height="200" ></img>
-          </Grid>
-          <Grid item xs={4}>    
+        <Form.Row>
+          <Form.Group  id="small" bssize="large">
+            <img src={default_img} id="poza" width="250" height="200" ></img>
+          </Form.Group>
+          <Form.Group  id="big"  bssize="large">
                 <label id="nume"></label>
                 <LocationOnIcon color="action" fontSize="small" />
                 <label id="locatie"></label>
@@ -272,13 +250,11 @@ class Profile extends Component {
                         }}
                       >Trimite mesaj</Button>
                 </div>
-          </Grid>
-        </Grid>
+          </Form.Group>
+        </Form.Row>
+        <Form.Row>
+        <Form.Group as={Col}  bssize="large">
         <br></br><br></br>
-        <Grid container container spacing={1} direction="row"
-  justify="flex-start"
-  alignItems="center">
-          <Grid item xs={12}>
                 <Tabs defaultActiveKey="locatie" id="tab">
                   <Tab eventKey="locatie" title="Locatie">
                     <div ref="map" style={{ height: '300px', width: '500px' }}></div>
@@ -295,9 +271,8 @@ class Profile extends Component {
                     </div>
                   </Tab>
                 </Tabs>
-            </Grid>
-        </Grid>
-        
+          </Form.Group>
+        </Form.Row>
         <div id="centerpoint">
         <div id="dialog"></div>
       </div>
