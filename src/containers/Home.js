@@ -9,6 +9,7 @@ import House from '../images/home.jfif';
 import Services from '../images/services.png';
 import Carousel from 'react-bootstrap/Carousel';
 import Container from 'react-bootstrap/Container';
+import Grid from '@material-ui/core/Grid';
 import '../design/Home.css';
 import Provider from './Provider.js';
 import FacebookLogin from 'react-facebook-login';
@@ -148,6 +149,8 @@ class Home extends Component {
     render(){
     return (
       <div class="Home">
+        <Grid container spacing={0}>
+          <Grid item xs={12}>
       <Carousel>
       <Carousel.Item>
         <div class="image">
@@ -188,6 +191,8 @@ class Home extends Component {
       </Carousel.Item>
       </Carousel>
         <Provider></Provider> 
+        </Grid>
+        </Grid>
         </div>
         );
       }

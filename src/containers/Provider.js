@@ -440,6 +440,8 @@ class Provider extends Component {
     render(){
       return (
         <div class="background">
+        <Grid container spacing={0}>
+          <Grid item xs={12}>
         <Form onSubmit={this.handleSubmit}>
         <Form.Row>
                 <Form.Group as={Col} controlId="domain" bssize="large">
@@ -482,11 +484,11 @@ class Provider extends Component {
                 </Form.Group>
           </Form.Row>
           </Form>
-        <Grid container>
         <div class="providers">
         <body>
         </body>
         </div>
+        </Grid>
         </Grid>
         </div>
     );
