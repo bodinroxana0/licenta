@@ -238,7 +238,9 @@ class Profile extends Component {
       <div class="background_profile">
         <br></br><br></br>
         <div class="profile">
-        <Grid container spacing={3} direction="row" justify="space-around" alignItems="center">
+        <Grid container spacing={1} direction="row"
+  justify="flex-start"
+  alignItems="center">
           <Grid item xs={4}>
               <img src={default_img} id="poza" width="250" height="200" ></img>
           </Grid>
@@ -273,7 +275,9 @@ class Profile extends Component {
           </Grid>
         </Grid>
         <br></br><br></br>
-        <Grid container spacing={3}>
+        <Grid container container spacing={1} direction="row"
+  justify="flex-start"
+  alignItems="center">
           <Grid item xs={12}>
                 <Tabs defaultActiveKey="locatie" id="tab">
                   <Tab eventKey="locatie" title="Locatie">
