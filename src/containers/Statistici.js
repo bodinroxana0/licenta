@@ -4,15 +4,11 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import CanvasJSReact from '../canvasjs/canvasjs.react';
 import Grid from '@material-ui/core/Grid';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import Select from 'react-select'
-
-const options = [
-  { value: 'Yesterday', label: 'ultimele 24 ore' },
-  { value: '7daysAgo', label: 'ultimele 7 zile' },
-  { value: '30daysAgo', label: 'ultimele 30 zile' }
-]
-
 import $ from 'jquery';
+
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 var CanvasJSChart1 = CanvasJSReact.CanvasJSChart;
@@ -69,11 +65,10 @@ class Statistici extends Component {
     this.state = {
       options1: "",
       options2: "",
-      period:"7daysAgo"
+      time:"7daysAgo",
+      timp:"ultimele 7 zile"
     }
-    
     this.queryReports = this.queryReports.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
   queryReports() {
     window.gapi.client.request({
@@ -86,7 +81,7 @@ class Statistici extends Component {
             viewId: VIEW_ID,
             dateRanges: [
               {
-                startDate: this.state.period,
+                startDate: this.state.time,
                 endDate: 'today'
               }
             ],
@@ -108,7 +103,10 @@ class Statistici extends Component {
         ]
       }
     }).then(function (response) {
-      console.log(response);
+       event_category = [];event_action = [];event_count = [];page_name = [];page_views = [];view_count = 0;
+       opt.data[0].dataPoints=[];
+       opt2.data[0].dataPoints=[];
+      //console.log(response);
       var formattedJson = response.result.reports[0].data.rows;
       //toate evenimentele
       for (var i = 0; i < formattedJson.length; i++) {
@@ -135,13 +133,13 @@ class Statistici extends Component {
           view_count = parseInt(view_count) + parseInt(event_count[i]);
         }
       }
-      console.log(action,count_per_event,count);
+      //console.log(action,count_per_event,count);
       //calculare si adaugare puncte pe chart pentru conectare
       for (var i = 0; i < action.length; i++) {
         opt.data[0].dataPoints.push({ y: Math.round(count_per_event[i] * 100 / count), label: action[i] });
       }
       //calculare si adaugare puncte pe chart pentru vizualizari
-      opt2.data[0].title="Cele mai vizualizate profiluri din "+this.state.period;
+      opt2.title.text="Cele mai vizualizate profiluri din "+this.state.timp;
       for (var i = 0; i < page_views.length; i++) {
         if (i == 0)
           opt2.data[0].dataPoints.push({ label: page_name[i], y: parseInt(page_views[i]) });
@@ -155,18 +153,52 @@ class Statistici extends Component {
     }));
     }.bind(this));
     this.refs.googleLogIn.style.display="none";
+    var test=document.getElementById("text");
+    test.style.display="block";
+    var t=document.getElementById("time");
+    t.style.display="block";
   }
   handleChange = event => {
+    var vals = [];
+    var t;
+    var sel = document.getElementById("time");
+    for (var i=0;i<sel.options.length;i++) {
+      if (sel.options[i].value==event.target.value) t=sel.options[i].text;
+    }
     this.setState({
-        [event.target.id]: event.target.value
+        [event.target.id]: event.target.value,
+        timp:t
     });
     this.queryReports();
+  }
+  componentDidMount(){
+    const options = [
+      { value: 'Yesterday', text: 'ultimele 24 ore' },
+      { value: '2daysAgo', text: 'ultimele 48 ore' },
+      { value: '14daysAgo', text: 'ultimele 14 zile' },
+      { value: '30daysAgo', text: 'ultimele 30 zile' },
+      { value: 'lastYear', text: 'ultimul an' }
+    ]
+    var x = document.getElementById("time");
+    var option = document.createElement("option");
+    option.text = 'Alege o perioadă de timp ...';
+    x.add(option);
+    for (let i = 0; i < options.length; i++) {
+      var option = document.createElement("option");
+      option.value = options[i].value;
+      option.text = options[i].text;
+      x.add(option);
+    }
+    x.options[0].selected=true;
+    var test=document.getElementById("text");
+    test.style.display="none";
+    var t=document.getElementById("time");
+    t.style.display="none";
   }
   render() {
     const responseGoogleFailure = (error) => {
       console.error(error);
     };
-
     return (
       <body>
         <h1>Rapoarte Google Analytics</h1>
@@ -182,11 +214,12 @@ class Statistici extends Component {
         />
         </Form.Group>
         </div>
-        <Form.Group as={Col} controlId="period" bssize="large">
-                <Select options={options} 
-                  value={this.state.period}
-                  onChange={this.handleChange}
-                  />
+        <h4 id="text">&nbsp; &nbsp;Vrei să vezi statisticile pe altă perioadă?&nbsp; &nbsp;</h4>
+        <Form.Group as={Col} controlId="time" bssize="large">
+            <Form.Control as="select" 
+              value={this.state.time}
+              onChange={this.handleChange}
+            />
         </Form.Group>
         </Form.Row>
         <Grid container spacing={3}>

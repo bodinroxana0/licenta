@@ -37,6 +37,7 @@
     "react-router-bootstrap": "^0.25.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.3.0",
+    "react-select": "^3.1.0",
     "react-validation": "^3.0.7",
     "readline": "^1.3.0",
     "realtime-analytics": "^1.0.6",
