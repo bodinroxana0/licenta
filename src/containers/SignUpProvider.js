@@ -361,18 +361,18 @@ function printString2(callback){
               </Form.Row>
               <Form.Row>
               <Form.Group as={Col} controlId="street" bssize="large">
-              <Form.Control as="select"
+              <Form.Control placeholder="Strada"
                   value={this.state.street}
                   onChange={this.handleChange}
-                  required
+                  
                   >
                </Form.Control>
               </Form.Group>
               <Form.Group as={Col} controlId="housenumber" bssize="large">
-              <Form.Control as="select" 
+              <Form.Control placeholder="Numarul"
                   value={this.state.housenumber}
                   onChange={this.handleChange}
-                  required
+                  
                   />
               </Form.Group>
               </Form.Row>

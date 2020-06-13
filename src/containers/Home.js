@@ -28,8 +28,6 @@ class Home extends Component {
   }
   
   componentDidMount() {
-    //ReactGA.initialize(trackingId); 
-   // ReactGA.pageview("/home");
     var user = document.getElementsByClassName("collasible-nav-dropdown")[0];
     var connect = document.getElementsByClassName("signup")[0];
     var login = document.getElementsByClassName("login")[0];

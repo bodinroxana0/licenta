@@ -141,6 +141,7 @@ class Statistici extends Component {
       options1: opt
     }));
     }.bind(this));
+    this.refs.googleLogIn.style.display="none";
   }
   render() {
     const responseGoogleFailure = (error) => {
@@ -151,10 +152,14 @@ class Statistici extends Component {
       <body>
         <h1>Rapoarte Google Analytics</h1>
         <br></br>
+        <div ref="googleLogIn">
+        <GoogleLogin
+          clientId="443094691967-2j7a99kuh7puj3dvb7m7f9i40j6lcjr3.apps.googleusercontent.com"
+          buttonText="Continuă cu GOOGLE"
+          onSuccess={this.queryReports}
+          onFailure={responseGoogleFailure}
+        /></div>
         <Grid container spacing={3}>
-        {/* <Grid item xs={12}>
-          <Paper className={classes.paper}>xs=12</Paper>
-        </Grid> */}
         <Grid item xs={6}>
         <CanvasJSChart options={this.state.options1} ></CanvasJSChart>
         </Grid>
@@ -162,13 +167,6 @@ class Statistici extends Component {
         <CanvasJSChart1 options={this.state.options2}></CanvasJSChart1> 
         </Grid>
         </Grid>
-        <br></br>
-        <GoogleLogin
-          clientId="443094691967-2j7a99kuh7puj3dvb7m7f9i40j6lcjr3.apps.googleusercontent.com"
-          buttonText="Continuă cu GOOGLE"
-          onSuccess={this.queryReports}
-          onFailure={responseGoogleFailure}
-        />
       </body>
     );
   }
