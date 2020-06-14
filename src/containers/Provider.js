@@ -651,6 +651,7 @@ class Provider extends Component {
                     />
                 </Form.Group>
                 <Form.Group as={Col} controlId="search" >
+                  <br></br>
                 <Button
                   block
                   type="submit"
