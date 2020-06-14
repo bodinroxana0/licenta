@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 import ReactStars from 'react-rating-stars-component';
 import scriptLoader from 'react-async-script-loader';
 import '../design/Provider.css';
-const server='https://hidden-fortress-80148.herokuapp.com'; //"http://localhost:5000";
+const server='https://hidden-fortress-80148.herokuapp.com/'; //"http://localhost:5000";
 const ENDPOINT= "https://comunitate.netlify.app"; //"https://localhost:3000"; 
 var map;
 var lookup = [];
