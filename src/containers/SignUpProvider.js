@@ -235,23 +235,6 @@ function printString2(callback){
         })
       }
       handleChange = event => {
-        //   if(event.target.id=="region"){
-        //   this.setState({
-        //       [event.target.id]: event.target.value
-        //   });
-        //   this.setState({
-        //     city:""
-        // });
-        //   this.setState({
-        //     domain:""
-        // });
-        // console.log("am setat");
-        // }
-        // else{
-        //   this.setState({
-        //     [event.target.id]: event.target.value
-        // });
-        // }
         if(event.target.id=="region"){
           this.setState({
               [event.target.id]: event.target.value

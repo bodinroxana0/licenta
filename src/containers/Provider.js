@@ -371,7 +371,7 @@ class Provider extends Component {
            for (let i = length-1; i >= 0; i--) {
              select.options[i] = null;
            }
-         fetch(server+'/cities'+this.state.region)
+         fetch(server+'/cities/'+this.state.region)
              .then(function(response) {
                if (response.status >= 400) {
                    throw new Error("Bad response from server");
