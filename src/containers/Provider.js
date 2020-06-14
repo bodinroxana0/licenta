@@ -476,9 +476,6 @@ class Provider extends Component {
           this.setState({
             city:""
          });
-         this.setState({
-          domain:""
-          });
         }
         else if(event.target.id=="domain"){
           this.setState({
