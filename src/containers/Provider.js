@@ -365,6 +365,7 @@ class Provider extends Component {
      loadCities(){
        if(!this.state.region==" "){
          if(this.state.city==""){
+           console.log("incarc orasele");
            var select = document.getElementById("city");
            var length = select.options.length;
            for (let i = length-1; i >= 0; i--) {
@@ -475,7 +476,6 @@ class Provider extends Component {
           this.setState({
             city:""
          });
-        console.log("am setat");
         }
         else if(event.target.id=="domain"){
           this.setState({
@@ -484,7 +484,6 @@ class Provider extends Component {
           this.setState({
             service:""
          });
-        console.log("am setat2");
         }
         else{
           this.setState({

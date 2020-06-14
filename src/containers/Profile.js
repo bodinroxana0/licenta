@@ -69,8 +69,10 @@ function printProfile(obj, callback) {
   var SendingTime=obj[i].BirthDate.split("T");
   var SendingDay=SendingTime[0];
   birthday.innerHTML = "&nbsp;" + "&nbsp;"+SendingDay;
-  //var number = document.getElementById("rating");
-  //number.innerHTML = obj[i].Rating;
+
+  var extra=document.getElementById("extra");
+  extra.innerHTML=obj[i].Description;
+
   this.setState({ rating: obj[i].Rating });
   console.log(this.state.rating);
   var address = obj[i].HouseNumber + "," + obj[i].Street + "," + obj[i].City + "," + obj[i].Region;
@@ -268,6 +270,8 @@ class Profile extends Component {
                       <PhoneIcon color="action" fontSize="small"/><label id="phone"></label>
                       <br></br>
                       <CakeIcon color="action" fontSize="small"/><label id="birthday"></label>
+                      <br></br>
+                      <h4 id="extra"></h4>
                     </div>
                   </Tab>
                 </Tabs>
