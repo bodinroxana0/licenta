@@ -418,6 +418,9 @@ class Provider extends Component {
              var option = document.createElement("option");
              option.text = 'Alege un domeniu ...';
              x.add(option);
+             var option2 = document.createElement("option");
+            option2.text = '...';
+            x.add(option2);
              for (let i = 0; i < obj.length; i++) {
              var option = document.createElement("option");
               if(unique.includes(obj[i].ServiceDomain)==false || i==0)
@@ -428,7 +431,6 @@ class Provider extends Component {
               }
             }
             
-            x.options[0].selected = true;
             x.options[0].disabled = true;
            })
            .catch(err => {
