@@ -617,6 +617,7 @@ class Provider extends Component {
         <Form onSubmit={this.handleSubmit}>
         <Form.Row>
                 <Form.Group as={Col} controlId="domain" bssize="large">
+                  <label>Domeniu</label>
                 <Form.Control as="select"
                     onLoad={this.loadDomain()}
                     value={this.state.domain}
@@ -625,6 +626,7 @@ class Provider extends Component {
                  </Form.Control>
                 </Form.Group>
                 <Form.Group as={Col} controlId="service">
+                <label>Serviciu</label>
                 <Form.Control as="select" 
                     onLoad={this.loadServices()}
                     value={this.state.service}
@@ -632,6 +634,7 @@ class Provider extends Component {
                     />
                 </Form.Group>
                 <Form.Group as={Col} controlId="region">
+                <label>Județ</label>
                 <Form.Control as="select"
                     onLoad={this.loadCounties()}
                     value={this.state.region}
@@ -640,6 +643,7 @@ class Provider extends Component {
                  </Form.Control>
                 </Form.Group>
                 <Form.Group as={Col} controlId="city">
+                <label>Oraș</label>
                 <Form.Control as="select" 
                     onLoad={this.loadCities()}
                     value={this.state.city}
