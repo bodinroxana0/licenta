@@ -141,6 +141,8 @@ class Profile extends Component {
       dialog.style.display = "none";
       centerpoint.style.display = "none";
     });
+    var br=document.createElement("BR");
+    dialog.appendChild(br);
     dialog.appendChild(btn_da);
     dialog.appendChild(btn_nu);
     dialog.style.display = "block";
