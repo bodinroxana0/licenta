@@ -21,7 +21,7 @@ import scriptLoader from 'react-async-script-loader';
 const trackingId = "UA-167975679-3";
 const ENDPOINT =  "https://comunitate.netlify.app"; //"https://localhost:3000";
 const server = "https://hidden-fortress-80148.herokuapp.com";//"http://localhost:5000";//
-
+var email;
 var username = "";
 var receiver = "";
 var no = 0;
@@ -199,6 +199,7 @@ class Profile extends Component {
       })
       .then(function (data) {
         var object = JSON.parse(data);
+        email=object[0].Email;
         printProfile(object, function (address, rating) {
           //geocoding: din adresa-coordonate
           geocodeLocation(address, res => {
@@ -250,7 +251,7 @@ class Profile extends Component {
                       <Button size="lg"
                         onClick={function openChat() {
                           var sender = getUrlVars()["user"];
-                          window.location.href = ENDPOINT + "/Chat/?Sender=" + sender + "&Receiver=" + username;
+                          window.location.href = ENDPOINT + "/Chat/?Sender=" + sender + "&Receiver=" + username+"&Email="+email;
                         }}
                       >Trimite mesaj</Button>
                 </div>

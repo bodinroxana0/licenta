@@ -7,11 +7,17 @@ import default_img from '../images/user-avatar.png';
 import ReactStars from 'react-rating-stars-component';
 import axios from 'axios';
 import socketIOClient from "socket.io-client";
+import { SMTPClient } from 'emailjs';
 import ReactGA from 'react-ga';
 const trackingID = "UA-167975679-3"; 
 const ENDPOINT="https://hidden-fortress-80148.herokuapp.com";
 const socket = socketIOClient("https://vast-atoll-37075.herokuapp.com");
-
+const client = new SMTPClient({
+  user: 'roxanabodin',
+  password: 'isawblacklist2@',
+  host: 'bodinroxana719@gmail.com',
+  ssl: true,
+});
 var username = "";
 var no = 0;
 function getUrlVars() {
@@ -20,6 +26,20 @@ function getUrlVars() {
     vars[key] = value;
   });
   return vars;
+}
+function sendEmail(email,mess,SendingTime,user){
+  // send the message and get a callback with an error or details of the message that was sent
+client.send(
+  {
+      text: mess,
+      from: '<bodinroxana719@gmail.com>',
+      to: '<'+email+'>',
+      subject: 'Mesaj nou de la '+user,
+  },
+  (err, message) => {
+      console.log(err || message);
+  }
+);
 }
 function message(user,mess,SendingTime){
   console.log(SendingTime);
@@ -155,6 +175,7 @@ class Chat extends Component {
     socket.on('message', function (data) {
       if(data.text && data.sendingtime) {
         message(data.user,data.text,data.sendingtime);
+        sendEmail(data.email,data.text,data.sendingtime,data.user);
       } else {
           console.log("There is a problem:", data);
       }
@@ -171,7 +192,8 @@ class Chat extends Component {
     ReactGA.initialize(trackingID);
     var Sender = getUrlVars()["Sender"];
     var Receiver = getUrlVars()["Receiver"];
-    console.log(Sender,Receiver);
+    var email=getUrlVars()["Email"];
+    console.log(Sender,Receiver,email);
     var n = Sender.localeCompare(Receiver);
     if(n<0)
     {
@@ -184,7 +206,7 @@ class Chat extends Component {
       console.log(room); 
     }
     var name=Sender;
-    socket.emit('join', {name,room}, ()=>{
+    socket.emit('join', {name,room,email}, ()=>{
     });
     
     fetch(ENDPOINT+"/chat/" + Sender + "/" + Receiver)

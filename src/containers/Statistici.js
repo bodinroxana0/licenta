@@ -141,10 +141,11 @@ class Statistici extends Component {
       //calculare si adaugare puncte pe chart pentru vizualizari
       opt2.title.text="Cele mai vizualizate profiluri din "+this.state.timp;
       for (var i = 0; i < page_views.length; i++) {
-        if (i == 0)
-          opt2.data[0].dataPoints.push({ label: page_name[i], y: parseInt(page_views[i]) });
-        else
-          opt2.data[0].dataPoints.push({ label: page_name[i], y: parseInt(page_views[i]) });
+        console.log(page_name[i]);
+        page_name[i].normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        console.log(page_name[i]);
+        opt2.data[0].dataPoints.push({ label: page_name[i], y: parseInt(page_views[i]) });
+        
       }
     //setare optiuni si desenare chart2
     this.setState((state, props) => ({
