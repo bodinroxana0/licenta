@@ -7,7 +7,7 @@ import ReactStars from 'react-rating-stars-component';
 import scriptLoader from 'react-async-script-loader';
 import '../design/Provider.css';
 const server = 'https://hidden-fortress-80148.herokuapp.com'; //"http://localhost:5000";
-const ENDPOINT = "https://comunitate.netlify.app"; //"https://localhost:3000"; 
+const ENDPOINT = "https://comunitate.netlify.app"; //"https://localhost:3000";
 var map;
 var lookup = [];
 function getUrlVars() {
@@ -154,13 +154,13 @@ function printProfiles(obj, nr, id) {
   }
   for (var i = 0; i < obj.length; i++) {
     var row = tbl.insertRow(x);
-
+    //prima col
     var cell0 = document.createElement("td");
     cell0.width = "25%";
     row.appendChild(cell0);
     var cell = document.createElement("td");
-    var div = document.createElement("div");
     if (id == 1) { //users want to see providers
+      //image cell
       var image = document.createElement("IMG");
       var buf = Buffer.from(obj[i].Photo);
       var string = buf.toString();
@@ -173,6 +173,7 @@ function printProfiles(obj, nr, id) {
       cell.width = "20%";
       row.appendChild(cell);
     }
+    //nume prenume
     var cell2 = document.createElement("td");
     var dv = document.createElement("DIV");
     var name = document.createElement("H3");
@@ -189,7 +190,7 @@ function printProfiles(obj, nr, id) {
     }, false);
     name.appendChild(text);
     dv.appendChild(name);
-    div.appendChild(dv);
+    cell2.appendChild(dv);
 
     if(id==1){
     var dv2 = document.createElement("DIV");
@@ -206,18 +207,19 @@ function printProfiles(obj, nr, id) {
       title,
       dv2
     );
-    div.appendChild(dv2);
+    cell2.appendChild(dv2);
     }
+    //oras,judet
     var info = document.createElement("H5");
     var text = document.createTextNode(obj[i].City + ", " + obj[i].Region);
     info.appendChild(text);
+    cell2.appendChild(info);
 
     if(id==1){
     var info2 = document.createElement("H5");
     var text = document.createTextNode(obj[i].ServiceDomain + ", " + obj[i].ServiceName);
     info2.appendChild(text);
-    div.appendChild(info2);
-    }
+    cell2.appendChild(info2);
 
     var btn = document.createElement("BUTTON");
     btn.name = obj[i].UserName;
@@ -225,14 +227,20 @@ function printProfiles(obj, nr, id) {
       showPhone(this.name);
     });
     var phone = document.createTextNode('07xxxxxxxx');
-    div.appendChild(info);
     btn.appendChild(phone);
-    div.appendChild(btn);
+    cell2.appendChild(btn);
+
+  }
+  else if(id==2){
+    var btn = document.createElement("BUTTON");
+    var phone = document.createTextNode(obj[i].Phone);
+    btn.appendChild(phone);
+    cell2.appendChild(btn);
+  }
+   //ultima col
     cell2.width = "30%";
-    cell2.appendChild(div);
     cell2.style.backgroundColor = "white";
     row.appendChild(cell2);
-
     var cell00 = document.createElement("td");
     cell00.width = "25%";
     row.appendChild(cell00);
@@ -240,17 +248,19 @@ function printProfiles(obj, nr, id) {
   }
   var cell0 = tbl.rows[0].cells[0];
 
-  var div = document.createElement("div");
-  var p0 = document.createElement("P");
-  p0.innerHTML = "Ordonare după: ";
-  p0.style.fontWeight = "lighter";
-  p0.style.textAlign = "center";
-  div.appendChild(p0);
-  cell0.appendChild(div);
-
+ 
+  if(id==1){
+    var div0 = document.createElement("div");
+    var p0 = document.createElement("P");
+    p0.innerHTML = "Ordonare după: ";
+    p0.style.fontWeight = "lighter";
+    p0.style.textAlign = "center";
+    div0.appendChild(p0);
+    cell0.appendChild(div0);
+  
   var br1 = document.createElement("BR");
   cell0.appendChild(br1);
-  if(id==1){
+ 
   var div1 = document.createElement("div");
   var rating = document.createElement("INPUT");
   rating.setAttribute("type", "checkbox");
@@ -564,7 +574,7 @@ class Provider extends Component {
       .then(function (data) {
         var object = JSON.parse(data);
         console.log(object);
-        printProfiles(object, 1, 2);
+        printProfiles(object, 1, 1);
       })
       .catch(err => {
         console.log('Error!', err);

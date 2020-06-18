@@ -19,7 +19,7 @@ import ReactStars from 'react-rating-stars-component';
 import scriptLoader from 'react-async-script-loader';
 //const & var
 const trackingId = "UA-167975679-3";
-const ENDPOINT =  "https://comunitate.netlify.app"; //"https://localhost:3000";
+const ENDPOINT = "https://comunitate.netlify.app"; //"https://localhost:3000";
 const server = "https://hidden-fortress-80148.herokuapp.com";//"http://localhost:5000";//
 var email;
 var username = "";
@@ -189,13 +189,18 @@ class Profile extends Component {
     var title = document.getElementsByClassName("text-primary")[0];
     title.innerHTML = user;
 
-    if(id==1){
+    if(id==1){//user
     ReactGA.initialize(trackingId);
     ReactGA.event({
       category: 'Vizualizari',
       action: firstName + " " + lastName
     });
-    fetch(server + "/provider/" + firstName + "/" + lastName)
+    var url=server + "/provider/" + firstName + "/" + lastName;
+  }
+  else if(id==2){//provider
+    var url=server + "/users/" + firstName + "/" + lastName;
+  }
+    fetch(url)
       .then(function (response) {
         if (response.status >= 400) {
           throw new Error("Bad response from server");
@@ -221,37 +226,7 @@ class Profile extends Component {
       })
       .catch(err => {
         console.log('Error!', err);
-      })
-    }
-    else if(id==1){
-      fetch(server + "/provider/" + firstName + "/" + lastName)
-      .then(function (response) {
-        if (response.status >= 400) {
-          throw new Error("Bad response from server");
-        }
-        return response.text();
-      })
-      .then(function (data) {
-        var object = JSON.parse(data);
-        email=object[0].Email;
-        printProfile(object,id, function (address, rating) {
-          //geocoding: din adresa-coordonate
-          geocodeLocation(address, res => {
-            console.log(res);
-            map.setCenter(res.geometry.location);
-            //place a marker at the location
-            var marker = new window.google.maps.Marker({
-              map: map,
-              position: res.geometry.location
-            });
-          });
-        });
-
-      })
-      .catch(err => {
-        console.log('Error!', err);
-      })
-    }
+      })    
   }
   render() {
     return (

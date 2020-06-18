@@ -11,7 +11,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import LockRoundedIcon from '@material-ui/icons/LockRounded';
 import ReactGA from 'react-ga';
 const server='https://hidden-fortress-80148.herokuapp.com'; //"http://localhost:5000";//
-const ENDPOINT=  "https://comunitate.netlify.app"; //"https://localhost:3000";
+const ENDPOINT=  "https://comunitate.netlify.app"; //"https://localhost:3000"; 
 const trackingId = "UA-167975679-3";
 
     class Login extends Component {
@@ -70,8 +70,8 @@ const trackingId = "UA-167975679-3";
           }
           else
           {//1/2 si username
-            alert('Bun venit, '+object[0].username+" !");
-            window.location.href = ENDPOINT+"?user="+object[0].username+"&id="+object[0].id;
+            alert('Bun venit, '+object.username+" !");
+            window.location.href = ENDPOINT+"?user="+object.username+"&id="+object.id;
           }
         })
         .catch(err => {
