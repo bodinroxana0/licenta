@@ -29,8 +29,8 @@ function sendEmail(email,mess,user){
   var template_params = {
     "email": email,
     "user": user,
-    "to_name": user,
-    "from_name": email,
+    "to_name": email,
+    "from_name": user,
     "message_html": mess
   }
   emailjs.send(service_id,template_id, template_params, user_id)
