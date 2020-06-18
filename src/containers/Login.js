@@ -63,14 +63,15 @@ const trackingId = "UA-167975679-3";
         })
         .then(function(data) {
           console.log(data);
+          var object = JSON.parse(data);
           if(data=="wrong")
           {
             alert("Nume sau Parolă incorectă!");
           }
           else
           {//1/2 si username
-            alert('Bun venit, '+data.username+" !");
-            window.location.href = ENDPOINT+"?user="+data.username+"&id="+data.id;
+            alert('Bun venit, '+object[0].username+" !");
+            window.location.href = ENDPOINT+"?user="+object[0].username+"&id="+object[0].id;
           }
         })
         .catch(err => {
