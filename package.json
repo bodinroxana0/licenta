@@ -16,6 +16,7 @@
     "bootstrap": "^4.5.0",
     "crypto-js": "^3.3.0",
     "date-fns": "^2.14.0",
+    "emailjs": "^3.0.0",
     "emailjs-com": "^2.4.1",
     "jimp": "^0.9.8",
     "jquery": "^3.5.1",
