@@ -28,18 +28,24 @@ function getUrlVars() {
   return vars;
 }
 function sendEmail(email,mess,SendingTime,user){
-  // send the message and get a callback with an error or details of the message that was sent
-SMTPClient.send(
-  {
-      text: mess,
-      from: '<bodinroxana719@gmail.com>',
-      to: '<'+email+'>',
-      subject: 'Mesaj nou de la '+user,
-  },
-  (err, message) => {
-      console.log(err || message);
-  }
-);
+  
+  emailjs.send('gmail', 'YOUR_TEMPLATE_ID', templateParams)
+    .then(function(response) {
+       console.log('SUCCESS!', response.status, response.text);
+    }, function(error) {
+       console.log('FAILED...', error);
+    });
+// SMTPClient.send(
+//   {
+//       text: mess,
+//       from: '<bodinroxana719@gmail.com>',
+//       to: '<'+email+'>',
+//       subject: 'Mesaj nou de la '+user,
+//   },
+//   (err, message) => {
+//       console.log(err || message);
+//   }
+// );
 }
 function message(user,mess,SendingTime){
   console.log(SendingTime);

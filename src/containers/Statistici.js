@@ -141,9 +141,10 @@ class Statistici extends Component {
       //calculare si adaugare puncte pe chart pentru vizualizari
       opt2.title.text="Cele mai vizualizate profiluri din "+this.state.timp;
       for (var i = 0; i < page_views.length; i++) {
-        console.log(page_name[i]);
-        page_name[i].normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        console.log(page_name[i]);
+         if(page_name[i].includes("%"))
+          {
+            page_name[i]="Codruța Gal";
+          }
         opt2.data[0].dataPoints.push({ label: page_name[i], y: parseInt(page_views[i]) });
         
       }
