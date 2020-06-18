@@ -16,7 +16,6 @@ const socket = socketIOClient("https://vast-atoll-37075.herokuapp.com");
 var service_id = "default_service";
 var template_id = "template_el0ysHEX";
 var user_id="user_sxHPqH9UT7VA9DSVYCuDy";
-//emailjs.send(service_id, template_id, template_params);
 var username = "";
 var no = 0;
 function getUrlVars() {
@@ -30,8 +29,8 @@ function sendEmail(email,mess,user){
   var template_params = {
     "email": email,
     "user": user,
-    "to_name": "to_name_value",
-    "from_name": "from_name_value",
+    "to_name": user,
+    "from_name": email,
     "message_html": mess
   }
   emailjs.send(service_id,template_id, template_params, user_id)

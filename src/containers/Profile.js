@@ -35,19 +35,14 @@ function getUrlVars() {
   });
   return vars;
 }
-function printProfile(obj, callback) {
+function printProfile(obj,id, callback) {
   var i = 0;
   username = obj[i].UserName;
+  if(id==2){
   var image = document.getElementById("poza");
   var buf = Buffer.from(obj[i].Photo);
   var string = buf.toString();
   image.setAttribute("src", string);
-
-  var name = document.getElementById("nume");
-  name.innerHTML = obj[i].FirstName + " " + obj[i].LastName + "&nbsp;" + "&nbsp;";
-
-  var location = document.getElementById("locatie");
-  location.innerHTML = obj[i].City + ", " + obj[i].Region;
 
   var service = document.getElementById("H_6");
   service.innerHTML = obj[i].ServiceName + ", " + obj[i].ServiceDomain;
@@ -58,6 +53,18 @@ function printProfile(obj, callback) {
   rating.style.color = "grey";
   rating.style.fontWeight = "lighter";
   rating.style.fontSize = "10px";
+
+  var extra=document.getElementById("extra");
+  extra.innerHTML=obj[i].Description;
+
+  this.setState({ rating: obj[i].Rating });
+  console.log(this.state.rating);
+  }
+  var name = document.getElementById("nume");
+  name.innerHTML = obj[i].FirstName + " " + obj[i].LastName + "&nbsp;" + "&nbsp;";
+
+  var location = document.getElementById("locatie");
+  location.innerHTML = obj[i].City + ", " + obj[i].Region;
 
   var email = document.getElementById("email");
   email.innerHTML = "&nbsp;" + "&nbsp;"+obj[i].Email;
@@ -70,11 +77,7 @@ function printProfile(obj, callback) {
   var SendingDay=SendingTime[0];
   birthday.innerHTML = "&nbsp;" + "&nbsp;"+SendingDay;
 
-  var extra=document.getElementById("extra");
-  extra.innerHTML=obj[i].Description;
-
-  this.setState({ rating: obj[i].Rating });
-  console.log(this.state.rating);
+ 
   var address = obj[i].HouseNumber + "," + obj[i].Street + "," + obj[i].City + "," + obj[i].Region;
   callback(address, obj[i].Rating);
 }
@@ -182,9 +185,11 @@ class Profile extends Component {
     var firstName = getUrlVars()["FirstName"];
     var lastName = getUrlVars()["LastName"];
     var user = getUrlVars()["user"];
+    var id = getUrlVars()["id"];
     var title = document.getElementsByClassName("text-primary")[0];
     title.innerHTML = user;
 
+    if(id==2){
     ReactGA.initialize(trackingId);
     ReactGA.event({
       category: 'Vizualizari',
@@ -200,7 +205,7 @@ class Profile extends Component {
       .then(function (data) {
         var object = JSON.parse(data);
         email=object[0].Email;
-        printProfile(object, function (address, rating) {
+        printProfile(object,id, function (address, rating) {
           //geocoding: din adresa-coordonate
           geocodeLocation(address, res => {
             console.log(res);
@@ -217,6 +222,36 @@ class Profile extends Component {
       .catch(err => {
         console.log('Error!', err);
       })
+    }
+    else if(id==1){
+      fetch(server + "/provider/" + firstName + "/" + lastName)
+      .then(function (response) {
+        if (response.status >= 400) {
+          throw new Error("Bad response from server");
+        }
+        return response.text();
+      })
+      .then(function (data) {
+        var object = JSON.parse(data);
+        email=object[0].Email;
+        printProfile(object,id, function (address, rating) {
+          //geocoding: din adresa-coordonate
+          geocodeLocation(address, res => {
+            console.log(res);
+            map.setCenter(res.geometry.location);
+            //place a marker at the location
+            var marker = new window.google.maps.Marker({
+              map: map,
+              position: res.geometry.location
+            });
+          });
+        });
+
+      })
+      .catch(err => {
+        console.log('Error!', err);
+      })
+    }
   }
   render() {
     return (

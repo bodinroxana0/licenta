@@ -68,9 +68,9 @@ const trackingId = "UA-167975679-3";
             alert("Nume sau Parolă incorectă!");
           }
           else
-          {
-            alert('Bun venit, '+data+" !");
-            window.location.href = ENDPOINT+"?user="+data;
+          {//1/2 si username
+            alert('Bun venit, '+data.username+" !");
+            window.location.href = ENDPOINT+"?user="+data.username+"&id="+data.id;
           }
         })
         .catch(err => {
