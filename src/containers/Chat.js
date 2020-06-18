@@ -7,17 +7,16 @@ import default_img from '../images/user-avatar.png';
 import ReactStars from 'react-rating-stars-component';
 import axios from 'axios';
 import socketIOClient from "socket.io-client";
-import SMTPClient from 'emailjs';
+import emailjs from 'emailjs-com';
 import ReactGA from 'react-ga';
 const trackingID = "UA-167975679-3"; 
 const ENDPOINT="https://hidden-fortress-80148.herokuapp.com";
 const socket = socketIOClient("https://vast-atoll-37075.herokuapp.com");
-// const client = new SMTPClient({
-//   user: 'bodinroxana719@gmail.com',
-//   password: 'isawblacklist2@',
-//   host: 'smtp.gmail.com',
-//   ssl: true,
-// });
+
+var service_id = "default_service";
+var template_id = "template_el0ysHEX";
+var user_id="user_sxHPqH9UT7VA9DSVYCuDy";
+//emailjs.send(service_id, template_id, template_params);
 var username = "";
 var no = 0;
 function getUrlVars() {
@@ -27,25 +26,21 @@ function getUrlVars() {
   });
   return vars;
 }
-function sendEmail(email,mess,SendingTime,user){
-  
-  emailjs.send('gmail', 'YOUR_TEMPLATE_ID', templateParams)
-    .then(function(response) {
+function sendEmail(email,mess,user){
+  var template_params = {
+    "email": email,
+    "user": user,
+    "to_name": "to_name_value",
+    "from_name": "from_name_value",
+    "message_html": mess
+  }
+  emailjs.send(service_id,template_id, template_params, user_id)
+    .then((response) => {
        console.log('SUCCESS!', response.status, response.text);
-    }, function(error) {
-       console.log('FAILED...', error);
+    }, (err) => {
+       console.log('FAILED...', err);
     });
-// SMTPClient.send(
-//   {
-//       text: mess,
-//       from: '<bodinroxana719@gmail.com>',
-//       to: '<'+email+'>',
-//       subject: 'Mesaj nou de la '+user,
-//   },
-//   (err, message) => {
-//       console.log(err || message);
-//   }
-// );
+
 }
 function message(user,mess,SendingTime){
   console.log(SendingTime);
@@ -181,7 +176,7 @@ class Chat extends Component {
     socket.on('message', function (data) {
       if(data.text && data.sendingtime) {
         message(data.user,data.text,data.sendingtime);
-        sendEmail(data.email,data.text,data.sendingtime,data.user);
+        sendEmail(data.email,data.text,data.user);
       } else {
           console.log("There is a problem:", data);
       }
