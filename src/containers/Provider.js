@@ -160,7 +160,7 @@ function printProfiles(obj, nr, id) {
     row.appendChild(cell0);
     var cell = document.createElement("td");
     var div = document.createElement("div");
-    if (id == 2) {
+    if (id == 1) { //users want to see providers
       var image = document.createElement("IMG");
       var buf = Buffer.from(obj[i].Photo);
       var string = buf.toString();
@@ -191,7 +191,7 @@ function printProfiles(obj, nr, id) {
     dv.appendChild(name);
     div.appendChild(dv);
 
-    if(id==2){
+    if(id==1){
     var dv2 = document.createElement("DIV");
     const opt = {
       count: 5,
@@ -212,7 +212,7 @@ function printProfiles(obj, nr, id) {
     var text = document.createTextNode(obj[i].City + ", " + obj[i].Region);
     info.appendChild(text);
 
-    if(id==2){
+    if(id==1){
     var info2 = document.createElement("H5");
     var text = document.createTextNode(obj[i].ServiceDomain + ", " + obj[i].ServiceName);
     info2.appendChild(text);
@@ -250,7 +250,7 @@ function printProfiles(obj, nr, id) {
 
   var br1 = document.createElement("BR");
   cell0.appendChild(br1);
-
+  if(id==1){
   var div1 = document.createElement("div");
   var rating = document.createElement("INPUT");
   rating.setAttribute("type", "checkbox");
@@ -266,7 +266,7 @@ function printProfiles(obj, nr, id) {
       })
       .then(function (data) {
         var obj = JSON.parse(data);
-        printProviders(obj, 1);
+        printProfiles(obj, 1,1);
       })
       .catch(err => {
         console.log('Error!', err);
@@ -296,7 +296,7 @@ function printProfiles(obj, nr, id) {
   p2.style.fontWeight = "lighter";
   div2.appendChild(p2);
   cell0.appendChild(div2);
-
+  }
   tbl.align = "center";
   body.style.backgroundColor = "#f2f2f2";
   body.appendChild(tbl);
@@ -588,7 +588,7 @@ class Provider extends Component {
   componentDidMount() {
     var mp = document.getElementsByClassName("map")[0].style.display = "none";
     var id = getUrlVars()["id"];
-    if (id == 1) {
+    if (id == 2) {
       var url = server + '/users';
 
     }

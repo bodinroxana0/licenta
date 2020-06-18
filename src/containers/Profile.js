@@ -38,7 +38,7 @@ function getUrlVars() {
 function printProfile(obj,id, callback) {
   var i = 0;
   username = obj[i].UserName;
-  if(id==2){
+  if(id==1){
   var image = document.getElementById("poza");
   var buf = Buffer.from(obj[i].Photo);
   var string = buf.toString();
@@ -189,7 +189,7 @@ class Profile extends Component {
     var title = document.getElementsByClassName("text-primary")[0];
     title.innerHTML = user;
 
-    if(id==2){
+    if(id==1){
     ReactGA.initialize(trackingId);
     ReactGA.event({
       category: 'Vizualizari',
