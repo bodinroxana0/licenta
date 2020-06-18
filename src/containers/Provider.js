@@ -604,6 +604,7 @@ class Provider extends Component {
     }
     else {
       var url = server + '/provider';
+      id=1;
     }
     fetch(url)
       .then(function (response) {
