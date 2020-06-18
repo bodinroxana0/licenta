@@ -7,17 +7,17 @@ import default_img from '../images/user-avatar.png';
 import ReactStars from 'react-rating-stars-component';
 import axios from 'axios';
 import socketIOClient from "socket.io-client";
-import { SMTPClient } from 'emailjs';
+import SMTPClient from 'emailjs';
 import ReactGA from 'react-ga';
 const trackingID = "UA-167975679-3"; 
 const ENDPOINT="https://hidden-fortress-80148.herokuapp.com";
 const socket = socketIOClient("https://vast-atoll-37075.herokuapp.com");
-const client = new SMTPClient({
-  user: 'roxanabodin',
-  password: 'isawblacklist2@',
-  host: 'bodinroxana719@gmail.com',
-  ssl: true,
-});
+// const client = new SMTPClient({
+//   user: 'bodinroxana719@gmail.com',
+//   password: 'isawblacklist2@',
+//   host: 'smtp.gmail.com',
+//   ssl: true,
+// });
 var username = "";
 var no = 0;
 function getUrlVars() {
@@ -29,7 +29,7 @@ function getUrlVars() {
 }
 function sendEmail(email,mess,SendingTime,user){
   // send the message and get a callback with an error or details of the message that was sent
-client.send(
+SMTPClient.send(
   {
       text: mess,
       from: '<bodinroxana719@gmail.com>',
