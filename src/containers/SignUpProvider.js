@@ -7,7 +7,7 @@ import axios from 'axios';
 import $ from 'jquery';
 import ReactGA from 'react-ga';
 const ENDPOINT= "https://comunitate.netlify.app"; //"https://localhost:3000";
-const trackingID = "UA-167975679-1"; 
+const trackingID = "UA-167975679-3"; 
 var path;
 var path2;
 function printString(callback){

@@ -12,7 +12,7 @@ import LockRoundedIcon from '@material-ui/icons/LockRounded';
 import ReactGA from 'react-ga';
 const server='https://hidden-fortress-80148.herokuapp.com'; //"http://localhost:5000";//
 const ENDPOINT=  "https://comunitate.netlify.app"; //"https://localhost:3000";
-const trackingId = "UA-167975679-2";
+const trackingId = "UA-167975679-3";
 
     class Login extends Component {
       constructor(props) {

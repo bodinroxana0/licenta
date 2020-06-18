@@ -18,7 +18,7 @@ import default_img from '../images/user-avatar.png';
 import ReactStars from 'react-rating-stars-component';
 import scriptLoader from 'react-async-script-loader';
 //const & var
-const trackingId = "UA-167975679-2";
+const trackingId = "UA-167975679-3";
 const ENDPOINT =  "https://comunitate.netlify.app"; //"https://localhost:3000";
 const server = "https://hidden-fortress-80148.herokuapp.com";//"http://localhost:5000";//
 

@@ -12,7 +12,7 @@ import $ from 'jquery';
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 var CanvasJSChart1 = CanvasJSReact.CanvasJSChart;
-var VIEW_ID = '220652351';
+var VIEW_ID = '221475555';
 var event_category = [];
 var event_action = [];
 var event_count = [];

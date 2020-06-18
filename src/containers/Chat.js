@@ -8,7 +8,7 @@ import ReactStars from 'react-rating-stars-component';
 import axios from 'axios';
 import socketIOClient from "socket.io-client";
 import ReactGA from 'react-ga';
-const trackingID = "UA-167975679-2"; 
+const trackingID = "UA-167975679-3"; 
 const ENDPOINT="https://hidden-fortress-80148.herokuapp.com";
 const socket = socketIOClient("https://vast-atoll-37075.herokuapp.com");
 

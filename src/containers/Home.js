@@ -13,7 +13,7 @@ import '../design/Home.css';
 import Provider from './Provider.js';
 import FacebookLogin from 'react-facebook-login';
 import ReactGA from 'react-ga';
-const trackingId = "UA-167975679-2";
+const trackingId = "UA-167975679-3";
 
 function getUrlVars() {
   var vars = {};
