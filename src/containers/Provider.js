@@ -593,7 +593,7 @@ class Provider extends Component {
 
     }
     else {
-      var url = server + '/providers';
+      var url = server + '/provider';
     }
     fetch(url)
       .then(function (response) {
