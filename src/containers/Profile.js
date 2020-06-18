@@ -198,7 +198,7 @@ class Profile extends Component {
     var url=server + "/provider/" + firstName + "/" + lastName;
   }
   else if(id==2){//provider
-    var url=server + "/users/" + firstName + "/" + lastName;
+    var url=server + "/user/" + firstName + "/" + lastName;
   }
     fetch(url)
       .then(function (response) {
