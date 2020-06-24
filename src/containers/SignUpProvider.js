@@ -44,7 +44,6 @@ function printString2(callback){
     }
   }
 }
-
   class SignUpProvider extends Component{
     constructor(props) {
         super(props);
@@ -76,8 +75,7 @@ function printString2(callback){
         };
       }
      componentDidMount(){
-        ReactGA.initialize(trackingID); 
-       //ReactGA.pageview("/SignUpProvider");  
+        ReactGA.initialize(trackingID);  
     }
     loadCounties(){
        if(!this.state.load){

@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/preset-env": "^7.10.3",
+    "@babel/preset-react": "^7.10.1",
     "@cogent-labs/react-rating-component": "^1.1.0",
     "@google/maps": "^1.1.3",
     "@googlemaps/google-maps-services-js": "^3.1.2",
@@ -12,12 +14,14 @@
     "@testing-library/user-event": "^7.2.1",
     "@webcomponents/webcomponentsjs": "^2.4.3",
     "axios": "^0.19.2",
+    "babel-jest": "^26.1.0",
     "beauty-stars": "^1.1.0",
     "bootstrap": "^4.5.0",
     "crypto-js": "^3.3.0",
     "date-fns": "^2.14.0",
     "emailjs": "^3.0.0",
     "emailjs-com": "^2.4.1",
+    "jest": "^26.1.0",
     "jimp": "^0.9.8",
     "jquery": "^3.5.1",
     "loading-spinner": "^1.2.1",
@@ -41,6 +45,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.3.0",
     "react-select": "^3.1.0",
+    "react-test-renderer": "^16.13.1",
     "react-validation": "^3.0.7",
     "readline": "^1.3.0",
     "realtime-analytics": "^1.0.6",
@@ -50,7 +55,7 @@
   "scripts": {
     "start": "set HTTPS=true&&react-scripts start",
     "build": "CI=false react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
