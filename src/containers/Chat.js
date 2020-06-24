@@ -113,7 +113,7 @@ function printChat(obj) {
       var text1 = document.createTextNode(SendingDay);
       info1.appendChild(text1);
       div1.style.textAlign="center";
-      info1.style.fontSize="xx-small";
+      info1.style.fontSize="small";
       info1.style.fontWeight="lighter";
       div1.appendChild(info1);
       body.appendChild(div1);
