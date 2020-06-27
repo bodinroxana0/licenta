@@ -515,11 +515,14 @@ class Provider extends Component {
     if (this.state.domain && this.state.service && this.state.region && this.state.city) {
       choose = 0; //filtru pe toate-serviciu +oras , care e cel mai explicit
     }
+    else if (this.state.domain && this.state.service && this.state.region) {
+      choose = 7;// filtru pe serviciu si judet
+    }
     else if (this.state.domain && this.state.city) {
-      choose = 6;// filtru pe domeniu si oras, putin probabil
+      choose = 6;// filtru pe domeniu si oras
     }
     else if (this.state.domain && this.state.region) {
-      choose = 5;// filtru pe domeniu si judet, putin probabil
+      choose = 5;// filtru pe domeniu si judet
     }
     else if ((this.state.domain && this.state.service) || this.state.service) {
       choose = 2; //filtru pe serviciu
@@ -558,6 +561,9 @@ class Provider extends Component {
         break;
       case 6:
         url = server + '/searchprovider6/' + this.state.domain + "/" + this.state.city;
+        break;
+      case 7:
+        url = server + '/searchprovider7/' + this.state.service + "/" + this.state.region;
         break;
       default:
       // code block
