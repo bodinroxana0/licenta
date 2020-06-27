@@ -59,7 +59,8 @@ class Home extends Component {
         }
       }
       if(username)
-      {
+      { 
+        username =  username.replace(/[^a-zA-Z 0-9]+/g,'');
         var title=document.getElementsByClassName("text-primary")[0];
         title.innerHTML=username;
       }
