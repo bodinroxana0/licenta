@@ -107,6 +107,7 @@ const trackingId = "UA-167975679-3";
             .then((response) => {
               alert('Bun venit, '+response.data+" !");
               var username =  response.data.replace(/[^a-zA-Z]+/g,'');
+              console.log(username);
               window.location.href = ENDPOINT+"?user="+username;
             })
             .catch(err => {
@@ -131,7 +132,9 @@ const trackingId = "UA-167975679-3";
             .then((response) =>{
               console.log(response.data);
               alert('Bun venit, '+response.data+" !");
-              window.location.href = ENDPOINT+"?user="+response.data;
+              var username =  response.data.replace(/[^a-zA-Z]+/g,'');
+              console.log(username);
+              window.location.href = ENDPOINT+"?user="+username;
             })
             .catch(err => {
               console.error(err);
