@@ -38,7 +38,7 @@ function getUrlVars() {
 function printProfile(obj,id, callback) {
   var i = 0;
   username = obj[i].UserName;
-  if(id==1 || id==null){
+  if(id==1){
   var image = document.getElementById("poza");
   var buf = Buffer.from(obj[i].Photo);
   var string = buf.toString();
@@ -188,18 +188,19 @@ class Profile extends Component {
     var id = getUrlVars()["id"];
     var title = document.getElementsByClassName("text-primary")[0];
     title.innerHTML = user;
-
-    if(id==1 || id==null){//user
+    if(id==2){//provider
+      var url=server + "/user/" + firstName + "/" + lastName;
+    }
+    else{//user
+    id=1;
     ReactGA.initialize(trackingId);
     ReactGA.event({
       category: 'Vizualizari',
       action: firstName + " " + lastName
     });
     var url=server + "/provider/" + firstName + "/" + lastName;
-  }
-  else if(id==2){//provider
-    var url=server + "/user/" + firstName + "/" + lastName;
-  }
+    }
+  
     fetch(url)
       .then(function (response) {
         if (response.status >= 400) {
