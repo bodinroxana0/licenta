@@ -104,12 +104,11 @@ const trackingId = "UA-167975679-3";
             console.log(user);
             axios
             .post(server+'/LoginFB',user)
-            .then(function(data) {
-              var object = JSON.parse(data);
-              alert('Bun venit, '+object.username+" !");
-              var username =  object.username.replace(/[^a-zA-Z]+/g,'');
+            .then((response) => {
+              alert('Bun venit, '+response.data+" !");
+              var username =  response.data.replace(/[^a-zA-Z]+/g,'');
               console.log(username);
-              window.location.href = ENDPOINT+"?user="+username+"&id="+object.id;
+              window.location.href = ENDPOINT+"?user="+username+"&id=1";
             })
             .catch(err => {
               console.error(err);
@@ -130,12 +129,12 @@ const trackingId = "UA-167975679-3";
             console.log(user);
             axios
             .post(server+'/LoginGoogle',user)
-            .then(function(data) {
-              var object = JSON.parse(data);
-              alert('Bun venit, '+object.username+" !");
-              var username =  object.username.replace(/[^a-zA-Z]+/g,'');
+            .then((response) =>{
+              console.log(response.data);
+              alert('Bun venit, '+response.data+" !");
+              var username =  response.data.replace(/[^a-zA-Z]+/g,'');
               console.log(username);
-              window.location.href = ENDPOINT+"?user="+username+"&id="+object.id;
+              window.location.href = ENDPOINT+"?user="+username+"&id=1";
             })
             .catch(err => {
               console.error(err);
